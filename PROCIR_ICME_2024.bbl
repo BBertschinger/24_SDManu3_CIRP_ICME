@@ -1,0 +1,100 @@
+\begin{thebibliography}{8}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Inproceedings
+\bibitem[{Dean et~al.(2006)Dean, Aronstein, Smith, Shiri and Acton}]{Dean2006}
+\bibinfo{author}{Dean, B.H.}, \bibinfo{author}{Aronstein, D.L.},
+  \bibinfo{author}{Smith, S.J.}, \bibinfo{author}{Shiri, R.},
+  \bibinfo{author}{Acton, S.D.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Phase retrieval algorithm for {JWST} flight and
+  testbed telescope}, in: \bibinfo{booktitle}{Space Telescopes and
+  Instrumentation I: Optical, Infrared, and Millimeter},
+  p.~\bibinfo{pages}{17}.
+\newblock \URLprefix \url{https://doi.org/10.1117/12.673569},
+  \DOIprefix\doi{10.1117/12.673569}.
+%Type = Incollection
+\bibitem[{Forster et~al.(2007)Forster, Ramaswamy, Artaxo, Bernsten, Betts,
+  Fahey, Haywood, Lean, Lowe, Myhre, Nganga, Prinn, Raga, Schulz and
+  Dorland}]{FORSTER2007}
+\bibinfo{author}{Forster, P.}, \bibinfo{author}{Ramaswamy, V.},
+  \bibinfo{author}{Artaxo, P.}, \bibinfo{author}{Bernsten, T.},
+  \bibinfo{author}{Betts, R.}, \bibinfo{author}{Fahey, D.},
+  \bibinfo{author}{Haywood, J.}, \bibinfo{author}{Lean, J.},
+  \bibinfo{author}{Lowe, D.}, \bibinfo{author}{Myhre, G.},
+  \bibinfo{author}{Nganga, J.}, \bibinfo{author}{Prinn, R.},
+  \bibinfo{author}{Raga, G.}, \bibinfo{author}{Schulz, M.},
+  \bibinfo{author}{Dorland, R.V.}, \bibinfo{year}{2007}.
+\newblock \bibinfo{title}{Changes in atmospheric consituents and in radiative
+  forcing}, in: \bibinfo{editor}{Solomon, S.}, \bibinfo{editor}{Qin, D.},
+  \bibinfo{editor}{Manning, M.}, \bibinfo{editor}{Chen, Z.},
+  \bibinfo{editor}{Marquis, M.}, \bibinfo{editor}{Averyt, K.B.},
+  \bibinfo{editor}{Tignor, M.}, \bibinfo{editor}{Miler, H.L.} (Eds.),
+  \bibinfo{booktitle}{Climate Change 2007: The Physical Science Basis.
+  Contribution of Working Group 1 to the Fourth assesment report of
+  Intergovernmental Panel on Climate Change}. \bibinfo{publisher}{Cambridge
+  University Press}.
+%Type = Article
+\bibitem[{Masajada et~al.(2013)Masajada, Bacia and
+  Drobczy\'{n}ski}]{Masajada:13}
+\bibinfo{author}{Masajada, J.}, \bibinfo{author}{Bacia, M.},
+  \bibinfo{author}{Drobczy\'{n}ski, S.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Cluster formation in ferrofluids induced by
+  holographic optical tweezers}.
+\newblock \bibinfo{journal}{Opt. Lett.} \bibinfo{volume}{38},
+  \bibinfo{pages}{3910--3913}.
+\newblock \URLprefix
+  \url{https://opg.optica.org/ol/abstract.cfm?URI=ol-38-19-3910},
+  \DOIprefix\doi{10.1364/OL.38.003910}.
+%Type = Phdthesis
+\bibitem[{McKay(1982)}]{testthesis}
+\bibinfo{author}{McKay, R.}, \bibinfo{year}{1982}.
+\newblock \bibinfo{title}{X-ray crystallography}.
+\newblock Ph.D. thesis. Princeton University.
+%Type = Misc
+\bibitem[{{Optica Publishing Group}()}]{OPTICA}
+\bibinfo{author}{{Optica Publishing Group}}, .
+\newblock \bibinfo{title}{{Optica}}.
+\newblock \bibinfo{howpublished}{\url{https://opg.optica.org}}.
+%Type = Misc
+\bibitem[{Rivers()}]{codeexample}
+\bibinfo{author}{Rivers, C.}, .
+\newblock \bibinfo{title}{Epipy: Python tools for epidemiology}.
+\newblock \bibinfo{note}{{figshare} (2014) [retrieved 13 May 2015],
+  \url{http://dx.doi.org/10.6084/m9.figshare.1005064}}.
+%Type = Article
+\bibitem[{Yelin et~al.(2003)Yelin, Oron, Thiberge, Moses and
+  Silberberg}]{Yelin:03}
+\bibinfo{author}{Yelin, D.}, \bibinfo{author}{Oron, D.},
+  \bibinfo{author}{Thiberge, S.}, \bibinfo{author}{Moses, E.},
+  \bibinfo{author}{Silberberg, Y.}, \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{Multiphoton plasmon-resonance microscopy}.
+\newblock \bibinfo{journal}{Opt. Express} \bibinfo{volume}{11},
+  \bibinfo{pages}{1385--1391}.
+\newblock \URLprefix
+  \url{http://www.opticsexpress.org/abstract.cfm?URI=oe-11-12-1385},
+  \DOIprefix\doi{10.1364/OE.11.001385}.
+%Type = Article
+\bibitem[{Zhang et~al.(2014)Zhang, Qiao, Sun, Shi, Huang, Li and
+  Yang}]{Zhang:14}
+\bibinfo{author}{Zhang, Y.}, \bibinfo{author}{Qiao, S.}, \bibinfo{author}{Sun,
+  L.}, \bibinfo{author}{Shi, Q.W.}, \bibinfo{author}{Huang, W.},
+  \bibinfo{author}{Li, L.}, \bibinfo{author}{Yang, Z.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Photoinduced active terahertz metamaterials with
+  nanostructured vanadium dioxide film deposited by sol-gel method}.
+\newblock \bibinfo{journal}{Optics Express} \bibinfo{volume}{22},
+  \bibinfo{pages}{11070--11078}.
+\newblock \URLprefix
+  \url{http://www.opticsexpress.org/abstract.cfm?URI=oe-22-9-11070},
+  \DOIprefix\doi{10.1364/OE.22.011070}.
+
+\end{thebibliography}

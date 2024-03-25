@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.4.2)  25 MAR 2024 08:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.4.2)  25 MAR 2024 08:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -576,13 +576,12 @@ File: ot1txr.fd 2000/12/15 v3.1
 File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count280
 \l__pdf_internal_box=\box57
-)
-No file PROCIR_ICME_2024.aux.
+) (./PROCIR_ICME_2024.aux)
 \openout1 = `PROCIR_ICME_2024.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 132.
 LaTeX Font Info:    Trying to load font information for OML+txmi on input line 132.
-(c:/texlive/2021/texmf-dist/tex/latex/txfonts/omltxmi.fd
+ (c:/texlive/2021/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    ... okay on input line 132.
@@ -815,37 +814,34 @@ Package natbib Warning: Citation `camera_placement' on page 2 undefined on input
 
 Package natbib Warning: Citation `camera_placement' on page 2 undefined on input line 266.
 
+[2 <./graphics/fov_sv_conflict.png>]
 
-c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex:281: LaTeX Error: Command \quotedblbase unavailable in encoding OT1.
+c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex:282: LaTeX Error: Command \quotedblbase unavailable in encoding OT1.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.281 ...anufacturing" of the research cluster „
+l.282 ...anufacturing" of the research cluster „
                                                   Innovation Campus Future M...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-(./PROCIR_ICME_2024.bbl)
+(./PROCIR_ICME_2024.bbl) [3
+
+]pdfTeX warning (ext4): destination with the same identifier (name{appendix.A}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.335 \section{ZIP mode for LaTeX template:}
+                                            
 
 Package natbib Warning: There were undefined citations.
 
+[4
 
-c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex:350: LaTeX Error: \begin{figure} on input line 262 ended by \end{document}.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.350 \end{document}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-(./PROCIR_ICME_2024.aux
+] (./PROCIR_ICME_2024.aux
 
 Package natbib Warning: Citation(s) may have changed.
 (natbib)                Rerun to get citations correct.
@@ -857,53 +853,20 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex:350: You can't use `\end' in internal vertical mode.
-\enddocument ...cument/end}\deadcycles \z@ \@@end 
-                                                  
-l.350 \end{document}
-                    
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
-
-
-c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex:350: LaTeX Error: \begin{figure} on input line 262 ended by \end{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.350 \end{document}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex:350: Missing } inserted.
-<inserted text> 
-                }
-l.350 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-)
-! Emergency stop.
-<*> ...b/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex
-                                                  
-*** (job aborted, no legal \end found)
-
- 
+ ) 
 Here is how much of TeX's memory you used:
- 11103 strings out of 478276
- 168975 string characters out of 5850490
- 465650 words of memory out of 5000000
- 29087 multiletter control sequences out of 15000+600000
- 521612 words of font info for 152 fonts, out of 8000000 for 9000
+ 11120 strings out of 478276
+ 168990 string characters out of 5850490
+ 465641 words of memory out of 5000000
+ 29080 multiletter control sequences out of 15000+600000
+ 523280 words of font info for 155 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,14n,76p,738b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 70i,14n,76p,738b,356s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on PROCIR_ICME_2024.pdf (4 pages, 665996 bytes).
+PDF statistics:
+ 133 PDF objects out of 1000 (max. 8388607)
+ 95 compressed objects within 1 object stream
+ 35 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+

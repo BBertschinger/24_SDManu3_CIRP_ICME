@@ -1,17 +1,18 @@
 # Fdb version 3
-["bibtex PROCIR_ICME_2024"] 1711352900 "PROCIR_ICME_2024.aux" "PROCIR_ICME_2024.bbl" "PROCIR_ICME_2024" 1711352925
+["bibtex PROCIR_ICME_2024"] 0 "PROCIR_ICME_2024.aux" "PROCIR_ICME_2024.bbl" "PROCIR_ICME_2024" 0
   "./elsarticle-harv.bst" 1711348782 31594 df7bf368a8a10b22ec2c9aba729a878c ""
-  "PROCIR_ICME_2024.aux" 1711352923 3146 3987b4185e027e5b35385eb5840d38be "pdflatex"
+  "PROCIR_ICME_2024.aux" 0 -1 0 "pdflatex"
   "sample.bib" 1711352135 2329 c80f31fb9de339e55f5e08655fe56fdc ""
   (generated)
   "PROCIR_ICME_2024.bbl"
   "PROCIR_ICME_2024.blg"
-["pdflatex"] 1711352925 "c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex" "PROCIR_ICME_2024.pdf" "PROCIR_ICME_2024" 1711352925
-  "PROCIR_ICME_2024.aux" 1711352926 3146 3987b4185e027e5b35385eb5840d38be "pdflatex"
-  "PROCIR_ICME_2024.bbl" 1711352522 2468 40192cf6b6f130ab838b96feedc3e066 "bibtex PROCIR_ICME_2024"
+["pdflatex"] 1711353002 "c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex" "PROCIR_ICME_2024.pdf" "PROCIR_ICME_2024" 1711353002
+  "PROCIR_ICME_2024.aux" 1711353002 34 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "PROCIR_ICME_2024.bbl" 1711352999 2468 40192cf6b6f130ab838b96feedc3e066 "bibtex PROCIR_ICME_2024"
   "PROCIR_ICME_2024.spl" 0 -1 0 "pdflatex"
-  "PROCIR_ICME_2024.tex" 1711352921 17031 5bdec57b2a7c51cfa9391977cf10cfd7 ""
-  "c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex" 1711352921 17031 5bdec57b2a7c51cfa9391977cf10cfd7 ""
+  "PROCIR_ICME_2024.tex" 1711353001 17053 19f5ec55725b41f832a492abdf06965e ""
+  "c:/Users/baumgaertner/github/24_SDManu3_CIRP_ICME/PROCIR_ICME_2024.tex" 1711353001 17053 19f5ec55725b41f832a492abdf06965e ""
+  "c:/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc" 1648894801 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1648895383 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1648899030 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1648900286 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
@@ -42,6 +43,14 @@
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/txfonts/txss.tfm" 1648899655 2812 58673a2de05c4f3a942b32b7ff5d1117 ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/txfonts/txsy.tfm" 1648899655 1268 1d124f224979493f8fd017a7597ea1cd ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/txfonts/txsyc.tfm" 1648899655 1084 75e807e9e71f7a312e4e1187dce5e93b ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb" 1648893298 24287 6b803fa9eb1ddff9112e00519b09dd9e ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb" 1648899655 14606 238072bd1ce11e3dff8451a5a2608194 ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb" 1648899655 6787 30821c47455d94d84f9e6f5bfecd086a ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb" 1648899655 6339 e2b78706efdc360ee6aec9b6e20211a7 ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb" 1648895821 44648 23115b2a545ebfe2c526c3ca99db8b95 ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb" 1648899437 44729 fea0975e20ec51c992338362f05f1146 ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb" 1648899437 46026 687528a208fbfc1f00832bb96cccebbb ""
+  "c:/texlive/2021/texmf-dist/fonts/type1/urw/times/utmri8a.pfb" 1648899437 45458 504e2b06fa82109d168c7a0afb09e145 ""
   "c:/texlive/2021/texmf-dist/fonts/vf/public/txfonts/tcxr.vf" 1648899655 988 4f41b8c123e4537adb7f2dbb638d2981 ""
   "c:/texlive/2021/texmf-dist/fonts/vf/public/txfonts/txb.vf" 1648899655 904 6f62e1cf12eaf73424d693287a9d3dce ""
   "c:/texlive/2021/texmf-dist/fonts/vf/public/txfonts/txi.vf" 1648899655 904 4ff20c038f0c15338aa91e1bb66c7989 ""

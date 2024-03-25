@@ -162,7 +162,7 @@
 %% \address[label1]{<address>}
 %% \address[label2]{<address>}
 
-\author[a]{Bernd Bertschinger\corref{*}} 
+\author[a]{Bernd Bertschinger\corref{*}}
 \author[b]{Kathrin Hoffmann}
 \author[c]{Jan Baumgärtner}
 \author[b]{Gajanan Kanagalingam}
@@ -180,7 +180,7 @@ For decades, laser tracker and working station have been the state of the art to
 \end{abstract}
 
 \begin{keyword}
-Type your keywords here, separated by semicolons ; 
+Type your keywords here, separated by semicolons ;
 
 %% keywords here, in the form: keyword \sep keyword
 
@@ -207,6 +207,7 @@ Type your keywords here, separated by semicolons ;
 \section{Process Perception}
 \subsection{Optimized Perception}
 \subsection{Metrological Error Estimate}
+\label{error_estimate}
 
 
 \section{Process Perception}
@@ -214,128 +215,60 @@ Type your keywords here, separated by semicolons ;
 \subsection{Metrological Error Estimate}
 
 \section{Process Strategies}
-\subsection{Kinematic Optimization}
+\subsection{Path Planning}
+There are severall error sources impeding the accuracy of a robotic manufacturing system.
+An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
+Most of these errors can be compensated using our external measurment system.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{graphics/error_sources}
+\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using external sensors are marked in green.}
+\label{fig:error_sources}
+\end{figure}
+This leaves the finite precision of the robot itself, whose contribution can not be compoensated but only mitigated.
+Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
+This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
+It might be tempting to try to find a continous trajectory of this second robot to minimize the error.
+However the second robot also suffers under finite joint precision, while moving these will introduce additional errors.
+It is therefore better if the workpiece holding robot moves to a fixed position before the second robot starts moving.
+This leads to a two step process similar to the one described in \cite{stroke_division}.
+Here the authors propose a 4 step process to path planning:
+\begin{enumerate}
+  \item Cut path into multiple segments
+  \item Downsample each segment
+  \item Optimize the pose of each subpath and compute the joint path
+  \item Apply the new pose to the original segments
+\end{enumerate}
+The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
+However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
+% Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
+% Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
+
+
+% The optimal Repeatability is dependent on the optimized kinematic parameters.
+
 \subsection{Camera Placement}
+After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
+It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
+To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
+This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
+However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
+This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
+It also has practical advantages.
+Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
+Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.
+This is shown in Fig.~\ref{fig:fov_sv_conflict}.
+In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict}
+\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
+ Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+
 \subsection{Trajectory Generation}
 
 \section{Outlook}
 
-%\enlargethispage{-7mm}
-\section{Main Text}
-\label{main}
-
-Here introduce the paper, and put a nomenclature if necessary, in a box with the same font size as the rest of the paper. The paragraphs continue from here and are only separated by headings, subheadings, images and formulae. The section headings are arranged by numbers, bold and 10 pt. Here follows further instructions for authors.
-
-\vspace*{8pt}
-\begin{nomenclature}
-\begin{deflist}[A]
-\defitem{A}\defterm{radius of}
-\defitem{B}\defterm{position of}
-\defitem{C}\defterm{further nomenclature continues down the page inside the text box}
-\end{deflist}
-\end{nomenclature}\vskip24pt
-
-
-\subsection{ Structure}
-Files must be in LaTeX format only and should be formatted for direct printing, using the CRC LaTeX template provided. Figures and tables should be embedded and not supplied separately.\vadjust{\vfill\pagebreak}
-
-Please make sure that you use as much as possible normal fonts in your documents. Special fonts, such as fonts used in the Far East (Japanese, Chinese, Korean, etc.) may cause problems during processing. To avoid unnecessary errors you are strongly advised to use the `spellchecker' function of TeX Editor. Follow this order when typing manuscripts: Title, Authors, Affiliations, Abstract, Keywords, Main text (including figures and tables), Acknowledgements, References, Appendix. Collate acknowledgements in a separate section at the end of the article and do not include them on the title page, as a footnote to the title or otherwise.
-
-Bulleted lists may be included and should look like this:
-\begin{itemize}[]
-\item First point
-\item Second point
-\item And so on
-\end{itemize}
-
-Ensure that you return to the `Els-body-text' style, the style that you will mainly be using for large blocks of text, when you have completed your bulleted list. 
-
-Please do not alter the formatting and style layouts which have been set up in this template document. As indicated in the template, papers should be prepared in single column format suitable for direct printing onto paper with trim size $192 \times 262$ mm. Do not number pages on the front, as page numbers will be added separately for the preprints and the Proceedings. Leave a line clear between paragraphs. All the required style templates are provided in the file ``LaTeX Template'' with the appropriate name supplied, e.g. choose 1. Els1st-order-head for your first order heading text, els-abstract-text for the abstract text etc.
-
-\subsection{ Tables}
-
-All tables should be numbered with Arabic numerals. Every table should have a caption. Headings should be placed above tables, left justified. Only horizontal lines should be used within a table, to distinguish the column headings from the body of the table, and immediately above and below the table. Tables must be embedded into the text and not supplied separately. Below is an example which the authors may find useful.
-
-\begin{table}[h]
-\caption{An example of a table.}
-\begin{tabular*}{\hsize}{@{\extracolsep{\fill}}lll@{}}
-\toprule
-An example of a column heading & Column A ({\it{t}}) & Column B ({\it{t}})\\
-\colrule
-And an entry &   1 &  2\\
-And another entry  & 3 &  4\\
-And another entry &  5 &  6\\
-\botrule
-\end{tabular*}
-\end{table}
-
-%\enlargethispage{12pt}
-
-\subsection{ Construction of references}
-
-References must be listed at the end of the paper. Do not begin them on a new page unless this is absolutely necessary. Authors should ensure that every reference in the text appears in the list of references and vice versa. Indicate references by \cite{clark} or \cite{Deal} or \cite{Fachinger2006} in the text. 
-
-Some examples of how your references should be listed are given at the end of this template in the `References' section, which will allow you to assemble your reference list according to the correct format and font size.
-
-Reference generation by using bibliography style commands for LaTeX template only.
-
-The author may use ``elsarticle-harv.bst'' as per the style required in document. The sample bib file could be referred. 
-If the author may using bibstyle for providing references author must comment the bibliography section in TeX file, Bibtex will generate the reference automatically.
-
-If the author may not able to view the references in output same could be done by copying the bibliography section from ``filename.bbl'' file and paste in TeX file.
-
-
-
-\subsection{Section headings}
-Section headings should be left justified, bold, with the first letter capitalized and numbered consecutively, starting with the Introduction. Sub-section headings should be in capital and lower-case italic letters, numbered 1.1, 1.2, etc,~and left justified, with second~and subsequent lines indented. All headings should have a minimum of two text lines after them before a page or column break.
-Ensure the text area is not blank except for the last page.
-
-\subsection{General guidelines for the preparation of your text}
-Avoid hyphenation at the end of a line. Symbols denoting vectors and matrices should be indicated in bold type. Scalar variable names should normally be expressed using italics. Weights and measures should be expressed in SI units. All non-standard abbreviations or symbols must be defined when first mentioned, or a glossary provided.
-
-\subsection{File naming and delivery}
-Please title your files in this order `procedia acronym\_conference acronym\_authorslastname'.  Submit both the source file and the PDF to the Guest Editor.
-
-Artwork filenames should comply with the syntax ``aabbbbbb.ccc'', where:
-\begin{itemize}
-\item a = artwork component type
-\item b = manuscript reference code
-\item c = standard file extension
-
-Component types:
-\item gr = figure
-\item pl = plate
-\item sc = scheme
-\item fx = fixed graphic
-\end{itemize}
-
-\begin{figure*}[t]\vspace*{4pt}
-%\centerline{\includegraphics{fx1}\hspace*{5mm}\includegraphics{fx1}}
-\centerline{\includegraphics{graphics/gr1}}
-\caption{(a) first picture; (b) second picture.}
-\end{figure*}
-
-
-\subsection{Footnotes}
-Footnotes should be avoided if possible. Necessary footnotes should be denoted in the text by consecutive superscript letters\footnote{Footnote text.}. The footnotes should be typed single spaced, and in smaller type size (8 pt), at the foot of the page in which they are mentioned, and separated from the main text by a one line space extending at the foot of the column. The `Els-footnote' style is available in the ``TeX Template'' for the text of the footnote.
-
-Please do not change the margins of the template as this can result in the footnote falling outside printing range.
-
-
-\section{Illustrations}
-All figures should be numbered with Arabic numerals (1,2,3,$\,\ldots.$). Every figure should have a caption. All\break photographs, schemas, graphs and diagrams are to be referred to as figures. Line drawings should be good\break quality scans or true electronic output. Low-quality scans are not acceptable. Figures must be embedded into the text and not supplied separately. In MS word input the figures must be properly coded. Preferred format of figures are PNG, JPEG, GIF etc. Lettering and symbols should be clearly defined either in the caption or in a legend provided as part of the figure. Figures should be placed at the top or bottom of a page wherever possible, as close as possible to the first reference to them in the paper. Please ensure that all the figures are of 300 DPI resolutions as this will facilitate good output.
-
-The figure number and caption should be typed below the illustration in 8 pt and left justified [{\bfseries\itshape Note:} one-line captions of length less than column width (or full typesetting width or oblong) centered]. For more guidelines and\break information to help you submit high quality artwork please visit: http://www.elsevier.com/artworkinstructions\break Artwork has no text along the side of it in the main body of the text. However, if two images fit next to each other, these may be placed next to each other to save space. For example, see Fig.~1.
-
-
-\section{Equations}
-Equations and formulae should be typed in MathType, and numbered consecutively with Arabic numerals in parentheses on the right hand side of the page (if referred to explicitly in the text). They should also be separated from the surrounding text by one space
-\begin{equation}
-\begin{array}{lcl}
-\displaystyle X_r &=& \displaystyle\dot{Q}^{''}_{rad}\left/\left(\dot{Q}^{''}_{rad} + \dot{Q}^{''}_{conv}\right)\right.\\[6pt]
-\displaystyle \rho &=& \displaystyle\frac{\vec{E}}{J_c(T={\rm const.})\cdot\left(P\cdot\left(\displaystyle\frac{\vec{E}}{E_c}\right)^m+(1-P)\right)}
-\end{array}
-\end{equation}
 
 
 \section{Online license transfer}
@@ -346,7 +279,7 @@ All authors are required to complete the Procedia exclusive license transfer agr
 \section*{Acknowledgements}
 
  This work is realized within the project scope "Software Driven Manufacturing" of the research cluster „Innovation Campus Future Mobility" and funded by the Ministry of Science, Research and the Arts of the Federal State of Baden-Wuerttemberg.
- 
+
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
@@ -359,21 +292,6 @@ All authors are required to complete the Procedia exclusive license transfer agr
 \section{An example appendix}
 Authors including an appendix section should do so before References section. Multiple appendices should all have headings in the style used above. They will automatically be ordered A, B, C etc.
 
-\subsection{Example of a sub-heading within an appendix}
-There is also the option to include a subheading within the Appendix if you wish.
-%% References
-%%
-%% Following citation commands can be used in the body text:
-%% Usage of \cite is as follows:
-%%   \cite{key}         ==>>  [#]
-%%   \cite[chap. 2]{key} ==>> [#, chap. 2]
-%%
-
-%The citation must be used in following style: \cite{article-minimal} \cite{article-full} \cite{article-crossref} \cite{whole-journal}.
-%% References with BibTeX database:
-
-Add references with BibTeX or manually.
-\cite{Zhang:14,OPTICA,FORSTER2007,Dean2006,testthesis,Yelin:03,Masajada:13,codeexample}
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{sample}
@@ -392,14 +310,14 @@ Add references with BibTeX or manually.
 %%   \bibitem{key}...
 %%
 
-% \bibitem[Clark et al.(1962)]{clark}Clark, T., Woodley, R., De Halas, D., 1962. Gas-Graphite Systems, in ``{\it Nuclear Graphite}''. 
+% \bibitem[Clark et al.(1962)]{clark}Clark, T., Woodley, R., De Halas, D., 1962. Gas-Graphite Systems, in ``{\it Nuclear Graphite}''.
 % In: Nightingale, R. (Ed.). Academic Press, New York, pp. 387.
 
 % \bibitem[Deal and Grove(2009) ]{Deal}Deal, B., Grove, A., 1965. General Relationship for the Thermal Oxidation of Silicon. Journal of Applied Physics 36.2, 37--70.
 
 % \bibitem[Deep(2009)]{Deep}Deep-Burn Project: Annual Report for 2009, Idaho National Laboratory, Sept. 2009.
 
-% \bibitem[Fachinger(2004)]{Fachinger2004}Fachinger, J., den Exter, M., Grambow, B., Holgerson, S., Landesmann, C., Titov, M., Podruhzina, T., 2004. ``Behavior of spent HTR fuel elements in aquatic phases of repository host rock formations,'' 2nd International Topical Meeting on High Temperature Reactor Technology. Beijing, China, paper \#B08. 
+% \bibitem[Fachinger(2004)]{Fachinger2004}Fachinger, J., den Exter, M., Grambow, B., Holgerson, S., Landesmann, C., Titov, M., Podruhzina, T., 2004. ``Behavior of spent HTR fuel elements in aquatic phases of repository host rock formations,'' 2nd International Topical Meeting on High Temperature Reactor Technology. Beijing, China, paper \#B08.
 
 % \bibitem[Fachinger(2006)]{Fachinger2006}Fachinger, J., 2006. Behavior
 % of HTR Fuel Elements in Aquatic Phases of Repository Host Rock Formations. Nuclear Engineering \& Design 236.3,      54.
@@ -425,7 +343,7 @@ The zip package is created as per the guide lines present on the URL http://www.
 \item  Generic and journal specific logos, etc.
 \end{Itemize}
 
-The LaTeX package is the main LaTeX template. All LaTeX support files are required for LaTeX pdf generation from the LaTeX template package. 
+The LaTeX package is the main LaTeX template. All LaTeX support files are required for LaTeX pdf generation from the LaTeX template package.
 
 {\bf Reference style .bst file used for collaboration support:} In the LaTeX template packages of all Procedia titles a new ``.bst'' file is used which supports collaborations downloaded from the path http://www.elsevier.com/author-schemas/the-elsarticle-latex-document-class
 

@@ -204,6 +204,21 @@ Type your keywords here, separated by semicolons ;
 %% main text
 
 \section{Introduction}
+
+%motivation: industrial robots instead of specialized machinery, adaptable to various tasks in manufacturing, low cost \\
+%limiting factor: accuracy of robot
+%
+%approach: software-defined planning of the robot configuration, path and trajectory
+%
+%result: robot motion which is the optimal solution for production precision
+%
+%setup: (close to?) real-time capable optical measurement system, optical markers attached to robot endeffector
+%
+%Relevant Errors-Model for Process Perception - Metrological Error \\
+%Relevant Errors-Model for Process Planing - Dynamic Error \\
+%
+%System Setup
+
 Social and ecological changes, as well as the need for
 highly individualised and diversified product ranges
 motivate not only to increas the efficiency of the means
@@ -243,16 +258,62 @@ resolution is in itself not suffice to for high precision applications. Instead 
 \setlist{nolistsep}
 
 \section{Process Perception}
+
+%literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
+
 \subsection{Optimized Perception}
+
+If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
+
 \subsection{Metrological Error Estimate}
 \label{error_estimate}
 
-
-\section{Process Perception}
-\subsection{Optimized Perception}
-\subsection{Metrological Error Estimate}
-
 \section{Process Strategies}
+\subsection{Hardware implementation} of control system: robot w/ external sensor
+calibration of camera system: interface ITO / ISYS
+synchronized measurements of the camera, joint angles (encoders), joint torques 
+interface through which the reference values for the joint space position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller
+
+\subsection{overall strategy in software}
+Kinematic and dynamic strategies need to be separated. 
+In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
+Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
+kinematic errors vs. dynamic errors 
+
+\subsection{Kinematic strategies:} state-of-the-art\\
+geometric errors: length deviations, axis misalignments, zero-position offsets of the encoders
+offline calibration technology to identify and compensate key robotic parameters
+calibration~\cite{Wiest01}
+also capture static deformation of the robot structure
+if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Usually much larger than the measurement accuracy of the presented measurement system
+
+\subsection{Dynamic Strategies:} Ongoing Research \\
+literature on capturing dynamic errors:
+
+here: present robot's drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, alternative: secondary encoders~\cite{Mesmer22}
+
+closed loop control of the robot joints: tracking errors occur, but are captured in joint angle measurement
+
+dynamic error model
+
+data from measurement: same path executed at different speeds - dynamic error model is able to predict dynamic error of other velocity profile,
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/GP_eOf_dqDes_ddqDes_trainedOnFastestAndSlowest.png}
+	\caption{Dynamic error in angle of one exemplary joint. Fit with dynamic Gaussian process error model considering the desired angular velocity and acceleration as features.}
+	\label{fig:error_sources}
+\end{figure}
+
+low velocity: stick-slip from friction affects accuracy,\\
+high velocity: limited bandwidth of the controller has the effect that tracking errors cannot be compensated well, also affects accuracy \\
+therefore prefer medium velocity
+
+allows for trade-off between process speed and accuracy
+
+next step: to incorporate in optimization
+
+
 \subsection{Path Planning}
 There are severall error sources impeding the accuracy of a robotic manufacturing system.
 An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
@@ -285,6 +346,10 @@ However instead of using the pose optimization algorithm described in \cite{stro
 
 % The optimal Repeatability is dependent on the optimized kinematic parameters.
 
+\subsection{Kinematic Optimization}
+kinematic redundancy - choose which solution to the inverse kinematics problem?
+- result: path in joint coordinates
+
 \subsection{Camera Placement}
 After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
 It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
@@ -305,9 +370,18 @@ In a unified error description this problem does not exist and the system can be
 \end{figure}
 
 \subsection{Trajectory Generation}
+The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
+
+optimization-based
+implemented: time-optimal, 
+
+with accuracy in joint space
+
+Outlook: Data-driven component added to the optimal control problem.
+adding the mean value function of the Gaussian process
 
 \section{Outlook}
-
+experimental validation of measurement system
 
 
 \section{Online license transfer}

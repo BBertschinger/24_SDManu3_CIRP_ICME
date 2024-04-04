@@ -129,6 +129,7 @@
       urlcolor=blue}
       
 \usepackage{enumitem}
+\usepackage{amsmath}
 
 
 \begin{document}
@@ -232,7 +233,7 @@ By the current state of technology this is a dilemma, because state of the art d
 acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and tracking stations. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration.\\
 
 \subsection{Scope of this Paper}
-Recent research indicate that multipoint photogrametry might be a solution for a cost-sensitive high-resolution optical sensor. Hereby a Diffractive Optical Element (DOE) is used to create multiple linear indepenent optical copies an active marker, by the means of a single point source. Tough this increase in
+Recent research indicate that multipoint photogrametry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Hereby a Diffractive Optical Element (DOE) is used to create multiple linear indepenent optical copies an active marker, by the means of a single point source. Tough this increase in
 resolution is in itself not suffice to for high precision applications. Instead a hollistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation under regards of the kinematic control properties.
 
 \begin{description}
@@ -267,6 +268,38 @@ If the robot end effector is obscured and the optical measurement system cannot 
 
 \subsection{Metrological Error Estimate}
 \label{error_estimate}
+
+\cite{Di_Leo_2011}
+\cite{Liu_2021}
+
+\begin{equation}
+	x^\top A_Q x = 0
+\end{equation}
+
+\begin{equation}
+	x^\top A_Q x = 0
+\end{equation}
+
+
+\begin{equation}
+	\label{eqn:CofactorM}
+	\mathbf{K}_{\hat{x}\hat{x}}=
+	\begin{bmatrix}	{S_1} & \mathbf{S_2} & \mathbf{S_3}\end{bmatrix}
+	\begin{bmatrix}
+	 	 A  & B/2 & D/2 \\
+		B/2 &  C  & E/2\\
+		D/2 & E/2 &  F
+	\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+	\label{eqn:LengthEllipsoid}
+	A_{i}= \sqrt{\lambda_{i}\cdot \chi^{2}_{3,1-\alpha}}
+\end{equation}
+
+
+\cite{Luhmann2003}
+
 
 \section{Process Strategies}
 \subsection{Hardware implementation} of control system: robot w/ external sensor
@@ -392,7 +425,7 @@ All authors are required to complete the Procedia exclusive license transfer agr
 \section*{Acknowledgements}
 
 
- This work is realized within the project scope "Software Driven Manufacturing" of the research cluster „Innovation Campus Future Mobility" and funded by the Ministry of Science, Research and the Arts of the Federal State of Baden-Wuerttemberg.
+ This work is realized within the project scope Software Driven Manufacturing of the research cluster Innovation Campus Future Mobility and funded by the Ministry of Science, Research and the Arts of the Federal State of Baden-Wuerttemberg.
 
 
 

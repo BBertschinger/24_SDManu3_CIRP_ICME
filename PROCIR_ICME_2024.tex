@@ -284,11 +284,16 @@ If the robot end effector is obscured and the optical measurement system cannot 
 \begin{equation}
 	\label{eqn:CofactorM}
 	\mathbf{K}_{\hat{x}\hat{x}}=
-	\begin{bmatrix}	{S_1} & \mathbf{S_2} & \mathbf{S_3}\end{bmatrix}
+	\begin{bmatrix}	\mathbf{S_1} & \mathbf{S_2} & \mathbf{S_3}\end{bmatrix}
 	\begin{bmatrix}
-	 	 A  & B/2 & D/2 \\
-		B/2 &  C  & E/2\\
-		D/2 & E/2 &  F
+	 	 \lambda_{1}  & 0 & 0 \\
+		0 &  \lambda_{2}  & 0\\
+		0 & 0 &  \lambda_{3}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{S_1}^\top \\
+		\mathbf{S_2}^\top \\
+		\mathbf{S_3}^\top
 	\end{bmatrix}
 \end{equation}
 

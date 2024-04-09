@@ -130,6 +130,7 @@
       
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{subcaption}
 
 
 \begin{document}
@@ -158,7 +159,7 @@
 
 \dochead{18th CIRP Conference on Intelligent Computation in Manufacturing Engineering}%
 
-\title{A new Software Driven external Sensor System for Industrial Robots}
+\title{A new Software Driven External Sensor System for Industrial Robots}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{<author name>}
@@ -169,13 +170,16 @@
 \author[b]{Kathrin Hoffmann}
 \author[c]{Jan Baumgärtner}
 \author[b]{Gajanan Kanagalingam}
+\author[c]{Jürgen Fleischer}
+\author[b]{Oliver Sawodny}
+\author[a]{Stephan Reichelt}
 %\ead{author@institute.xxx}
 
 \address[a]{Institute of Applied Optics, University of Stuttgart - ITO, Pfaffenwaldring 9, 70569 Stuttgart, Germany}
 \address[b]{Institute for System Dynamics, University of Stuttgart - ISYS, Waldburgstr. 17/19, 70563 Stuttgart, Germany}
 \address[c]{Institute of Production Science, Karlsruhe Institute of Technology - WBK, Kaiserstraße 12, 76131 Karlsruhe, Germany}
 
-\aucores{* Bernd Bertschinger Tel.: +49-711-685-69892  ; fax: +49-711-685-66072. {\it E-mail address:} bernd.bertschinger@ito.uni-stuttgart.de}
+\aucores{* Bernd Bertschinger, Tel.: +49-711-685-69892. {\it E-mail address:} bernd.bertschinger@ito.uni-stuttgart.de}
 
 \begin{abstract}
 %% Text of abstract
@@ -221,56 +225,97 @@ Type your keywords here, separated by semicolons ;
 %System Setup
 
 Social and ecological changes, as well as the need for
-highly individualised and diversified product ranges
-motivate not only to increas the efficiency of the means
+highly individualized and diversified product ranges
+motivate not only to increase the efficiency of the means
 of production, but also their flexibility of application.
-This is adressed by the concept of Wertstromkinematik.
+This is addressed by the concept of Wertstromkinematik \textit{Referenz etc.}.
 Herein the factory is not a static setup to produce
 one set of goods, but can be dynamically reconfigured to be a generalized production floor.\\
 To become a valid means of production, the system needs not only to
-be more productive, but also as flexible and cost-efficient than a human work-force. This need for flexibility in turn leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
+be more productive, but also as flexible and cost-efficient as possible. This need for flexibility in turn leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
 By the current state of technology this is a dilemma, because state of the art detection system use internal sensor, which require an exceeding level of mechanical stiffness, which in turn leads to high
 acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and tracking stations. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration.\\
 
 \subsection{Scope of this Paper}
-Recent research indicate that multipoint photogrametry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Hereby a Diffractive Optical Element (DOE) is used to create multiple linear indepenent optical copies an active marker, by the means of a single point source. Tough this increase in
-resolution is in itself not suffice to for high precision applications. Instead a hollistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation under regards of the kinematic control properties.
-
-\begin{description}
-	
-	\item[Process Perception]
-	bar
-	\begin{description}
-		\item[Optimized Perception]
-		\item[Metrological Error Estimate]
-	\end{description}
-	\item[Process Startegies] argh
-	\begin{description}
-		\item[Optimized Perception]
-		\item[Metrological Error Estimate]
-	\end{description}
-\end{description}
+Recent research indicate that multipoint photogrammetry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Therein, a Diffractive Optical Element (DOE) is used to create multiple linear independent optical copies of an active marker, by the means of a single point source. However, this increase in
+resolution is in itself not sufficient for high precision applications. Instead a holistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.
 
 %\vspace*{2pt}
 %\renewcommand{\labelenumii}{\theenumii}
 %\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 
-\vspace*{8pt}
-\setlist{nolistsep}
-
 \section{Process Perception}
-
+\textit{hier Literatur wie Prozesse anderweitig vermessen werden?}
 %literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
 
-\subsection{Optimized Perception}
-
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
 
 \subsection{Metrological Error Estimate}
 \label{error_estimate}
 
 \cite{Di_Leo_2011}
 \cite{Liu_2021}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=0.8\linewidth]{graphics/StereoscopyError.eps}
+		\caption{Blablabla 1}
+		\label{fig:Ng1} 
+	\end{subfigure}
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+		\caption{Blablabla 2}
+		\label{fig:Ng2}
+	\end{subfigure}
+	\caption{Blabla.}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.16\textwidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
+		\caption{Blablabla 1}
+		\label{fig:Ng1} 
+	\end{subfigure}
+	\begin{subfigure}[b]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
+		\caption{Blablabla 2}
+		\label{fig:Ng2}
+	\end{subfigure}
+	\caption{Blabla.}
+\end{figure}
+
+\begin{equation}
+\end{equation}
+
+\begin{equation}
+	\label{eqn:CovarianceMatrix}
+	\Lambda = 
+	\begin{bmatrix}
+		e_{\delta_1}^2  & 0 & 0 & 0 & e_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0  & e_{\delta_2}^2 & 0 & 0 & e_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & e_{\delta_3}^2 & 0 & 0 & e_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & e_{\delta_4}^2 & 0 & e_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
+		e_{(\delta_5,\delta_1)}^2 & e_{(\delta_5,\delta_2)}^2 & 0 & 0 & e_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & e_{(\delta_6,\delta_3)}^2 & e_{(\delta_6,\delta_4)}^2 & 0 & e_{\delta_6}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_7}^2 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_8}^2 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_9}^2 \\
+	\end{bmatrix}
+\end{equation}
+
+$\delta$ system parameters $(x_n,y_n,x_m,y_m,\beta_n,\beta_m, B_{nm},f_{L},f_{R})$
+
+
+
 
 \begin{equation}
 	x^\top A_Q x = 0
@@ -284,11 +329,16 @@ If the robot end effector is obscured and the optical measurement system cannot 
 \begin{equation}
 	\label{eqn:CofactorM}
 	\mathbf{K}_{\hat{x}\hat{x}}=
-	\begin{bmatrix}	{S_1} & \mathbf{S_2} & \mathbf{S_3}\end{bmatrix}
+	\begin{bmatrix}	\mathbf{S_1} & \mathbf{S_2} & \mathbf{S_3}\end{bmatrix}
 	\begin{bmatrix}
-	 	 A  & B/2 & D/2 \\
-		B/2 &  C  & E/2\\
-		D/2 & E/2 &  F
+	 	 \lambda_{1}  & 0 & 0 \\
+		0 &  \lambda_{2}  & 0\\
+		0 & 0 &  \lambda_{3}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{S_1}^\top \\
+		\mathbf{S_2}^\top \\
+		\mathbf{S_3}^\top
 	\end{bmatrix}
 \end{equation}
 
@@ -301,11 +351,31 @@ If the robot end effector is obscured and the optical measurement system cannot 
 \cite{Luhmann2003}
 
 
+
+\subsection{Optimized Perception}
+
+If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
+
+je mehr Kameras, desto besser die Aufloesung
+- natuerlicherweise so
+
+- man braucht Strategie diese zu platzieren, siehe process strategies, camera placement 
+
+so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung
+
+
 \section{Process Strategies}
-\subsection{Hardware implementation} of control system: robot w/ external sensor
+\subsection{Hardware implementation} 
+
+Kameras, Setup beschreiben (mehr als 2 Kameras wg. Abschattung, ergibt sich aus zuvor beschriebener Theorie)
+
+
+of control system: robot w/ external sensor
 calibration of camera system: interface ITO / ISYS
 synchronized measurements of the camera, joint angles (encoders), joint torques 
 interface through which the reference values for the joint space position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller
+
+pneumatic robot - direct drives, drive dynamics 
 
 \subsection{overall strategy in software}
 Kinematic and dynamic strategies need to be separated. 
@@ -313,17 +383,58 @@ In the field of robot trajectory generation, this has lead to the path speed dec
 Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
 kinematic errors vs. dynamic errors 
 
-\subsection{Kinematic strategies:} state-of-the-art\\
-geometric errors: length deviations, axis misalignments, zero-position offsets of the encoders
-offline calibration technology to identify and compensate key robotic parameters
-calibration~\cite{Wiest01}
+\subsection{Kinematic strategies:}
+Some kinematic strategies for increasing the accuracy of industrial robots are already well-established.
+Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignments and zero-position offsets of the encoders.
+There are established methods for identifying and compensating these parameters in an offline calibration technique~\cite{Wiest01}.
+To this end, the endeffector pose is measured, typically with a laser tracker, statically at certain points in the workspace and a certain number of times, and the geometric error parameters are determined in an optimization.
+This offline calibration is usually performed at certain points and with specialized and expensive equipment, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot.
+From a kinematic point of view, if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Such errors are usually much larger than the measurement accuracy of the presented measurement system.
+
 also capture static deformation of the robot structure
-if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Usually much larger than the measurement accuracy of the presented measurement system
+
+
+\subsection{Path Planning}
+There are severall error sources impeding the accuracy of a robotic manufacturing system.
+An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
+Most of these errors can be compensated using our external measurement system.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{graphics/error_sources.png}
+\caption{Error sources in a robotic manufacturing system. Error sources which can be compensated using external sensors are marked in green.}
+\label{fig:error_sources}
+\end{figure}
+This leaves the finite precision of the robot itself, whose contribution can not be compensated but only mitigated.
+Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
+This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
+It might be tempting to try to find a continuous trajectory of this second robot to minimize the error.
+However the second robot also suffers under finite joint precision, while moving these will introduce additional errors.
+It is therefore better if the workpiece holding robot moves to a fixed position before the second robot starts moving.
+This leads to a two step process similar to the one described in \cite{stroke_division}.
+Here the authors propose a 4 step process to path planning:
+\begin{enumerate}
+  \item Cut path into multiple segments
+  \item Downsample each segment
+  \item Optimize the pose of each subpath and compute the joint path
+  \item Apply the new pose to the original segments
+\end{enumerate}
+The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
+However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
+% Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
+% Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
+
+
+% The optimal Repeatability is dependent on the optimized kinematic parameters.
+
+
+
 
 \subsection{Dynamic Strategies:} Ongoing Research \\
 literature on capturing dynamic errors:
 
-here: present robot's drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, alternative: secondary encoders~\cite{Mesmer22}
+here: present robot's drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, 
+enables dynamic error model
+alternative: secondary encoders~\cite{Mesmer22}
 
 closed loop control of the robot joints: tracking errors occur, but are captured in joint angle measurement
 
@@ -344,46 +455,31 @@ therefore prefer medium velocity
 
 allows for trade-off between process speed and accuracy
 
+To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation. In path planning, the path of each of the robot's joint angles is computed, providing the highest possible repeatability. In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. pressure build-up in the actuators).
+
+
 next step: to incorporate in optimization
 
-
-\subsection{Path Planning}
-There are severall error sources impeding the accuracy of a robotic manufacturing system.
-An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
-Most of these errors can be compensated using our external measurment system.
-\begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/error_sources.png}
-\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using external sensors are marked in green.}
-\label{fig:error_sources}
-\end{figure}
-This leaves the finite precision of the robot itself, whose contribution can not be compoensated but only mitigated.
-Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
-This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
-It might be tempting to try to find a continous trajectory of this second robot to minimize the error.
-However the second robot also suffers under finite joint precision, while moving these will introduce additional errors.
-It is therefore better if the workpiece holding robot moves to a fixed position before the second robot starts moving.
-This leads to a two step process similar to the one described in \cite{stroke_division}.
-Here the authors propose a 4 step process to path planning:
-\begin{enumerate}
-  \item Cut path into multiple segments
-  \item Downsample each segment
-  \item Optimize the pose of each subpath and compute the joint path
-  \item Apply the new pose to the original segments
-\end{enumerate}
-The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
-However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
-% Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
-% Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
+\subsection{Trajectory Generation}
 
 
-% The optimal Repeatability is dependent on the optimized kinematic parameters.
 
-\subsection{Kinematic Optimization}
-kinematic redundancy - choose which solution to the inverse kinematics problem?
-- result: path in joint coordinates
+The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
+
+After the path has been determined in section XX under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot's travel speed and thus the process speed. To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized. Since Hoffmann et al. have already shown in XX that the robot with its drives is a differentially flat system, the states of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives. In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot.  For a more detailed description of trajectory generation, please refer to Kanagalingam et al. and their work XX.  
+
+
+optimization-based
+implemented: time-optimal, 
+
+with accuracy in joint space
+
+Outlook: Data-driven component added to the optimal control problem.
+adding the mean value function of the Gaussian process
 
 \subsection{Camera Placement}
+here because requires entire robot configuration
+
 After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
 It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
 To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
@@ -396,22 +492,13 @@ Here we see that the system always tries to find a tradeoff between minimizing t
 This is shown in Fig.~\ref{fig:fov_sv_conflict}.
 In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
 \begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
-\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
- Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
+	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
+		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
 \end{figure}
 
-\subsection{Trajectory Generation}
-The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
 
-optimization-based
-implemented: time-optimal, 
-
-with accuracy in joint space
-
-Outlook: Data-driven component added to the optimal control problem.
-adding the mean value function of the Gaussian process
 
 \section{Outlook}
 experimental validation of measurement system
@@ -423,10 +510,7 @@ All authors are required to complete the Procedia exclusive license transfer agr
 \vfill\pagebreak
 
 \section*{Acknowledgements}
-
-
- This work is realized within the project scope Software Driven Manufacturing of the research cluster Innovation Campus Future Mobility and funded by the Ministry of Science, Research and the Arts of the Federal State of Baden-Wuerttemberg.
-
+The authors would like to thank the Ministry of Science, Research and Arts of the Federal State of Baden-Württemberg for the financial support of the projects within the InnovationsCampus Future Mobility (ICM).
 
 
 %% The Appendices part is started with the command \appendix;

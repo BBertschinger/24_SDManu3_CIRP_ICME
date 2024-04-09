@@ -357,6 +357,8 @@ calibration of camera system: interface ITO / ISYS
 synchronized measurements of the camera, joint angles (encoders), joint torques 
 interface through which the reference values for the joint space position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller
 
+pneumatic robot - direct drives, drive dynamics 
+
 \subsection{overall strategy in software}
 Kinematic and dynamic strategies need to be separated. 
 In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
@@ -453,10 +455,19 @@ therefore prefer medium velocity
 
 allows for trade-off between process speed and accuracy
 
+To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation. In path planning, the path of each of the robot's joint angles is computed, providing the highest possible repeatability. In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. pressure build-up in the actuators).
+
+
 next step: to incorporate in optimization
 
 \subsection{Trajectory Generation}
+
+
+
 The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
+
+After the path has been determined in section XX under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot's travel speed and thus the process speed. To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized. Since Hoffmann et al. have already shown in XX that the robot with its drives is a differentially flat system, the states of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives. In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot.  For a more detailed description of trajectory generation, please refer to Kanagalingam et al. and their work XX.  
+
 
 optimization-based
 implemented: time-optimal, 

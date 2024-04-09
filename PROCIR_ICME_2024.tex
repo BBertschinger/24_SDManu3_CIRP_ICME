@@ -363,12 +363,69 @@ In the field of robot trajectory generation, this has lead to the path speed dec
 Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
 kinematic errors vs. dynamic errors 
 
-\subsection{Kinematic strategies:} state-of-the-art\\
-geometric errors: length deviations, axis misalignments, zero-position offsets of the encoders
-offline calibration technology to identify and compensate key robotic parameters
-calibration~\cite{Wiest01}
+\subsection{Kinematic strategies:}
+Some kinematic strategies for increasing the accuracy of industrial robots are already well-established.
+Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignments and zero-position offsets of the encoders.
+There are established methods for identifying and compensating these parameters in an offline calibration technique~\cite{Wiest01}.
+To this end, the endeffector pose is measured, typically with a laser tracker, statically at certain points in the workspace and a certain number of times, and the geometric error parameters are determined in an optimization.
+This offline calibration is usually performed at certain points and with specialized and expensive equipment, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot.
+From a kinematic point of view, if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Such errors are usually much larger than the measurement accuracy of the presented measurement system.
+
 also capture static deformation of the robot structure
-if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Usually much larger than the measurement accuracy of the presented measurement system
+
+
+\subsection{Path Planning}
+There are severall error sources impeding the accuracy of a robotic manufacturing system.
+An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
+Most of these errors can be compensated using our external measurement system.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{graphics/error_sources.png}
+\caption{Error sources in a robotic manufacturing system. Error sources which can be compensated using external sensors are marked in green.}
+\label{fig:error_sources}
+\end{figure}
+This leaves the finite precision of the robot itself, whose contribution can not be compensated but only mitigated.
+Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
+This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
+It might be tempting to try to find a continuous trajectory of this second robot to minimize the error.
+However the second robot also suffers under finite joint precision, while moving these will introduce additional errors.
+It is therefore better if the workpiece holding robot moves to a fixed position before the second robot starts moving.
+This leads to a two step process similar to the one described in \cite{stroke_division}.
+Here the authors propose a 4 step process to path planning:
+\begin{enumerate}
+  \item Cut path into multiple segments
+  \item Downsample each segment
+  \item Optimize the pose of each subpath and compute the joint path
+  \item Apply the new pose to the original segments
+\end{enumerate}
+The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
+However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
+% Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
+% Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
+
+
+% The optimal Repeatability is dependent on the optimized kinematic parameters.
+
+
+
+\subsection{Camera Placement}
+After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
+It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
+To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
+This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
+However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
+This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
+It also has practical advantages.
+Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
+Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.
+This is shown in Fig.~\ref{fig:fov_sv_conflict}.
+In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
+\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
+ Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+\end{figure}
 
 \subsection{Dynamic Strategies:} Ongoing Research \\
 literature on capturing dynamic errors:
@@ -398,62 +455,6 @@ allows for trade-off between process speed and accuracy
 
 next step: to incorporate in optimization
 
-
-\subsection{Path Planning}
-There are severall error sources impeding the accuracy of a robotic manufacturing system.
-An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
-Most of these errors can be compensated using our external measurment system.
-\begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/error_sources.png}
-\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using external sensors are marked in green.}
-\label{fig:error_sources}
-\end{figure}
-This leaves the finite precision of the robot itself, whose contribution can not be compoensated but only mitigated.
-Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
-This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
-It might be tempting to try to find a continous trajectory of this second robot to minimize the error.
-However the second robot also suffers under finite joint precision, while moving these will introduce additional errors.
-It is therefore better if the workpiece holding robot moves to a fixed position before the second robot starts moving.
-This leads to a two step process similar to the one described in \cite{stroke_division}.
-Here the authors propose a 4 step process to path planning:
-\begin{enumerate}
-  \item Cut path into multiple segments
-  \item Downsample each segment
-  \item Optimize the pose of each subpath and compute the joint path
-  \item Apply the new pose to the original segments
-\end{enumerate}
-The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
-However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
-% Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
-% Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
-
-
-% The optimal Repeatability is dependent on the optimized kinematic parameters.
-
-\subsection{Kinematic Optimization}
-kinematic redundancy - choose which solution to the inverse kinematics problem?
-- result: path in joint coordinates
-
-\subsection{Camera Placement}
-After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
-It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
-To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
-This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
-However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
-This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
-It also has practical advantages.
-Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
-Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.
-This is shown in Fig.~\ref{fig:fov_sv_conflict}.
-In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
-\begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
-\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
- Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
-\end{figure}
-
 \subsection{Trajectory Generation}
 The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
 
@@ -475,10 +476,7 @@ All authors are required to complete the Procedia exclusive license transfer agr
 \vfill\pagebreak
 
 \section*{Acknowledgements}
-
-
- This work is realized within the project scope Software Driven Manufacturing of the research cluster Innovation Campus Future Mobility and funded by the Ministry of Science, Research and the Arts of the Federal State of Baden-Wuerttemberg.
-
+The authors would like to thank the Ministry of Science, Research and Arts of the Federal State of Baden-Württemberg for the financial support of the projects within the InnovationsCampus Future Mobility (ICM).
 
 
 %% The Appendices part is started with the command \appendix;

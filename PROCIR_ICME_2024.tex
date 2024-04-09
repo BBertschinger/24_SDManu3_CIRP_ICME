@@ -159,7 +159,7 @@
 
 \dochead{18th CIRP Conference on Intelligent Computation in Manufacturing Engineering}%
 
-\title{A new Software Driven external Sensor System for Industrial Robots}
+\title{A new Software Driven External Sensor System for Industrial Robots}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{<author name>}
@@ -170,13 +170,16 @@
 \author[b]{Kathrin Hoffmann}
 \author[c]{Jan Baumgärtner}
 \author[b]{Gajanan Kanagalingam}
+\author[c]{Jürgen Fleischer}
+\author[b]{Oliver Sawodny}
+\author[a]{Stephan Reichelt}
 %\ead{author@institute.xxx}
 
 \address[a]{Institute of Applied Optics, University of Stuttgart - ITO, Pfaffenwaldring 9, 70569 Stuttgart, Germany}
 \address[b]{Institute for System Dynamics, University of Stuttgart - ISYS, Waldburgstr. 17/19, 70563 Stuttgart, Germany}
 \address[c]{Institute of Production Science, Karlsruhe Institute of Technology - WBK, Kaiserstraße 12, 76131 Karlsruhe, Germany}
 
-\aucores{* Bernd Bertschinger Tel.: +49-711-685-69892  ; fax: +49-711-685-66072. {\it E-mail address:} bernd.bertschinger@ito.uni-stuttgart.de}
+\aucores{* Bernd Bertschinger, Tel.: +49-711-685-69892. {\it E-mail address:} bernd.bertschinger@ito.uni-stuttgart.de}
 
 \begin{abstract}
 %% Text of abstract
@@ -245,9 +248,6 @@ resolution is in itself not sufficient for high precision applications. Instead 
 \textit{hier Literatur wie Prozesse anderweitig vermessen werden?}
 %literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
 
-\subsection{Optimized Perception}
-
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
 
 \subsection{Metrological Error Estimate}
 \label{error_estimate}
@@ -351,8 +351,26 @@ $\delta$ system parameters $(x_n,y_n,x_m,y_m,\beta_n,\beta_m, B_{nm},f_{L},f_{R}
 \cite{Luhmann2003}
 
 
+
+\subsection{Optimized Perception}
+
+If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
+
+je mehr Kameras, desto besser die Aufloesung
+- natuerlicherweise so
+
+- man braucht Strategie diese zu platzieren, siehe process strategies, camera placement 
+
+so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung
+
+
 \section{Process Strategies}
-\subsection{Hardware implementation} of control system: robot w/ external sensor
+\subsection{Hardware implementation} 
+
+Kameras, Setup beschreiben (mehr als 2 Kameras wg. Abschattung, ergibt sich aus zuvor beschriebener Theorie)
+
+
+of control system: robot w/ external sensor
 calibration of camera system: interface ITO / ISYS
 synchronized measurements of the camera, joint angles (encoders), joint torques 
 interface through which the reference values for the joint space position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller
@@ -410,24 +428,6 @@ However instead of using the pose optimization algorithm described in \cite{stro
 
 
 
-\subsection{Camera Placement}
-After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
-It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
-To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
-This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
-However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
-This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
-It also has practical advantages.
-Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
-Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.
-This is shown in Fig.~\ref{fig:fov_sv_conflict}.
-In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
-\begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
-\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
- Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
-\end{figure}
 
 \subsection{Dynamic Strategies:} Ongoing Research \\
 literature on capturing dynamic errors:
@@ -476,6 +476,29 @@ with accuracy in joint space
 
 Outlook: Data-driven component added to the optimal control problem.
 adding the mean value function of the Gaussian process
+
+\subsection{Camera Placement}
+here because requires entire robot configuration
+
+After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
+It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
+To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
+This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
+However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
+This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
+It also has practical advantages.
+Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
+Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.
+This is shown in Fig.~\ref{fig:fov_sv_conflict}.
+In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
+	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
+		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+\end{figure}
+
+
 
 \section{Outlook}
 experimental validation of measurement system

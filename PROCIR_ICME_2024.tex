@@ -272,6 +272,37 @@ If the robot end effector is obscured and the optical measurement system cannot 
 \cite{Di_Leo_2011}
 \cite{Liu_2021}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/Simulation.eps}
+	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
+		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+\end{figure}
+
+\begin{equation}
+\end{equation}
+
+\begin{equation}
+	\label{eqn:CovarianceMatrix}
+	\Lambda = 
+	\begin{bmatrix}
+		e_{\delta_1}^2  & 0 & 0 & 0 & e_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0  & e_{\delta_2}^2 & 0 & 0 & e_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & e_{\delta_3}^2 & 0 & 0 & e_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & e_{\delta_4}^2 & 0 & e_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
+		e_{(\delta_5,\delta_1)}^2 & e_{(\delta_5,\delta_2)}^2 & 0 & 0 & e_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & e_{(\delta_6,\delta_3)}^2 & e_{(\delta_6,\delta_4)}^2 & 0 & e_{\delta_6}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_7}^2 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_8}^2 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_9}^2 \\
+	\end{bmatrix}
+\end{equation}
+
+$\delta$ system parameters $(x_n,y_n,x_m,y_m,\beta_n,\beta_m, B_{nm},f_{L},f_{R})$
+
+
+
+
 \begin{equation}
 	x^\top A_Q x = 0
 \end{equation}

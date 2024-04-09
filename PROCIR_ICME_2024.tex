@@ -130,6 +130,7 @@
       
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{subcaption}
 
 
 \begin{document}
@@ -274,9 +275,40 @@ If the robot end effector is obscured and the optical measurement system cannot 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\columnwidth]{graphics/Simulation.eps}
-	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
-		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=0.8\linewidth]{graphics/StereoscopyError.eps}
+		\caption{Blablabla 1}
+		\label{fig:Ng1} 
+	\end{subfigure}
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+		\caption{Blablabla 2}
+		\label{fig:Ng2}
+	\end{subfigure}
+	\caption{Blabla.}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.16\textwidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
+		\caption{Blablabla 1}
+		\label{fig:Ng1} 
+	\end{subfigure}
+	\begin{subfigure}[b]{0.30\textwidth}
+		\centering
+		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
+		\caption{Blablabla 2}
+		\label{fig:Ng2}
+	\end{subfigure}
+	\caption{Blabla.}
 \end{figure}
 
 \begin{equation}

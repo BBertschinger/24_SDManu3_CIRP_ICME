@@ -222,45 +222,27 @@ Type your keywords here, separated by semicolons ;
 %System Setup
 
 Social and ecological changes, as well as the need for
-highly individualised and diversified product ranges
-motivate not only to increas the efficiency of the means
+highly individualized and diversified product ranges
+motivate not only to increase the efficiency of the means
 of production, but also their flexibility of application.
-This is adressed by the concept of Wertstromkinematik.
+This is addressed by the concept of Wertstromkinematik \textit{Referenz etc.}.
 Herein the factory is not a static setup to produce
 one set of goods, but can be dynamically reconfigured to be a generalized production floor.\\
 To become a valid means of production, the system needs not only to
-be more productive, but also as flexible and cost-efficient than a human work-force. This need for flexibility in turn leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
+be more productive, but also as flexible and cost-efficient as possible. This need for flexibility in turn leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
 By the current state of technology this is a dilemma, because state of the art detection system use internal sensor, which require an exceeding level of mechanical stiffness, which in turn leads to high
 acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and tracking stations. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration.\\
 
 \subsection{Scope of this Paper}
-Recent research indicate that multipoint photogrametry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Hereby a Diffractive Optical Element (DOE) is used to create multiple linear indepenent optical copies an active marker, by the means of a single point source. Tough this increase in
-resolution is in itself not suffice to for high precision applications. Instead a hollistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation under regards of the kinematic control properties.
-
-\begin{description}
-	
-	\item[Process Perception]
-	bar
-	\begin{description}
-		\item[Optimized Perception]
-		\item[Metrological Error Estimate]
-	\end{description}
-	\item[Process Startegies] argh
-	\begin{description}
-		\item[Optimized Perception]
-		\item[Metrological Error Estimate]
-	\end{description}
-\end{description}
+Recent research indicate that multipoint photogrammetry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Therein, a Diffractive Optical Element (DOE) is used to create multiple linear independent optical copies of an active marker, by the means of a single point source. However, this increase in
+resolution is in itself not sufficient for high precision applications. Instead a holistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.
 
 %\vspace*{2pt}
 %\renewcommand{\labelenumii}{\theenumii}
 %\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 
-\vspace*{8pt}
-\setlist{nolistsep}
-
 \section{Process Perception}
-
+\textit{hier Literatur wie Prozesse anderweitig vermessen werden?}
 %literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
 
 \subsection{Optimized Perception}
@@ -391,7 +373,9 @@ if the manufacturing tolerances of the robot are known, incorporating them in th
 \subsection{Dynamic Strategies:} Ongoing Research \\
 literature on capturing dynamic errors:
 
-here: present robot's drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, alternative: secondary encoders~\cite{Mesmer22}
+here: present robot's drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, 
+enables dynamic error model
+alternative: secondary encoders~\cite{Mesmer22}
 
 closed loop control of the robot joints: tracking errors occur, but are captured in joint angle measurement
 

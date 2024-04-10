@@ -131,6 +131,9 @@
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{subcaption}
+%\usepackage{kbordermatrix}
+\usepackage{tikz}
+\usepackage{relsize}
 
 
 \begin{document}
@@ -237,64 +240,48 @@ acquisition costs. An alternative to internal sensor system are external sensors
 Recent research indicate that multipoint photogrametry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Hereby a Diffractive Optical Element (DOE) is used to create multiple linear indepenent optical copies an active marker, by the means of a single point source. Tough this increase in
 resolution is in itself not suffice to for high precision applications. Instead a hollistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation under regards of the kinematic control properties.
 
-\begin{description}
-	
-	\item[Process Perception]
-	bar
-	\begin{description}
-		\item[Optimized Perception]
-		\item[Metrological Error Estimate]
-	\end{description}
-	\item[Process Startegies] argh
-	\begin{description}
-		\item[Optimized Perception]
-		\item[Metrological Error Estimate]
-	\end{description}
-\end{description}
 
 %\vspace*{2pt}
 %\renewcommand{\labelenumii}{\theenumii}
 %\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
-
-\vspace*{8pt}
-\setlist{nolistsep}
+%\vspace*{8pt}
+%\setlist{nolistsep}
 
 \section{Process Perception}
 
+blabla
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/error_sources.png}
+	\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using external sensors are marked in green.}
+	\label{fig:error_sources}
+\end{figure}
+
+\begin{equation}
+	\label{eqn:CovarianceMatrix}
+	n_{sys} = \mathlarger{\sum}_{n=1}^{N_{cam}}a_{n}-1
+\end{equation}
+
+\begin{equation}
+	\label{eqn:CovarianceMatrix}
+	\Lambda = 
+	\begin{bmatrix}
+		e_{\delta_1}^2  & 0 & 0 & 0 & e_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0  & e_{\delta_2}^2 & 0 & 0 & e_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & e_{\delta_3}^2 & 0 & 0 & e_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & e_{\delta_4}^2 & 0 & e_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
+		e_{(\delta_5,\delta_1)}^2 & e_{(\delta_5,\delta_2)}^2 & 0 & 0 & e_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & e_{(\delta_6,\delta_3)}^2 & e_{(\delta_6,\delta_4)}^2 & 0 & e_{\delta_6}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_7}^2 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_8}^2 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_9}^2
+	\end{bmatrix}
+\end{equation}
+
 %literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
 
-\subsection{Optimized Perception}
-
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
-
-\subsection{Metrological Error Estimate}
-\label{error_estimate}
-
-\cite{Di_Leo_2011}
-\cite{Liu_2021}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
-	\caption{blabla}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.55\textwidth}
-		\includegraphics[width=0.8\linewidth]{graphics/StereoscopyError.eps}
-		\caption{Blablabla 1}
-		\label{fig:Ng1} 
-	\end{subfigure}
-	\begin{subfigure}[b]{0.55\textwidth}
-		\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-		\caption{Blablabla 2}
-		\label{fig:Ng2}
-	\end{subfigure}
-	\caption{Blabla.}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
 	\begin{subfigure}[b]{0.16\textwidth}
 		\centering
@@ -311,62 +298,46 @@ If the robot end effector is obscured and the optical measurement system cannot 
 	\caption{Blabla.}
 \end{figure}
 
-\begin{equation}
-\end{equation}
+\subsection{Metrological Error Estimate}
+\label{error_estimate}
+
+\cite{Di_Leo_2011}
+\cite{Liu_2021}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
+\end{figure}
 
 \begin{equation}
-	\label{eqn:CovarianceMatrix}
-	\Lambda = 
-	\begin{bmatrix}
-		e_{\delta_1}^2  & 0 & 0 & 0 & e_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-		0  & e_{\delta_2}^2 & 0 & 0 & e_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-		0 & 0 & e_{\delta_3}^2 & 0 & 0 & e_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
-		0 & 0 & 0 & e_{\delta_4}^2 & 0 & e_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
-		e_{(\delta_5,\delta_1)}^2 & e_{(\delta_5,\delta_2)}^2 & 0 & 0 & e_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
-		0 & 0 & e_{(\delta_6,\delta_3)}^2 & e_{(\delta_6,\delta_4)}^2 & 0 & e_{\delta_6}^2 & 0 & 0 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_7}^2 & 0 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_8}^2 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_9}^2 \\
-	\end{bmatrix}
 \end{equation}
-
-$\delta$ system parameters $(x_n,y_n,x_m,y_m,\beta_n,\beta_m, B_{nm},f_{L},f_{R})$
-
-
-
-
-\begin{equation}
-	x^\top A_Q x = 0
-\end{equation}
-
-\begin{equation}
-	x^\top A_Q x = 0
-\end{equation}
-
-
-\begin{equation}
-	\label{eqn:CofactorM}
-	\mathbf{K}_{\hat{x}\hat{x}}=
-	\begin{bmatrix}	\mathbf{S_1} & \mathbf{S_2} & \mathbf{S_3}\end{bmatrix}
-	\begin{bmatrix}
-	 	 \lambda_{1}  & 0 & 0 \\
-		0 &  \lambda_{2}  & 0\\
-		0 & 0 &  \lambda_{3}
-	\end{bmatrix}
-	\begin{bmatrix}
-		\mathbf{S_1}^\top \\
-		\mathbf{S_2}^\top \\
-		\mathbf{S_3}^\top
-	\end{bmatrix}
-\end{equation}
-
-\begin{equation}
-	\label{eqn:LengthEllipsoid}
-	A_{i}= \sqrt{\lambda_{i}\cdot \chi^{2}_{3,1-\alpha}}
-\end{equation}
-
 
 \cite{Luhmann2003}
+
+
+\subsection{Optimized Perception}
+
+If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
+
+\begin{equation}
+	n_{sys} = 
+\end{equation}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=0.8\linewidth]{graphics/StereoscopyError.eps}
+		\caption{Blablabla 1}
+		\label{fig:Ng1} 
+	\end{subfigure}
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+		\caption{Blablabla 2}
+		\label{fig:Ng2}
+	\end{subfigure}
+	\caption{Blabla.}
+\end{figure}
 
 
 \section{Process Strategies}
@@ -419,12 +390,6 @@ next step: to incorporate in optimization
 There are severall error sources impeding the accuracy of a robotic manufacturing system.
 An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
 Most of these errors can be compensated using our external measurment system.
-\begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/error_sources.png}
-\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using external sensors are marked in green.}
-\label{fig:error_sources}
-\end{figure}
 This leaves the finite precision of the robot itself, whose contribution can not be compoensated but only mitigated.
 Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
 This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
@@ -483,6 +448,9 @@ adding the mean value function of the Gaussian process
 
 \section{Outlook}
 experimental validation of measurement system
+- Outlook, Planing Invertation
+- Tradeoff
+
 
 
 \section{Online license transfer}

@@ -136,6 +136,28 @@
 \usepackage{relsize}
 \usepackage{lipsum}  
 
+% figures
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}
+
+\usetikzlibrary{calc,
+	%	external,
+	pgfplots.units,
+	%	pgfplots.external,
+	pgfplots.groupplots,
+	arrows,
+	intersections,
+	patterns,
+	positioning,
+	shapes,
+	plotmarks,
+	decorations.pathmorphing,
+	decorations.markings
+}
 
 \begin{document}
 \begin{frontmatter}
@@ -547,7 +569,7 @@ data from measurement: same path executed at different speeds - dynamic error mo
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\columnwidth]{graphics/GP_eOf_dqDes_ddqDes_trainedOnFastestAndSlowest.png}
+	\input{graphics/GP_eOf_dqDes_ddqDes_trainedOnFastestAndSlowest.tex}
 	\caption{Dynamic error in angle of one exemplary joint. Fit with dynamic Gaussian process error model considering the desired angular velocity and acceleration as features.}
 	\label{fig:error_sources}
 \end{figure}

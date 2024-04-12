@@ -22,6 +22,7 @@
   abstract="When choosing an industrial robot, repeatability is often one of the most important decision factors. But repeatability is not a global property, instead, it strongly depends on the robot's workspace position. This is currently ignored in robot cell planning leading to a loss of actual repeatability. This paper not only quantifies this loss but presents a new algorithm that finds the optimal position of a workpiece such that repeatability is optimized. The predictions of this algorithm are verified using digital twin simulations on different robots which show up to nine times higher repeatability than with the unoptimized position.",
   isbn="978-3-031-16281-7"
 }
+
 @INPROCEEDINGS{camera_placement,
   author={Baumgärtner, Jan and Bertschinger, Bernd and Hoffmann, Kathrin and Puchta, Alexander and Sawodny, Oliver and Reichelt, Stephan and Fleischer, Jürgen},
   booktitle={2023 IEEE SENSORS},
@@ -135,13 +136,37 @@
   pagetotal = {1688},
   ppn_gvk   = {1657818985},
   ranking   = {rank5},
-  subtitle  = {Grundlagen, Methoden und Anwendungen}
+  subtitle  = {Grundlagen, Methoden und Anwendungen},
 }
 
-% @book{ISO9283,
-%	author = {{International Organisation for Standardization}},
-%	title = {{ISO}\,9283:1998 Manipulating Industrial Robots: Performance Criteria and Related Test Methods},	
-%	year = {1998},
-%	language={english},
-%	hyphenation={english},
-% }
+@book{ISO9283,
+  author = {{International Organisation for Standardization}},
+  title = {{ISO}\,9283:1998 Manipulating Industrial Robots: Performance Criteria and Related Test Methods},	
+  year = {1998},
+  language={english},
+  hyphenation={english},
+}
+
+@Article{Cox2006,
+  author  = {M.G. Cox and P. M. Harris},
+  journal = {NPL-Report},
+  title   = {Software Support for Metrology Best Practice Guide No 6 - uncertainty evaluation.},
+  year    = {2006},
+  file    = {:pdf/Cox_2006.pdf:PDF},
+}
+
+
+
+@Comment{jabref-meta: databaseType:bibtex;}
+
+[x_1',y_1', \dots, x_n', y_n']^{\hat}
+$\hat{\mathbf{M}}=[x,y, \dots, x_n', z]^{\hat}$
+
+
+2 1
+3 3
+4 6
+5 10
+6 15
+
+SingularValueDecomposition[{{a1, 0, 0, 0, a15, 0, 0, 0, 0}, {0, a2, 0, 0, a25, 0, 0, 0, 0}, {0, 0, a3, 0, 0, 36, 0, 0, 0}, {0, 0, 0, a4, 0, 46, 0, 0, 0}, {a51, a52, 0, 0, a5, 0, 0, 0, 0}, {0, 0, a63, a63, 0, a6, 0, 0, 0}, {0, 0, 0, 0, 0, 0, a7, 0, 0}, {0, 0, 0, 0, 0, 0, 0, a8, 0}, {0, 0, 0, 0, 0, 0, 0, 0, a9}}]

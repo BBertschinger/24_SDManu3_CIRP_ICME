@@ -134,6 +134,7 @@
 %\usepackage{kbordermatrix}
 \usepackage{tikz}
 \usepackage{relsize}
+\usepackage{lipsum}  
 
 
 \begin{document}
@@ -240,8 +241,10 @@ By the current state of technology this is a dilemma, because state of the art d
 acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and tracking stations. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration.\\
 
 \subsection{Scope of this Paper}
-Recent research indicate that multipoint photogrammetry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}. Therein, a Diffractive Optical Element (DOE) is used to create multiple linear independent optical copies of an active marker, by the means of a single point source. However, this increase in
-resolution is in itself not sufficient for high precision applications. Instead a holistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.
+
+Instead a holistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.s
+
+\lipsum[1-1]
 
 %\vspace*{2pt}
 %\renewcommand{\labelenumii}{\theenumii}
@@ -250,27 +253,163 @@ resolution is in itself not sufficient for high precision applications. Instead 
 %\setlist{nolistsep}
 
 \section{Process Perception}
-\textit{hier Literatur wie Prozesse anderweitig vermessen werden?}
-blabla
 
-
-\subsection{Metrological Error Estimate}
-\label{error_estimate}
-
-\cite{Di_Leo_2011}
-\cite{Liu_2021}
+Recent research indicate that multipoint photogrammetry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\columnwidth]{graphics/error_sources.png}
-	\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using external sensors are marked in green.}
+	\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using an external multipoint  sensor are marked in green.}
 	\label{fig:error_sources}
 \end{figure}
 
+As can be seen in figure \ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
+It has been shown \textit{add reference here} that variance of the mean psoitional detection error of these points $\sigma_{xy'}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
+
 \begin{equation}
-	\label{eqn:CovarianceMatrix}
-	n_{sys} = \mathlarger{\sum}_{n=1}^{N_{cam}}a_{n}-1
+	\sigma_{xy'}^2 = n_{pt}^{}
 \end{equation}
+
+However, this increase in planar signal detection is in itself not sufficient for high precision 3D localisation. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it's point of origin in the object space. \\
+For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as information about focal width and
+image scale factor. This leads to the well established colinear \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
+
+\begin{align}
+	\mathbf{C} = \mathbf{K}
+	\begin{bmatrix}
+		\mathbf{R} & \hat{t} \\
+		0 & 1 \\
+	\end{bmatrix} \\
+	l_{n}
+	\begin{bmatrix}
+		x_n' \\
+		y_n' \\
+		0
+	\end{bmatrix}
+	= \mathbf{C}
+	\begin{bmatrix}
+		x \\
+		y \\
+		z \\
+		0
+	\end{bmatrix}
+\end{align}
+
+Subsequently the relation between for triangulation with multiple cameras can be defined accordingly:
+
+
+\begin{equation}
+	\label{eqn:IOMatrix}
+	\begin{bmatrix}
+		x_{1}' \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{1,1}^{\top}\\
+		y_{1}' \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{2,1}^{\top}\\
+		x_{2}' \mathbf{C}_{3,2}^{\top} - \mathbf{C}_{1,2}^{\top}\\
+		y_{2}' \mathbf{C}_{3,2}^{\top} - \mathbf{C}_{2,2}^{\top}\\
+			\vdots \\
+		x_{n}' \mathbf{C}_{3,n}^{\top} - \mathbf{C}_{1,n}^{\top}\\
+		y_{n}' \mathbf{C}_{3,n}^{\top} - \mathbf{C}_{2,n}^{\top}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		x \\
+		y \\
+		z \\
+		1
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0 \\
+		\vdots \\
+		0
+	\end{bmatrix}
+\end{equation}
+
+Whereby $C_{m,n}$ corresponds to the m-th row of the n-th camera Matrix.
+In case the extrinsic and intrinsic camera paramters are fully known, the system can be solved by the least-square techniques \textit{add soures}.\\
+
+The solution for the correspondace between object position an image points has been found in Eqn. \ref{eqn:IOMatrix}.  It can be also written in implicit form:
+\begin{align}
+	f(\hat{\mathbf{Q}},\hat{\mathbf{M}}) \\
+	\mathbf{Q} = [\mathbf{P},\mathbf{C}]^{\top}
+\end{align}
+Whereby the vector of the input Quantities $\hat{\mathbf{Q}} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\hat{\mathbf{P}} = [x'_1,y'_1, \dots ,x'_n,y'_n]^{\top}$ and the vector of camera parameters, $\hat{\mathbf{C}} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\hat{\mathbf{M}} =  [x,y,z]^{\top}$ in cartesian form. \\
+The uncertainty of the output $\hat{\mathbf{M}}$ can be approximated by the 1st order Taylor Series with regards to input parameters:
+
+\begin{equation}
+	\hat{\sigma}^2 = \sum_{i=1}^{n}\sum_{j=1}^{n} \left(\frac{\delta f}{\delta q_i}\right) \left(\frac{\delta f}{\delta q_j}\right) cov(q_i, q_j) 
+\end{equation}
+
+whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters. More commonly it is known in it's more established \cite{Cox2006} form: 
+
+\begin{equation}
+	\hat{\sigma}^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+\end{equation}
+
+Whereby $\mathbf{J}$ is also known as Design-Matrix or Jacobian Matrix of the partial derivatives of $f$ with respect to the input quantities $\hat{\mathbf{Q}}$ and $\hat{\mathbf{\Lambda}}$ is the covariance Matrix of said  input values. Both Jacobian $\mathbf{J}$ and Covariance Matrix The Jacobian Matrix $\mathbf{J}$ and the Covariance Matrix $\mathbf{\Lambda}$ can also be written in Tensor notation, whereby the rank of the tensor corresponds to the number of cameras in the system. \\
+Both Matrices can be established by a calibration process whereby a series of known markers is placed in the object space \cite{Luhmann2003}. The minimum number of marker needed corresponds to:
+
+\begin{equation}
+	\begin{aligned}
+		& 	u = u_n \cdot n_{pictures} + u_p \cdot n_{points} + u_k \cdot n_{cameras} \\
+		& \text{with: } u_n = 6\text{, } u_p = 3\text{, } u_k = 6 
+	\end{aligned}
+\end{equation}
+
+The increasing requirements for the means of calibration per camera and the corresponding increase of the rank of Jacobian- and Covariance Matrix make it evident that a less elaborant approach is needed.
+
+\subsection{Metrological Error Estimate}
+\label{error_estimate}
+
+\begin{equation}
+	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+\end{equation}
+
+\begin{equation}
+	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
+\end{equation}
+
+\begin{equation}
+	\mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}
+\end{equation}
+
+\begin{equation}
+	\mathbf{E} = \mathbf{\Lambda} =
+	\begin{bmatrix}
+		\mathbf{S}_1^{} & \mathbf{S}_2^{} & \mathbf{S}_3^{}
+	\end{bmatrix}^{\top}
+	\begin{bmatrix}
+		\lambda_1^{} & 0 \\
+		0 & \lambda_2^{} &  0 \\
+		0 & 0 &  \lambda_3^{}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{S}_1^{} \\
+		\mathbf{S}_2^{} \\
+		\mathbf{S}_3^{}
+	\end{bmatrix}
+\end{equation}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
+\end{figure}
+
+
+
+%Established functional model \textit{Linear regression} ${\mathbf{I} + \mathbf{v} = \mathbf{J} \cdot \hat{x}} $
+
+
+\begin{align}
+	\label{eqn:LinRegModel}
+	\hat{\mathbf{I}} = \mathbf{I} + \mathbf{v} = \mathbf{J} \hat{x} \\
+	\hat{\mathbf{Q}} = \frac{1}{\sigma_{2}^{}}\mathbf{K} = \mathbf{P}
+\end{align}
+
+ can be written in a more general form \cite{Cox2006}:
+
+
+\cite{Di_Leo_2011}
+\cite{Liu_2021}
 
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
@@ -290,63 +429,22 @@ blabla
 
 %literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
 
-\begin{figure}[!htb]
-	\centering
-	\begin{subfigure}[b]{0.16\textwidth}
-		\centering
-		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
-		\caption{Blablabla 1}
-		\label{fig:Ng1} 
-	\end{subfigure}
-	\begin{subfigure}[b]{0.30\textwidth}
-		\centering
-		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
-		\caption{Blablabla 2}
-		\label{fig:Ng2}
-	\end{subfigure}
-	\caption{Blabla.}
-\end{figure}
-
-\subsection{Metrological Error Estimate}
-\label{error_estimate}
-
-\cite{Di_Leo_2011}
-\cite{Liu_2021}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
-	\caption{blabla}
-\end{figure}
-
-\begin{equation}
-\end{equation}
-
-\cite{Luhmann2003}
-
-
-\subsection{Optimized Perception}
-
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
-
-\begin{equation}
-	n_{sys} = 
-\end{equation}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.55\textwidth}
-		\includegraphics[width=0.8\linewidth]{graphics/StereoscopyError.eps}
-		\caption{Blablabla 1}
-		\label{fig:Ng1} 
-	\end{subfigure}
-	\begin{subfigure}[b]{0.55\textwidth}
-		\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-		\caption{Blablabla 2}
-		\label{fig:Ng2}
-	\end{subfigure}
-	\caption{Blabla.}
-\end{figure}
+%\begin{figure}[!htb]
+%	\centering
+%	\begin{subfigure}[b]{0.16\textwidth}
+%		\centering
+%		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
+%		\caption{Blablabla 1}
+%		\label{fig:Ng1} 
+%	\end{subfigure}
+%	\begin{subfigure}[b]{0.30\textwidth}
+%		\centering
+%		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
+%		\caption{Blablabla 2}
+%		\label{fig:Ng2}
+%	\end{subfigure}
+%	\caption{Blabla.}
+%\end{figure}
 
 
 
@@ -360,6 +458,18 @@ je mehr Kameras, desto besser die Aufloesung
 - man braucht Strategie diese zu platzieren, siehe process strategies, camera placement 
 
 so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung
+
+\begin{equation}
+	\label{eqn:CovarianceMatrix}
+	n_{sys} = \mathlarger{\sum}_{n=1}^{N_{cam}}a_{n}-1
+\end{equation}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+	\caption{Blablabla 2}
+	\label{fig:Ng2}
+\end{figure}
 
 
 \section{Process Strategies}
@@ -396,12 +506,7 @@ also capture static deformation of the robot structure
 There are severall error sources impeding the accuracy of a robotic manufacturing system.
 An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
 Most of these errors can be compensated using our external measurement system.
-\begin{figure}[h]
-\centering
-\includegraphics[width=\columnwidth]{graphics/error_sources.png}
-\caption{Error sources in a robotic manufacturing system. Error sources which can be compensated using external sensors are marked in green.}
-\label{fig:error_sources}
-\end{figure}
+
 This leaves the finite precision of the robot itself, whose contribution can not be compensated but only mitigated.
 Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
 This means that we can use the workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
@@ -459,9 +564,6 @@ To find a compromise between accuracy and speed, the motion planning problem is 
 next step: to incorporate in optimization
 
 \subsection{Trajectory Generation}
-
-
-
 The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
 
 After the path has been determined in section XX under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot's travel speed and thus the process speed. To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized. Since Hoffmann et al. have already shown in XX that the robot with its drives is a differentially flat system, the states of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives. In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot.  For a more detailed description of trajectory generation, please refer to Kanagalingam et al. and their work XX.  
@@ -527,7 +629,7 @@ Authors including an appendix section should do so before References section. Mu
 
 
 \bibliographystyle{elsarticle-harv}
-\bibliography{sample}
+\bibliography{sources}
 
 
 %% Authors are advised to use a BibTeX database file for their reference list.

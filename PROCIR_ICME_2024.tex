@@ -134,7 +134,14 @@
 %\usepackage{kbordermatrix}
 \usepackage{tikz}
 \usepackage{relsize}
-\usepackage{lipsum}  
+\usepackage{lipsum}
+
+\AtBeginDocument{%
+	\addtolength\abovedisplayskip{-1.5\baselineskip}%
+	\addtolength\belowdisplayskip{-1.0\baselineskip}%
+	\addtolength\abovedisplayshortskip{-2.0\baselineskip}%
+	\addtolength\belowdisplayshortskip{-1.0\baselineskip}%
+}
 
 
 \begin{document}
@@ -265,11 +272,9 @@ Recent research indicate that multipoint photogrammetry might be a solution for 
 
 As can be seen in figure \ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
 It has been shown \textit{add reference here} that variance of the mean psoitional detection error of these points $\sigma_{xy'}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
-
 \begin{equation}
 	\sigma_{xy'}^2 = n_{pt}^{}
 \end{equation}
-
 However, this increase in planar signal detection is in itself not sufficient for high precision 3D localisation. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it's point of origin in the object space. \\
 For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as information about focal width and
 image scale factor. This leads to the well established colinear \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
@@ -295,11 +300,11 @@ image scale factor. This leads to the well established colinear \cite{Luhmann200
 	\end{bmatrix}
 \end{align}
 
-Subsequently the relation between for triangulation with multiple cameras can be defined accordingly:
+Subsequently the the correspondace between object position an image points, known as triangulation, can be defined for multiple cameras according to:
 
 
 \begin{equation}
-	\label{eqn:IOMatrix}
+	\label{eqn:Triangulation}
 	\begin{bmatrix}
 		x_{1}' \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{1,1}^{\top}\\
 		y_{1}' \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{2,1}^{\top}\\
@@ -324,14 +329,25 @@ Subsequently the relation between for triangulation with multiple cameras can be
 \end{equation}
 
 Whereby $C_{m,n}$ corresponds to the m-th row of the n-th camera Matrix.
-In case the extrinsic and intrinsic camera paramters are fully known, the system can be solved by the least-square techniques \textit{add soures}.\\
+In case the extrinsic and intrinsic camera paramters are fully known, the system can be solved by the least-square techniques \cite{Ahn2004}.
 
-The solution for the correspondace between object position an image points has been found in Eqn. \ref{eqn:IOMatrix}.  It can be also written in implicit form:
-\begin{align}
-	f(\hat{\mathbf{Q}},\hat{\mathbf{M}}) \\
-	\mathbf{Q} = [\mathbf{P},\mathbf{C}]^{\top}
-\end{align}
-Whereby the vector of the input Quantities $\hat{\mathbf{Q}} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\hat{\mathbf{P}} = [x'_1,y'_1, \dots ,x'_n,y'_n]^{\top}$ and the vector of camera parameters, $\hat{\mathbf{C}} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\hat{\mathbf{M}} =  [x,y,z]^{\top}$ in cartesian form. \\
+It is important to note that this relationship can also be described as by the notation for projective reconstruction \cite{Hartley2018}:
+\begin{equation}
+	\label{eqn:ProjectiveReconstruction}
+	x'^{\top}\mathbf{F}x
+\end{equation}
+Here the fundamentak matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this Method is usually constraint to three cameras systems.\\
+Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form:
+
+\begin{equation}
+	\label{eqn:ImplicitFrom}
+	\begin{aligned}
+		& f(\hat{\mathbf{Q}},\hat{\mathbf{M}}) \\
+		& \mathbf{Q} = [\mathbf{P},\mathbf{C}]^{\top}
+	\end{aligned}
+\end{equation}
+		
+The vector of the input Quantities $\hat{\mathbf{Q}} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\hat{\mathbf{P}} = [x'_1,y'_1, \dots ,x'_n,y'_n]^{\top}$ and the vector of camera parameters, $\hat{\mathbf{C}} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\hat{\mathbf{M}} =  [x,y,z]^{\top}$ in cartesian form. \\
 The uncertainty of the output $\hat{\mathbf{M}}$ can be approximated by the 1st order Taylor Series with regards to input parameters:
 
 \begin{equation}
@@ -344,35 +360,49 @@ whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters
 	\hat{\sigma}^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
 
-Whereby $\mathbf{J}$ is also known as Design-Matrix or Jacobian Matrix of the partial derivatives of $f$ with respect to the input quantities $\hat{\mathbf{Q}}$ and $\hat{\mathbf{\Lambda}}$ is the covariance Matrix of said  input values. Both Jacobian $\mathbf{J}$ and Covariance Matrix The Jacobian Matrix $\mathbf{J}$ and the Covariance Matrix $\mathbf{\Lambda}$ can also be written in Tensor notation, whereby the rank of the tensor corresponds to the number of cameras in the system. \\
-Both Matrices can be established by a calibration process whereby a series of known markers is placed in the object space \cite{Luhmann2003}. The minimum number of marker needed corresponds to:
+$\mathbf{J_{Q}}$ is also known as Design- or Jacobian- Matrix of the partial derivatives of $f$ with respect to the input quantities $\mathbf{Q}$ and $\mathbf{\Lambda_Q}$ is the covariance Matrix of said  input values. \\
+
+The uncertainty of the input parameters is directly tied to the uncertainty of the output parameters:
 
 \begin{equation}
+	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+\end{equation}
+
+Hereforth $\mathbf{J_{M}}$ is the Jacobian-Matrix of the partial derivatives and $\mathbf{\Lambda_{M}}$ is the Covariance Matrix with regards to the output quantities $\hat{\mathbf{M}}$.
+
+\begin{equation}
+	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
+\end{equation}
+
+with $ \mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}
+$ known as the pseudo inverse matrix of $\mathbf{J_M}$. \\
+
+\subsection{Optimized Perception}
+\label{error_estimate}
+
+The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathbf{J}_{M}$ can be established by a various calibration processes \textit{here sources}. Usually a series of known markers is placed in the object space \cite{Luhmann2003}. In case of arbitrary camera positions the minimum number of marker needed corresponds to:
+
+\begin{equation}
+	\label{eqn:NumCalibPoints}
 	\begin{aligned}
 		& 	u = u_n \cdot n_{pictures} + u_p \cdot n_{points} + u_k \cdot n_{cameras} \\
 		& \text{with: } u_n = 6\text{, } u_p = 3\text{, } u_k = 6 
 	\end{aligned}
 \end{equation}
 
-The increasing requirements for the means of calibration per camera and the corresponding increase of the rank of Jacobian- and Covariance Matrix make it evident that a less elaborant approach is needed.
-
-\subsection{Metrological Error Estimate}
-\label{error_estimate}
+It becomes self-evident, that an increase in cameras leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversly it becomes extinsively difficult to determine the metrological error 
+of such as system.\\
+Hence an alternative approach is needed. Instead of a single system composed of multiple cameras $n_{cam}$ a photogrametric sensor can also be described as combination of multiple idenpendent stereoscopic sub-sensors.
 
 \begin{equation}
-	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+	\label{eqn:CovarianceMatrix}
+	n_{sub} = \sum_{n=1}^{n_{cam}}n-1
 \end{equation}
 
-\begin{equation}
-	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
-\end{equation}
+For these subsensor the metrological error can be described as an Ellipsoid $\mathbf{E}$ \cite{Luhmann2003} which corresponds to the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
 
 \begin{equation}
-	\mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}
-\end{equation}
-
-\begin{equation}
-	\mathbf{E} = \mathbf{\Lambda} =
+	\mathbf{E} = \mathbf{\Lambda_{M}} =
 	\begin{bmatrix}
 		\mathbf{S}_1^{} & \mathbf{S}_2^{} & \mathbf{S}_3^{}
 	\end{bmatrix}^{\top}
@@ -388,12 +418,14 @@ The increasing requirements for the means of calibration per camera and the corr
 	\end{bmatrix}
 \end{equation}
 
+The spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$ leads to the Eigenvectors $\mathbf{S}_i$ and Eigenvalues $\lambda_i$, which correspond to the direction and length of the Ellipsoid.
+
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
-	\caption{blabla}
+	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+	\caption{Blablabla 2}
+	\label{fig:Ng2}
 \end{figure}
-
 
 
 %Established functional model \textit{Linear regression} ${\mathbf{I} + \mathbf{v} = \mathbf{J} \cdot \hat{x}} $
@@ -446,9 +478,13 @@ The increasing requirements for the means of calibration per camera and the corr
 %	\caption{Blabla.}
 %\end{figure}
 
+\subsection{Metrological Error Estimate}
 
-
-\subsection{Optimized Perception}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
+\end{figure}
 
 If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
 
@@ -458,19 +494,6 @@ je mehr Kameras, desto besser die Aufloesung
 - man braucht Strategie diese zu platzieren, siehe process strategies, camera placement 
 
 so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung
-
-\begin{equation}
-	\label{eqn:CovarianceMatrix}
-	n_{sys} = \mathlarger{\sum}_{n=1}^{N_{cam}}a_{n}-1
-\end{equation}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Blablabla 2}
-	\label{fig:Ng2}
-\end{figure}
-
 
 \section{Process Strategies}
 \subsection{Hardware implementation} 

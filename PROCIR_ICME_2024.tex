@@ -270,10 +270,10 @@ Recent research indicate that multipoint photogrammetry might be a solution for 
 	\label{fig:error_sources}
 \end{figure}
 
-As can be seen in figure \ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
-It has been shown \textit{add reference here} that variance of the mean psoitional detection error of these points $\sigma_{xy'}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
+As can be seen in Fig.~\ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
+It has been shown [\textit{add reference here}] that variance of the mean psoitional detection error of these points $\sigma_{x'y'}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
 \begin{equation}
-	\sigma_{xy'}^2 = n_{pt}^{}
+	\sigma_{x'y'}^2 = n_{pt}^{}
 \end{equation}
 However, this increase in planar signal detection is in itself not sufficient for high precision 3D localisation. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it's point of origin in the object space. \\
 For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as information about focal width and
@@ -302,6 +302,7 @@ image scale factor. This leads to the well established colinear \cite{Luhmann200
 
 Subsequently the the correspondace between object position an image points, known as triangulation, can be defined for multiple cameras according to:
 
+%https://cookierobotics.com/007/
 
 \begin{equation}
 	\label{eqn:Triangulation}
@@ -336,7 +337,7 @@ It is important to note that this relationship can also be described as by the n
 	\label{eqn:ProjectiveReconstruction}
 	x'^{\top}\mathbf{F}x
 \end{equation}
-Here the fundamentak matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this Method is usually constraint to three cameras systems.\\
+Here the fundamentak matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
 Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form:
 
 \begin{equation}
@@ -360,7 +361,7 @@ whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters
 	\hat{\sigma}^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
 
-$\mathbf{J_{Q}}$ is also known as Design- or Jacobian- Matrix of the partial derivatives of $f$ with respect to the input quantities $\mathbf{Q}$ and $\mathbf{\Lambda_Q}$ is the covariance Matrix of said  input values. \\
+$\mathbf{J_{Q}}$ is also known as design or Jacobi matrix of the partial derivatives of $f$ with respect to the input quantities $\mathbf{Q}$ and $\mathbf{\Lambda_Q}$ is the covariance matrix of said  input values. \\
 
 The uncertainty of the input parameters is directly tied to the uncertainty of the output parameters:
 
@@ -368,16 +369,16 @@ The uncertainty of the input parameters is directly tied to the uncertainty of t
 	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
 
-Hereforth $\mathbf{J_{M}}$ is the Jacobian-Matrix of the partial derivatives and $\mathbf{\Lambda_{M}}$ is the Covariance Matrix with regards to the output quantities $\hat{\mathbf{M}}$.
+Hereforth $\mathbf{J_{M}}$ is the Jacobi matrix of the partial derivatives and $\mathbf{\Lambda_{M}}$ is the covariance matrix with regards to the output quantities $\hat{\mathbf{M}}$.
 
 \begin{equation}
 	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
 \end{equation}
 
 with $ \mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}
-$ known as the pseudo inverse matrix of $\mathbf{J_M}$. \\
+$ known as the Moore-Penrose pseudo inverse matrix of $\mathbf{J_M}$. \\
 
-\subsection{Optimized Perception}
+\subsection{Metrological Error}
 \label{error_estimate}
 
 The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathbf{J}_{M}$ can be established by a various calibration processes \textit{here sources}. Usually a series of known markers is placed in the object space \cite{Luhmann2003}. In case of arbitrary camera positions the minimum number of marker needed corresponds to:
@@ -392,17 +393,25 @@ The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathb
 
 It becomes self-evident, that an increase in cameras leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversly it becomes extinsively difficult to determine the metrological error 
 of such as system.\\
-Hence an alternative approach is needed. Instead of a single system composed of multiple cameras $n_{cam}$ a photogrametric sensor can also be described as combination of multiple idenpendent stereoscopic sub-sensors.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+	\caption{BlaBla.}
+	\label{fig:sub_sensors}
+\end{figure}
+
+Hence an alternative approach is needed. As it is depicted in  Fig.~\ref{fig:sub_sensors} a photogrametric sensor can also be described as a combination of multiple idenpendent stereoscopic sub-sensors.
 
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
 	n_{sub} = \sum_{n=1}^{n_{cam}}n-1
 \end{equation}
 
-For these subsensor the metrological error can be described as an Ellipsoid $\mathbf{E}$ \cite{Luhmann2003} which corresponds to the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
+For these subsensor the metrological error can be described as an ellipsoid $\mathbf{E}$ \cite{Luhmann2003}, which can be related to spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
 
 \begin{equation}
-	\mathbf{E} = \mathbf{\Lambda_{M}} =
+	\mathbf{\Lambda_{M}} =
 	\begin{bmatrix}
 		\mathbf{S}_1^{} & \mathbf{S}_2^{} & \mathbf{S}_3^{}
 	\end{bmatrix}^{\top}
@@ -418,26 +427,67 @@ For these subsensor the metrological error can be described as an Ellipsoid $\ma
 	\end{bmatrix}
 \end{equation}
 
-The spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$ leads to the Eigenvectors $\mathbf{S}_i$ and Eigenvalues $\lambda_i$, which correspond to the direction and length of the Ellipsoid.
+The normalized Eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ correspond to the direction of the semi-axis of the ellipsoid and the square root of product of the Eigenvalues $\lambda_i$ and the Quantil of the $\chi^2_{3,1-\alpha} $ distribution with regards to the probability of safety $1-\alpha$ \cite{Pelzer1995}.
+
+%https://cookierobotics.com/007/
+%https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
+
+\begin{equation}
+	\mathbf{E} =
+	\begin{bmatrix}
+		e_{1,1}^{} & e_{1,2}^{} & e_{1,3}^{} \\
+		e_{2,1}^{} & e_{2,2}^{} & e_{2,3}^{} \\
+		e_{3,1}^{} & e_{3,2}^{} & e_{3,3}^{}
+	\end{bmatrix}
+	=
+	\sqrt{ \chi^2_{3,1-\alpha}}
+	\begin{bmatrix}
+		\mathbf{\hat{S}}_1^{} & \mathbf{\hat{S}}_2^{} & \mathbf{\hat{S}}_3^{}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\sqrt{\lambda_1^{}} \\
+		\sqrt{\lambda_2^{}} \\
+		\sqrt{\lambda_3^{}}
+	\end{bmatrix}
+\end{equation}
+
+Hence the metrological error along the unit vectors of the reference coordinate system equals:
+
+\begin{equation}
+	\sigma_j = \sum_{j=1}^{3} \left( e_{i,j} + e_{i,j} + e_{i,j}\right)
+\end{equation}
+
+Subsequently the metrological error for each subsystem $\sigma_{j,n}$ can be used to combine and improve the related outcomes $\mathbf{M}_n$ by calculating the weighted arithmetic mean \cite{Price1972}:
+
+\begin{equation}
+	\mathbf{\bar{M}}_{j} = \frac{\sum_{n=1}^{n_{sub}} \left( M_{n,j} \cdot \sigma_{n,j}^{-2} \right)}{\sum_{n=1}^{n_{sub}} \sigma_{n,j}^{-2}}
+\end{equation}
+
+The resulting error corresponds to:
+
+\begin{equation}
+	\mathbf{\bar{\sigma}}_{j} = \sqrt{ \frac{1}{\sum_{n=1}^{n_{sub}} \cdot \sigma_{n,j}^{-2}} }
+\end{equation}
+
+
+\subsection{Optimized Perception}
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Blablabla 2}
-	\label{fig:Ng2}
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
 \end{figure}
-
 
 %Established functional model \textit{Linear regression} ${\mathbf{I} + \mathbf{v} = \mathbf{J} \cdot \hat{x}} $
 
 
-\begin{align}
-	\label{eqn:LinRegModel}
-	\hat{\mathbf{I}} = \mathbf{I} + \mathbf{v} = \mathbf{J} \hat{x} \\
-	\hat{\mathbf{Q}} = \frac{1}{\sigma_{2}^{}}\mathbf{K} = \mathbf{P}
-\end{align}
+%\begin{align}
+%	\label{eqn:LinRegModel}
+%	\hat{\mathbf{I}} = \mathbf{I} + \mathbf{v} = \mathbf{J} \hat{x} \\
+%	\hat{\mathbf{Q}} = \frac{1}{\sigma_{2}^{}}\mathbf{K} = \mathbf{P}
+%\end{align}
 
- can be written in a more general form \cite{Cox2006}:
+can be written in a more general form \cite{Cox2006}:
 
 
 \cite{Di_Leo_2011}
@@ -445,7 +495,7 @@ The spectral decomposition of the covariance of the output quantities $\mathbf{\
 
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
-	\Lambda = 
+	\mathbf{\Lambda_{Q}} = 
 	\begin{bmatrix}
 		e_{\delta_1}^2  & 0 & 0 & 0 & e_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
 		0  & e_{\delta_2}^2 & 0 & 0 & e_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
@@ -464,27 +514,21 @@ The spectral decomposition of the covariance of the output quantities $\mathbf{\
 %\begin{figure}[!htb]
 %	\centering
 %	\begin{subfigure}[b]{0.16\textwidth}
-%		\centering
-%		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
-%		\caption{Blablabla 1}
-%		\label{fig:Ng1} 
-%	\end{subfigure}
+	%		\centering
+	%		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
+	%		\caption{Blablabla 1}
+	%		\label{fig:Ng1} 
+	%	\end{subfigure}
 %	\begin{subfigure}[b]{0.30\textwidth}
-%		\centering
-%		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
-%		\caption{Blablabla 2}
-%		\label{fig:Ng2}
-%	\end{subfigure}
+	%		\centering
+	%		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
+	%		\caption{Blablabla 2}
+	%		\label{fig:Ng2}
+	%	\end{subfigure}
 %	\caption{Blabla.}
 %\end{figure}
 
-\subsection{Metrological Error Estimate}
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
-	\caption{blabla}
-\end{figure}
 
 If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
 

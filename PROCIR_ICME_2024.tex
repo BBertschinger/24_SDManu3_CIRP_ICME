@@ -141,6 +141,9 @@ urlcolor=blue}
 \addtolength\belowdisplayskip{-1.0\baselineskip}%
 \addtolength\abovedisplayshortskip{-1.5\baselineskip}%
 \addtolength\belowdisplayshortskip{-1.0\baselineskip}%
+%\setlength{\textfloatsep}{1pt }
+\setlength{\abovecaptionskip}{0.5\baselineskip} 
+\setlength{\belowcaptionskip}{-0.5\baselineskip} 
 }
 
 % figures
@@ -261,19 +264,17 @@ Social and ecological changes, as well as the need for
 highly individualized and diversified product ranges
 motivate not only to increase the efficiency of the means
 of production, but also their flexibility of application.
-This is addressed by the concept of Wertstromkinematik \textit{Referenz etc.}.
+This is addressed by the concept of Wertstromkinematik \cite{Muehlbeier2020}.
 Herein the factory is not a static setup to produce
 one set of goods, but can be dynamically reconfigured to be a generalized production floor.\\
-To become a valid means of production, the system needs not only to
+Therefore automated production needs not only to
 be more productive, but also as flexible and cost-efficient as possible. This need for flexibility in turn leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
 By the current state of technology this is a dilemma, because state of the art detection system use internal sensor, which require an exceeding level of mechanical stiffness, which in turn leads to high
-acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and tracking stations. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration.\\
-
-\textcolor{red}{literature on system with laser tracker? }%literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
+acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and tracking stations \cite{Moeller17, Yang17}. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration.\\
 
 \subsection{Scope of this Paper}
 %
-Instead a holistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.s
+Instead a holistic approach is needed, which combines in a software driven production process the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.
 %
 %\lipsum[1-1]
 %
@@ -295,15 +296,15 @@ The schematics of this measuring method is shown in Fig.~\ref{fig:MeasSys_Errors
 	\label{fig:MeasSys_Errors}
 \end{figure}
 In this method, as can be seen in Fig.~\ref{fig:error_sources}, a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linearly independent optical copies of an active marker.
-It has been shown [\textcolor{red}{add reference here}] that the variance of the mean positional detection error of these points $\sigma_{x’y’}^2$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.\\
+It has been shown \cite{Hartlieb_2021} that the variance of the mean positional detection error of these points $\sigma_{x’y’}^2$ detected on the imaging sensor is proportional to the number of copies $n_{pt}$ created by the DOE.\\
 However, this increase in planar signal detection is in itself not sufficient for high precision 3D localization. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
-For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as the information about focal width and
+For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, \mathbf{t}]$, which comprise information about the spatial orientation, as well as the information about focal width and
 image scale factor. This leads to the well established collinear equation \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
 %
 \begin{align}
 	\mathbf{C} = \mathbf{K}
 	\begin{bmatrix}
-		\mathbf{R} & \hat{t} \\
+		\mathbf{R} & \mathbf{t} \\
 		0 & 1 \\
 	\end{bmatrix} \\
 	l_{n}
@@ -361,6 +362,7 @@ It is important to note that this relationship can also be described as by the n
 \end{equation}
 %
 Here the fundamental matrix $\mathbf{F}$ is a $3\times 3$ tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
+
 Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form
 %
 \begin{equation}
@@ -396,7 +398,7 @@ with $ \mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} 
 \subsection{Metrological Error}
 \label{error_estimate}
 %
-The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathbf{J}_{M}$ can be established by a various calibration processes \textcolor{red}{here sources}. Usually a series of known markers is placed in the object space \cite{Luhmann2003}. In case of arbitrary camera positions the minimum number of marker needed corresponds to
+The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathbf{J}_{M}$ can be established by a various calibration processes \cite{Hartley2018}. Usually a series of known markers is placed in the object space \cite{Luhmann2003}. In case of arbitrary camera positions the minimum number of marker needed corresponds to
 \begin{equation}
 	\label{eqn:NumCalibPoints}
 	\begin{aligned}
@@ -404,7 +406,10 @@ The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathb
 		& \text{with: } u_n = 6\text{, } u_p = 3\text{, } u_k = 6 
 	\end{aligned}
 \end{equation}
+
+Whereby $u_n$,$u_p$,$u_p$ is the minimum number of parameters
 \textcolor{red}{Variablen einführen}
+
 It becomes evident, that an increase in the number of cameras $n_{\text{cameras}}$ leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversely it becomes difficult to determine the metrological error of such as system.\\
 %
 \begin{figure}[h]
@@ -487,29 +492,28 @@ Liu et al.~\cite{Liu_2021} showed that the optimum camera orientation angle $\be
 \begin{equation*}
 	\mathbf{Q}= \left[x’_m, y’_m, x’_n, y’_n, \beta_{mn}, \beta_{nm}, B_{nm}, f_{n},f_{m}\right]^{\top}
 \end{equation*}
-In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. The covariance matrix becomes:
- %
-\begin{equation}
-	\label{eqn:CovarianceMatrix}
-	\mathbf{\Lambda_{Q}} = 
-	\begin{bmatrix}
-		\sigma_{\delta_1}^2  & 0 & 0 & 0 & \sigma_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-		0  & \sigma_{\delta_2}^2 & 0 & 0 & \sigma_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-		0 & 0 & \sigma_{\delta_3}^2 & 0 & 0 & \sigma_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
-		0 & 0 & 0 & \sigma_{\delta_4}^2 & 0 & \sigma_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
-		\sigma_{(\delta_5,\delta_1)}^2 & \sigma_{(\delta_5,\delta_2)}^2 & 0 & 0 & \sigma_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
-		0 & 0 & \sigma_{(\delta_6,\delta_3)}^2 & \sigma_{(\delta_6,\delta_4)}^2 & 0 & \sigma_{\delta_6}^2 & 0 & 0 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_7}^2 & 0 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_8}^2 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_9}^2
-	\end{bmatrix}
-\end{equation}
-Therein, the off-diagonal elements represent the cross-correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector.
-This correlation is related to the decreasing visible surface of the passive markers, which leads to an increase of the effective noise per area.\\
-%
+In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. 
+%\\The covariance matrix becomes:
+%\begin{equation}
+%	\label{eqn:CovarianceMatrix}
+%	\mathbf{\Lambda_{Q}} = 
+%	\begin{bmatrix}
+%		\sigma_{\delta_1}^2  & 0 & 0 & 0 & \sigma_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+%		0  & \sigma_{\delta_2}^2 & 0 & 0 & \sigma_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+%		0 & 0 & \sigma_{\delta_3}^2 & 0 & 0 & \sigma_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
+%		0 & 0 & 0 & \sigma_{\delta_4}^2 & 0 & \sigma_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
+%		\sigma_{(\delta_5,\delta_1)}^2 & \sigma_{(\delta_5,\delta_2)}^2 & 0 & 0 & \sigma_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
+%		0 & 0 & \sigma_{(\delta_6,\delta_3)}^2 & \sigma_{(\delta_6,\delta_4)}^2 & 0 & \sigma_{\delta_6}^2 & 0 & 0 & 0 \\
+%		0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_7}^2 & 0 & 0 \\
+%		0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_8}^2 & 0 \\
+%		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_9}^2
+%	\end{bmatrix}
+%\end{equation}
+The off-diagonal elements of the resulting covariance matrix $\mathbf{\Lambda_{Q}}$ signify high degrees of cross-correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. This is related to the decreasing visible surface of the passive markers, which leads to an increase of the effective noise per area.
+
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.95\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
+	\includegraphics[width=0.9\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
 	\caption{Radiation characteristic of an LED and diffusor fiber tip and the corresponding frame of reference.}
 	\label{fig:scat_profile}
 \end{figure}
@@ -520,11 +524,11 @@ the radiation characteristic of a LED or a diffusor fiber tip \cite{Pan1994} is 
 %
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\includegraphics[width=0.95\columnwidth]{graphics/OpticalSimulation.eps}
 	\caption{Simulation procedure for multipoint detection based on a Zemax Black-Box-Model (BBM) and a combination of geometric and Fresnel propagation.}
 	\label{fig:opto-sim}
 \end{figure}
-%
+
 On this basis an optical simulation procedure was created, as can be seen in Fig.~\ref{fig:opto-sim}, to extended previous works \cite{Liu_2021,Di_Leo_2011} about the covariance-analysis for stereoscopic sensors.\\
 %
 In this case the extrinsic camera parameters and the marker coordinates in space and orientation are used to derive
@@ -631,7 +635,8 @@ data from measurement: same path executed at different speeds - dynamic error mo
 %
 \begin{figure}[htb]
 	\centering
-	\input{graphics/GP_eOf_dqDes_ddqDes_trainedOnFastestAndSlowest.tex}
+	\includegraphics[width=0.95\columnwidth]{graphics/DynError.eps}
+	%\input{graphics/GP_eOf_dqDes_ddqDes_trainedOnFastestAndSlowest.tex}
 	\caption{Dynamic error in angle of one exemplary joint. Fit with dynamic Gaussian process error model considering the desired angular velocity and acceleration as features.}
 	\label{fig:error_sources}
 \end{figure}
@@ -669,7 +674,7 @@ This allows use to way the benefits of repositioning against the additional effo
 %
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
+	\includegraphics[width=0.95\columnwidth]{graphics/fov_sv_conflict.png}
 	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
 		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
 	\label{fig:fov_sv_conflict}

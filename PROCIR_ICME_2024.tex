@@ -194,7 +194,7 @@ urlcolor=blue}
 	
 	\begin{abstract}
 		%% Text of abstract
-		For decades, laser tracker and working station have been the state of the art to measure externally the position disturbances in robotic systems. High system costs limit their usage for control systems in common production machines. We present details for an alternative software-driven approach. Hereby, we combine a new self-referencing, high-precision photogrammetry sensor system with a software system for camera placement layout and trajectory optimization. Furthermore, we outline the integration in a closed loop control system and corresponding strategies.
+		For decades, laser tracker and working station have been the state of the art to measure externally the position disturbances in robotic systems. High system costs limit their usage for control systems in common production machines. We present details for an alternative software-driven approach. Hereby, we combine a new self-referencing, high-precision photogrammetry sensor system with a software for camera placement layout and trajectory optimization. Furthermore, we outline the integration in a closed loop control system and corresponding strategies.
 	\end{abstract}
 	
 	\begin{keyword}
@@ -266,18 +266,18 @@ Recent research indicate that multipoint photogrammetry (MP) might be a solution
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\columnwidth]{graphics/error_sources.png}
-	\caption{Error sources in a robotic manufacturing system. Errorsources which can be compensated using an external multipoint  sensor are marked in green.}
+	\caption{Error sources in a robotic manufacturing system, which can be compensated using an external multipoint  sensor are marked in green.}
 	\label{fig:error_sources}
 \end{figure}
 
-As can be seen in Fig.~\ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
-It has been shown [\textit{add reference here}] that variance of the mean psoitional detection error of these points $\sigma_{x’y’}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
+As can be seen in Fig.~\ref{fig:error_sources} a diffractive optical element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
+It has been shown [\textit{add reference here}] that variance of the mean positional detection error of these points $\sigma_{x’y’}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
 \begin{equation}
 	\sigma_{x’y’}^2 = n_{pt}^{}
 \end{equation}
-However, this increase in planar signal detection is in itself not sufficient for high precision 3D localisation. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
-For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as information about focal width and
-image scale factor. This leads to the well established colinear \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
+However, this increase in planar signal detection is in itself not sufficient for high precision 3D localization. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
+For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as the information about focal width and
+image scale factor. This leads to the well established collinear equation \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
 
 \begin{align}
 	\mathbf{C} = \mathbf{K}
@@ -300,7 +300,7 @@ image scale factor. This leads to the well established colinear \cite{Luhmann200
 	\end{bmatrix}
 \end{align}
 
-Subsequently the the correspondace between object position an image points, known as triangulation, can be defined for multiple cameras according to:
+Subsequently the correspondance between object position an image points, known as triangulation, can be defined for multiple cameras according to:
 
 %https://cookierobotics.com/007/
 
@@ -330,14 +330,14 @@ Subsequently the the correspondace between object position an image points, know
 \end{equation}
 
 Whereby $C_{m,n}$ corresponds to the m-th row of the n-th camera Matrix.
-In case the extrinsic and intrinsic camera paramters are fully known, the system can be solved by the least-square techniques \cite{Ahn2004}.
+In case the extrinsic and intrinsic camera parameters are fully known, the system can be solved by the least-square techniques \cite{Ahn2004}.
 
 It is important to note that this relationship can also be described as by the notation for projective reconstruction \cite{Hartley2018}:
 \begin{equation}
 	\label{eqn:ProjectiveReconstruction}
 	x’^{\top}\mathbf{F}x
 \end{equation}
-Here the fundamentak matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
+Here the fundamental matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
 Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form:
 
 \begin{equation}
@@ -348,14 +348,14 @@ Instead of a Tensor representation the triangulation relation (\ref{eqn:triangul
 	\end{aligned}
 \end{equation}
 
-The vector of the input Quantities $\mathbf{Q} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\mathbf{P} = [x’_1,y’_1, \dots ,x’_n,y’_n]^{\top}$ and the vector of camera parameters, $\mathbf{C} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\mathbf{M} =  [x,y,z]^{\top}$ in cartesian form. \\
+The vector of the input Quantities $\mathbf{Q} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\mathbf{P} = [x’_1,y’_1, \dots ,x’_n,y’_n]^{\top}$ and the vector of camera parameters, $\mathbf{C} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\mathbf{M} =  [x,y,z]^{\top}$ in Cartesian form. \\
 The uncertainty of the output $\mathbf{M}$ can be approximated by the 1st order Taylor series with regards to input parameters:
 
 \begin{equation}
 	\sigma^2 = \sum_{i=1}^{n}\sum_{j=1}^{n} \left(\frac{\delta g}{\delta q_i}\right) \left(\frac{\delta g}{\delta q_j}\right) cov(q_i, q_j) 
 \end{equation}
 
-whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters. More commonly it is known in it’s more established \cite{Cox2006} form: 
+whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters. More commonly it is known in the more established \cite{Cox2006} form: 
 
 \begin{equation}
 	\sigma^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
@@ -369,7 +369,7 @@ The uncertainty of the input parameters is directly tied to the uncertainty of t
 	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
 
-Hereforth $\mathbf{J_{M}}$ is the Jacobi matrix of the partial derivatives and $\mathbf{\Lambda_{M}}$ is the covariance matrix with regards to the output quantities $\hat{\mathbf{M}}$.
+Henceforth $\mathbf{J_{M}}$ is the Jacobi matrix of the partial derivatives and $\mathbf{\Lambda_{M}}$ is the covariance matrix with regards to the output quantities $\hat{\mathbf{M}}$.
 
 \begin{equation}
 	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
@@ -397,19 +397,19 @@ of such as system.\\
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Top-Down view on a photogrametric sensor in tricfocal configuration under simplified converging geometric constraints, wherby the optical axes $OA$ of three cameras systems intersect in one point $\mathbf{I}$.		
-	It can also be regarded as as composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystems corresponds in shape to an ellipsoid $\mathbf{E}$.}
+	\caption{Top-Down view on a photogrammetric sensor in tricfocal configuration under simplified converging geometric constraints, whereby the optical axes $OA$ of three cameras systems intersect in one point.		
+	It can also be regarded as as composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystem corresponds in shape to an ellipsoid $\mathbf{E}$.}
 	\label{fig:sub_sensors}
 \end{figure}
 
-Hence an alternative approach is needed. As it is depicted in  Fig.~\ref{fig:sub_sensors} a photogrametric sensor can also be described as a combination of multiple idenpendent stereoscopic sub-sensors.
+Hence an alternative approach is needed. As it is depicted in  Fig.~\ref{fig:sub_sensors} a photogrammetric sensor can also be described as a combination of multiple independent stereoscopic sub-sensors.
 
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
 	n_{sub} = \sum_{n=1}^{n_{cam}}n-1
 \end{equation}
 
-For these subsensor the metrological error can be described as an ellipsoid $\mathbf{E}$ \cite{Luhmann2003}, which can be related to spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
+For these subsensors the metrological error can be described as an ellipsoid $\mathbf{E}$ \cite{Luhmann2003}, which can be related to spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
 
 \begin{equation}
 	\mathbf{\Lambda_{M}} =
@@ -428,7 +428,7 @@ For these subsensor the metrological error can be described as an ellipsoid $\ma
 	\end{bmatrix}
 \end{equation}
 
-The normalized Eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ correspond to the direction of the semi-axis of the ellipsoid and the square root of product of the Eigenvalues $\lambda_i$ and the Quantil of the $\chi^2_{3,1-\alpha} $ distribution with regards to the probability of safety $1-\alpha$ \cite{Pelzer1995}.
+The normalized Eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ correspond to the direction of the semi-axis of the ellipsoid and the square root of product of the Eigenvalues $\lambda_i$ and the quantile of the $\chi^2_{3,1-\alpha} $ distribution with regards to the probability of safety $1-\alpha$ \cite{Pelzer1995}.
 
 %https://cookierobotics.com/007/
 %https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
@@ -472,7 +472,7 @@ The resulting error corresponds to:
 
 
 \subsection{Optimized Perception}
-Though it hase been remarked for while\cite{Di_Leo_2011}, that a covariance between the input quantities of a stereoscopic system exists and is related to a combination of marker and the image processing algorithm used for detection. Only recently, in case for a simplified stereoscopic sensor under converging constraints with passive markers, simulation results have expermentally verified. Liu et al. showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} \text{-}\, 80^{\circ}$ \cite{Liu_2021} not $30^{\circ} \text{-}\, 50^{\circ}$ degrees \cite{Yang2018,Fooladgar2013,Sankowski2017}.\\
+Though it has been remarked for while\cite{Di_Leo_2011}, that a covariance between the input quantities of a stereoscopic system exists and is related to a combination of marker and the image processing algorithm used for detection. Only recently, in case for a simplified stereoscopic sensor under converging constraints with passive markers, simulation results have experimentally verified. Liu et al. showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} \text{-}\, 80^{\circ}$ \cite{Liu_2021} not $30^{\circ} \text{-}\, 50^{\circ}$ degrees \cite{Yang2018,Fooladgar2013,Sankowski2017}.\\
 
 The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors}.
 
@@ -480,7 +480,7 @@ The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors
 	\mathbf{Q}= \left[x’_m, y’_m, x’_n, y’_n, \beta_{mn}, \beta_{nm}, B_{nm}, f_{n},f_{m}\right]^{\top}
 \end{equation*}
 
- Here $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aformentioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. \\
+ Here $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. \\
  
 The covariance Matrix of this system \cite{Liu_2021} corresponds to:
 \begin{equation}
@@ -499,18 +499,18 @@ The covariance Matrix of this system \cite{Liu_2021} corresponds to:
 	\end{bmatrix}
 \end{equation}
 
-The non-diagonal elements of Eqn.~\ref{eqn:CovarianceMatrix} signifies the cross correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. It is argued \cite{Liu_2021} that this correlation is related to the decreasing visbile surface of the passive markers, which leads to an increas of the effective noise per area.
+The non-diagonal elements of Eqn.~\ref{eqn:CovarianceMatrix} signifies the cross correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. It is argued \cite{Liu_2021} that this correlation is related to the decreasing visible surface of the passive markers, which leads to an increase of the effective noise per area.
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.95\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
-	\caption{Radiation characteristic of an LED and diffusor fibre tip and the corresponding frame of reference.}
+	\caption{Radiation characteristic of an LED and diffusor fiber tip and the corresponding frame of reference.}
 	\label{fig:scat_profile}
 \end{figure}
 
-Since multipoint detection \cite{Haist2015} uses subresolution active markers instead of passive ones, it cannot be assumed that the cross-correlation factors are similar. Since here the so called signal-to-noise Ratio (SNR) primarily depends on intensity of the spots on the sensor plane. \\
-This signal strength is on the one hand related to the distance between sensor and marker, on the other hand it depends on the spatial orientation of the marker in regards to the receiving optic. As depicted in Fig.~\ref{fig:scat_profile}
-the radiation characteristic of a LED or a diffusor fibre tip \cite{Pan1994} is for most angular orientations non-isotropic.\\
+Since multipoint detection \cite{Haist2015} uses sub-resolution active markers instead of passive ones, it cannot be assumed that the cross-correlation factors are similar. Since here the so called signal-to-noise Ratio (SNR) primarily depends on intensity of the spots on the sensor plane. \\
+This signal strength is on the one hand related to the distance between sensor and marker \cite{dumbleton1955}, on the other hand it depends on the spatial orientation of the marker in regards to the receiving optic. As depicted in Fig.~\ref{fig:scat_profile}
+the radiation characteristic of a LED or a diffusor fiber tip \cite{Pan1994} is for most angular orientations non-isotropic.\\
 
 \begin{figure}[!htb]
 	\centering
@@ -520,19 +520,20 @@ the radiation characteristic of a LED or a diffusor fibre tip \cite{Pan1994} is 
 \end{figure}
 
 On this basis an optical simulation procedure was created, as can be seen in Fig.~\ref{fig:opto-sim}, to extended previous works \cite{Liu_2021,Di_Leo_2011} about the covariance-analysis for stereoscopic sensors.
+\\
+In this case the extrinsic camera parameters and the marker coordinates in space and orientation are used to derive
+the input vector for the simulation, which comprises information about the normalized intensity distribution $\bar{I}$, the distance to marker $z$ and the field angles $\omega$ and $\theta$. A Zemax Black Box Model of the lens is used to compute the complex wavefront distribution at the DOE-Position $\mathbf{U}_m$, which is combined with the DOE Phase Distribution and $\mathbf{U}_{DOE}$ a spherical Wavefront $\mathbf{U}_{S}$ to accommodate for the distance of the DOE to the imager. This Wavefront is propagated onto the sensor by the Fresnel method \cite{Goodman2005}. The fixed $\mathbf{I}_{DNSU/PRNU}$ and random $\mathbf{I}_{DCN/SHOT}$ noise patterns are superimposed onto the derived sensor intensity distribution $\mathbf{I}_m$ and the point coordinates $P_{x’,y’}$ are derived via multipoint detection.
+Finally the point position is varied by an estimate of the atmospheric disturbance.\\
 
 
+\textbf{
+If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.}
 
-
-
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
-
-je mehr Kameras, desto besser die Aufloesung
-- natuerlicherweise so
-
-- man braucht Strategie diese zu platzieren, siehe process strategies, camera placement 
-
-so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung
+\textbf{
+je mehr Kameras, desto besser die Aufloesung \\
+- natuerlicherweise sos \\
+- man braucht Strategie diese zu platzieren, siehe process strategies, camera placement \\
+so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung }
 
 \section{Process Strategies}
 \subsection{Hardware implementation} 
@@ -555,7 +556,7 @@ kinematic errors vs. dynamic errors
 
 \subsection{Kinematic strategies:}
 Some kinematic strategies for increasing the accuracy of industrial robots are already well-established.
-Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignments and zero-position offsets of the encoders.
+Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignment and zero-position offsets of the encoders.
 There are established methods for identifying and compensating these parameters in an offline calibration technique~\cite{Wiest01}.
 To this end, the endeffector pose is measured, typically with a laser tracker, statically at certain points in the workspace and a certain number of times, and the geometric error parameters are determined in an optimization.
 This offline calibration is usually performed at certain points and with specialized and expensive equipment, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot.
@@ -565,7 +566,7 @@ also capture static deformation of the robot structure
 
 
 \subsection{Path Planning}
-There are severall error sources impeding the accuracy of a robotic manufacturing system.
+There are several error sources impeding the accuracy of a robotic manufacturing system.
 An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
 Most of these errors can be compensated using our external measurement system.
 
@@ -647,7 +648,7 @@ It might even be the case that all markers are visible but that they are in regi
 To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
 This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
 However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
-This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
+This allows use to way the benefits of repositioning against the additional effort needed to do reposition and recalibrate the system.
 
 \begin{figure}[!htb]
 	\centering
@@ -659,7 +660,7 @@ This allows use to way the benefits of repositioning against the aditional effor
 
 It also has practical advantages.
 Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
-Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.\\
+Here we see that the system always tries to find a trade off between minimizing the field of view angle while trying to maximize the smallest singular value.\\
 This is shown in Fig.~\ref{fig:fov_sv_conflict}.
 In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
 

@@ -294,10 +294,7 @@ The schematics of this measuring method is shown in Fig.~\ref{fig:MeasSys_Errors
 	\label{fig:MeasSys_Errors}
 \end{figure}
 In this method, as can be seen in Fig.~\ref{fig:error_sources}, a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linearly independent optical copies of an active marker.
-It has been shown [\textcolor{red}{add reference here}] that the variance of the mean positional detection error of these points $\sigma_{x’y’}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
-\begin{equation}
-	\textcolor{red}{\sigma_{x’y’}^2 = n_{pt}^{}}
-\end{equation}
+It has been shown [\textcolor{red}{add reference here}] that the variance of the mean positional detection error of these points $\sigma_{x’y’}^2$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.\\
 However, this increase in planar signal detection is in itself not sufficient for high precision 3D localization. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
 For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as the information about focal width and
 image scale factor. This leads to the well established collinear equation \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
@@ -322,7 +319,6 @@ image scale factor. This leads to the well established collinear equation \cite{
 		0
 	\end{bmatrix}
 \end{align}
-\textcolor{red}{warum tHat?}
 Subsequently the correspondance between object position an image points, known as triangulation, can be defined for multiple cameras according to:
 
 %https://cookierobotics.com/007/
@@ -361,15 +357,10 @@ It is important to note that this relationship can also be described as by the n
 	\label{eqn:ProjectiveReconstruction}
 	x’^{\top}\mathbf{F}x
 \end{equation}
-<<<<<<< .mine
-Here the fundamental matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
-Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form:
 
-=======
 Here the fundamental matrix $\mathbf{F}$ is a $3\times 3$ tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
 Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form
 
->>>>>>> .theirs
 \begin{equation}
 	\label{eqn:ImplicitFrom}
 	\begin{aligned}
@@ -388,13 +379,12 @@ where $\mathrm{cov}(q_i, q_j) $ is the covariance between two input parameters. 
 \begin{equation}
 	\sigma^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}.
 \end{equation}
-$\mathbf{J_{Q}}$ is known as design or Jacobi matrix of the partial derivatives of $f$ \textcolor{red}{was ist f} with respect to the input quantities $\mathbf{Q}$, and $\mathbf{\Lambda_Q}$ is the covariance matrix of said input values. \\
+$\mathbf{J_{Q}}$ is known as design or Jacobi matrix of the partial derivatives of $g(\mathbf{Q},\mathbf{M}$ with respect to the input quantities $\mathbf{Q}$, and $\mathbf{\Lambda_Q}$ is the covariance matrix of said input values. \\
 The uncertainty of the input parameters is directly tied to the uncertainty of the output parameters
 \begin{equation}
 	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
-Therein, $\mathbf{J_{M}}$ is the Jacobi matrix of the partial derivatives \textcolor{red}{of what with respect to what} and $\mathbf{\Lambda_{M}}$ is the covariance matrix with respect to the output quantities $\hat{\mathbf{M}}$.
-\textcolor{red}{was ist Hat?}
+Therein, $\mathbf{J_{M}}$ is the Jacobi matrix of the partial derivatives input quantities $\mathbf{M}$ and $\mathbf{\Lambda_{M}}$ is the covariance matrix with respect to the output quantities $\mathbf{M}$.
 The matrix $\mathbf{\Lambda_{M}}$ is computed as
 \begin{equation}
 	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
@@ -415,13 +405,10 @@ The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathb
 \textcolor{red}{Variablen einführen}
 It becomes evident, that an increase in the number of cameras $n_{\text{cameras}}$ leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversely it becomes difficult to determine the metrological error of such as system.\\
 
-It becomes self-evident, that an increase in cameras leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversly it becomes extinsively difficult to determine the metrological error 
-of such as system.\\
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Top-Down view on a photogrammetric sensor in tricfocal configuration under simplified converging geometric constraints, whereby the optical axes $OA$ of three cameras systems intersect in one point.		
+	\caption{Top view on a photogrammetric sensor in tricfocal configuration under simplified converging geometric constraints, whereby the optical axes $OA$ of three cameras systems intersect in one point.		
 	It can also be regarded as as composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystem corresponds in shape to an ellipsoid $\mathbf{E}$.}
 	\label{fig:sub_sensors}
 \end{figure}
@@ -488,14 +475,6 @@ The resulting error corresponds to
 \begin{equation}
 	\mathbf{\bar{\sigma}}_{j} = \sqrt{ \frac{1}{\sum_{n=1}^{n_{sub}} \sigma_{n,j}^{-2}} }.
 \end{equation}
-
-\begin{figure}[bth]
-	\centering
-	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Top view of a photogrammetric sensor in trifocal configuration under simplified converging geometric constraints, wherby the optical axes $OA$ of three cameras systems intersect in one point $\mathbf{I}$.		
-	It can also be regarded as the composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystem corresponds in shape to an ellipsoid $\mathbf{E}$.}
-	\label{fig:sub_sensors}
-\end{figure}
 
 \subsection{Optimized Perception}
 It has been remarked in the literature~\cite{Di_Leo_2011} that a covariance exists between the input quantities of a stereoscopic system and it is related to a combination of marker and the image processing algorithm used for detection.

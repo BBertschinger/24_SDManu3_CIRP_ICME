@@ -242,7 +242,7 @@ urlcolor=blue}
 %% main text
 
 \section{Introduction}
-
+%
 %motivation: industrial robots instead of specialized machinery, adaptable to various tasks in manufacturing, low cost \\
 %limiting factor: accuracy of robot
 %
@@ -256,7 +256,7 @@ urlcolor=blue}
 %Relevant Errors-Model for Process Planing - Dynamic Error \\
 %
 %System Setup
-
+%
 Social and ecological changes, as well as the need for
 highly individualized and diversified product ranges
 motivate not only to increase the efficiency of the means
@@ -272,19 +272,19 @@ acquisition costs. An alternative to internal sensor system are external sensors
 \textcolor{red}{literature on system with laser tracker? }%literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
 
 \subsection{Scope of this Paper}
-
+%
 Instead a holistic approach is needed, which combines in a software driven approach the placement and configuration of the sensor system with the trajectory generation in consideration of the kinematic control properties.s
-
-\lipsum[1-1]
-
+%
+%\lipsum[1-1]
+%
 %\vspace*{2pt}
 %\renewcommand{\labelenumii}{\theenumii}
 %\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 %\vspace*{8pt}
 %\setlist{nolistsep}
-
+%
 \section{Process Perception}
-
+%
 Recent research indicates that multipoint photogrammetry might be a solution to realize cost-efficient high-resolution optical sensors \cite{Hartlieb_2021}.
 The schematics of this measuring method is shown in Fig.~\ref{fig:MeasSys_Errors}.
 \begin{figure}[h]
@@ -298,7 +298,7 @@ It has been shown [\textcolor{red}{add reference here}] that the variance of the
 However, this increase in planar signal detection is in itself not sufficient for high precision 3D localization. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
 For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as the information about focal width and
 image scale factor. This leads to the well established collinear equation \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
-
+%
 \begin{align}
 	\mathbf{C} = \mathbf{K}
 	\begin{bmatrix}
@@ -404,7 +404,7 @@ The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathb
 \end{equation}
 \textcolor{red}{Variablen einführen}
 It becomes evident, that an increase in the number of cameras $n_{\text{cameras}}$ leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversely it becomes difficult to determine the metrological error of such as system.\\
-
+%
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
@@ -412,16 +412,16 @@ It becomes evident, that an increase in the number of cameras $n_{\text{cameras}
 	It can also be regarded as as composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystem corresponds in shape to an ellipsoid $\mathbf{E}$.}
 	\label{fig:sub_sensors}
 \end{figure}
-
+%
 Hence an alternative approach is needed. As it is depicted in  Fig.~\ref{fig:sub_sensors} a photogrammetric sensor can also be described as a combination of multiple independent stereoscopic sub-sensors.
-
+%
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
 	n_{sub} = \sum_{n=1}^{n_{cam}}n-1
 \end{equation}
-
+%
 For these subsensors the metrological error can be described as an ellipsoid $\mathbf{E}$ \cite{Luhmann2003}, which can be related to spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
-
+%
 \begin{equation}
 	\mathbf{\Lambda_{M}} =
 	\begin{bmatrix}
@@ -480,15 +480,12 @@ The resulting error corresponds to
 \subsection{Optimized Perception}
 It has been remarked in the literature~\cite{Di_Leo_2011} that a covariance exists between the input quantities of a stereoscopic system and it is related to a combination of marker and the image processing algorithm used for detection.
 Only recently, for the case of a simplified stereoscopic sensor under converging constraints with passive markers, simulation results have experimentally been verified.
-Liu et al.~\cite{Liu_2021} showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} -\, 80^{\circ}$, not $30^{\circ} \text{-}\, 50^{\circ}$ \cite{Yang2018,Fooladgar2013,Sankowski2017}.
-
-The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors} and read
+Liu et al.~\cite{Liu_2021} showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} -\, 80^{\circ}$, not $30^{\circ} \text{-}\, 50^{\circ}$ \cite{Yang2018,Fooladgar2013,Sankowski2017}. The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors} and read
 \begin{equation*}
 	\mathbf{Q}= \left[x’_m, y’_m, x’_n, y’_n, \beta_{mn}, \beta_{nm}, B_{nm}, f_{n},f_{m}\right]^{\top}
 \end{equation*}
-In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. \\
- 
-The covariance matrix becomes
+In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. The covariance matrix becomes:
+ %
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
 	\mathbf{\Lambda_{Q}} = 
@@ -528,7 +525,7 @@ the radiation characteristic of a LED or a diffusor fiber tip \cite{Pan1994} is 
 On this basis an optical simulation procedure was created, as can be seen in Fig.~\ref{fig:opto-sim}, to extended previous works \cite{Liu_2021,Di_Leo_2011} about the covariance-analysis for stereoscopic sensors.
 \\
 In this case the extrinsic camera parameters and the marker coordinates in space and orientation are used to derive
-the input vector for the simulation, which comprises information about the normalized intensity distribution $\bar{I}$, the distance to marker $z$ and the field angles $\omega$ and $\theta$. A Zemax Black Box Model of the lens is used to compute the complex wavefront distribution at the DOE-Position $\mathbf{U}_m$, which is combined with the DOE Phase Distribution and $\mathbf{U}_{DOE}$ a spherical Wavefront $\mathbf{U}_{S}$ to accommodate for the distance of the DOE to the imager. This Wavefront is propagated onto the sensor by the Fresnel method \cite{Goodman2005}. The fixed $\mathbf{I}_{DNSU/PRNU}$ and random $\mathbf{I}_{DCN/SHOT}$ noise patterns are superimposed onto the derived sensor intensity distribution $\mathbf{I}_m$ and the point coordinates $P_{x’,y’}$ are derived via multipoint detection.
+the input vector for the simulation, which comprises information about the normalized intensity distribution $\bar{I}$, the distance to marker $z$ and the field angles $\omega$ and $\theta$. A Zemax Black Box Model of the lens is used to compute the complex wavefront distribution at the DOE-Position $\mathbf{U}_m$, which is combined with the DOE Phase Distribution and $\mathbf{U}_{DOE}$ a spherical Wavefront $\mathbf{U}_{S}$ to accommodate for the distance of the DOE to the imager. This Wavefront is propagated onto the sensor by the Fresnel method \cite{Goodman2005}. The fixed $\mathbf{I}_{DNSU/PRNU}$ and random $\mathbf{I}_{DCN/SHOT}$ noise patterns are superimposed onto the derived sensor intensity distribution $\mathbf{I}_m$ and the point coordinates $\mathbf{P}_{x’,y’}$ are derived via multipoint detection.
 Finally the point position is varied by an estimate of the atmospheric disturbance.\\
 
 As can be seen Eqn.~\ref{eqn:sum_noise}, one can state that more cameras lead to a smaller metrological error.
@@ -547,7 +544,15 @@ These steps are outlined in this section.
 This also allows for a separate consideration of kinematic and dynamic errors of the robot system. 
 Once the configuration of the robot is known from the motion planning steps, also the placement of the cameras for the process perception can be optimized as also described in this section. 
 
-\subsection{Hardware implementation} 
+\subsection{Hardware implementation}
+
+\textcolor{red}{hier kürzen \\
+setup mit Trifocal-Sensor according to section \ref{error_estimate}\\
+- Calibration exceeds scope of this paper, various techniques exist \cite{Hartley2018}.
+- CanBus
+- optional: robot axis used for referencing the world coordinate system
+}
+
 Kameras, Setup beschreiben (mehr als 2 Kameras wg. Abschattung, ergibt sich aus zuvor beschriebener Theorie)
 
 

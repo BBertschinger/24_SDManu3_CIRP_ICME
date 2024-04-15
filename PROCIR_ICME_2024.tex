@@ -480,7 +480,7 @@ The resulting error corresponds to
 \subsection{Optimized Perception}
 It has been remarked in the literature~\cite{Di_Leo_2011} that a covariance exists between the input quantities of a stereoscopic system and it is related to a combination of marker and the image processing algorithm used for detection.
 Only recently, for the case of a simplified stereoscopic sensor under converging constraints with passive markers, simulation results have experimentally been verified.
-Liu et al.~\cite{Liu_2021} showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} --\, 80^{\circ}$, not $30^{\circ} \text{-}\, 50^{\circ}$ \cite{Yang2018,Fooladgar2013,Sankowski2017}.
+Liu et al.~\cite{Liu_2021} showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} -\, 80^{\circ}$, not $30^{\circ} \text{-}\, 50^{\circ}$ \cite{Yang2018,Fooladgar2013,Sankowski2017}.
 
 The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors} and read
 \begin{equation*}
@@ -536,8 +536,18 @@ The restriction, however is, that they need to be placed such that they can perc
 Therefore, a strategy to place the cameras is presented as a part of the process strategies in the next section.
 
 \section{Process Strategies}
-\subsection{Hardware implementation} 
+Besides the aforementioned placement of the cameras, incorporating their measurements also opens up new possibilities for a software-defined motion planning of the robot.
+To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation, which is a common approach in the literature~\cite{Choset05}.
+In path planning, the path of each of the robots' joint angles is computed, providing the highest possible repeatability.
+In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. actuator dynamics).
+These steps are outlined in this section.
+% Kinematic and dynamic strategies need to be separated. 
+% In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
+% Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
+This also allows for a separate consideration of kinematic and dynamic errors of the robot system. 
+Once the configuration of the robot is known from the motion planning steps, also the placement of the cameras for the process perception can be optimized as also described in this section. 
 
+\subsection{Hardware implementation} 
 Kameras, Setup beschreiben (mehr als 2 Kameras wg. Abschattung, ergibt sich aus zuvor beschriebener Theorie)
 
 
@@ -546,19 +556,19 @@ calibration of camera system: interface ITO / ISYS
 synchronized measurements of the camera, joint angles (encoders), joint torques 
 interface through which the reference values for the joint space position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller
 
+In the present work, pneumatic robots are applied. 
+
+Their drives are direct drives, which has the advantage that
+
+
+The disadvantage, however, is that 
 pneumatic robot - direct drives, drive dynamics 
 
-\subsection{overall strategy in software}
-To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation, which is a common approach in the literature~\cite{Choset05}.
-In path planning, the path of each of the robot’s joint angles is computed, providing the highest possible repeatability.
-In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. actuator dynamics).
-\\
-% Kinematic and dynamic strategies need to be separated. 
-% In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
-% Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
-This also allows for a separate consideration of kinematic and dynamic errors of the robot system. 
+If the robot endeffector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
+However, it is advisable to place the cameras such that the perception of the process is optimized, as described later.
 
-\subsection{Kinematic strategies:}
+
+\subsection{Kinematic strategies}
 Some kinematic strategies for increasing the accuracy of industrial robots are already well-established.
 Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignment and zero-position offsets of the encoders.
 There are established methods for identifying and compensating these parameters in an offline calibration technique~\cite{Wiest01}.
@@ -566,10 +576,11 @@ To this end, the endeffector pose is measured with an external measurement stati
 This offline calibration is usually performed at certain points, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot.
 From a kinematic point of view, if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Such errors are usually much larger than the measurement accuracy of the presented measurement system.
 
+\textcolor{red}{deformation}
 It also captures the static deformation of the robot structure, which cannot be sep
 different under different loads 
 
-\subsection{Path Planning}
+\subsection{Path Planning}\label{subsec:PathPlanning}
 There are several error sources impeding the accuracy of a robotic manufacturing system.
 An overview of these sources can be seen in Fig.~\ref{fig:error_sources}.
 Most of these errors can be captured with the present measurement system and from that be compensated.
@@ -593,13 +604,10 @@ However instead of using the pose optimization algorithm described in \cite{stro
 % Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
 % Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
 
-
 % The optimal Repeatability is dependent on the optimized kinematic parameters.
 
 
-
-
-\subsection{Dynamic Strategies:} Ongoing Research \\
+\subsection{Dynamic Strategies:}\label{subsec:dynError} Ongoing Research \\
 literature on capturing dynamic errors:
 
 here: present robot’s drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, 
@@ -630,24 +638,19 @@ allows for trade-off between process speed and accuracy
 next step: to incorporate in optimization
 
 \subsection{Trajectory Generation}
-The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
-
-After the path has been determined in section XX under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot’s travel speed and thus the process speed. To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized. Since Hoffmann et al. have already shown in XX that the robot with its drives is a differentially flat system, the states of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives. In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot.  For a more detailed description of trajectory generation, please refer to Kanagalingam et al. and their work XX.  
-
-
-optimization-based
-implemented: time-optimal, 
-
-with accuracy in joint space
-
-Outlook: Data-driven component added to the optimal control problem.
-adding the mean value function of the Gaussian process
+After the path has been determined in section~\ref{subsec:PathPlanning} under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot’s travel speed and thus the process speed.
+To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized.
+Since the robot applied in this work has the mathematical property of differential flatness~\cite{Hoffmann23}, the state of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives.
+In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot. 
+For a more detailed description of trajectory generation, please refer to~\cite{Kanagalingam24}.
+ 
+This existing formulation allows for extending the optimization problem from purely travel time and/or energy to also incorporating accuracy.
+To this end, the data-driven error model from section~\ref{subsec:dynError} can be added to the optimal control problem.
+To quantify the errors, the mean value function of the Gaussian process is added, while the covariance serves to quantify the certainty of the model, which can additionally be included in the cost functional.
+Therefore, future work will include optimization-based trajectory generation with this data-driven component added to the optimal control problem.
 
 \subsection{Camera Placement}
-here because requires entire robot configuration
-
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
-
+With the robot configuration being known from the previous steps, the perception of the process can be optimized as described in the following.
 After planning the path the two robots are bound to perform complex movements that might obscure some makers from the camera.
 It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
 To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.

@@ -289,7 +289,7 @@ Recent research indicates that multipoint photogrammetry might be a solution to 
 The schematics of this measuring method is shown in Fig.~\ref{fig:MeasSys_Errors}.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\columnwidth]{graphics/error_sources.png}
+	\includegraphics[width=0.9\columnwidth]{graphics/error_sources.png}
 	\caption{Error sources in a robotic manufacturing system, which can be compensated using an external multipoint  sensor are marked in green.}
 	\label{fig:MeasSys_Errors}
 \end{figure}
@@ -474,6 +474,7 @@ Subsequently the metrological error for each subsystem $\sigma_{j,n}$ can be use
 The resulting error corresponds to
 \begin{equation}
 	\mathbf{\bar{\sigma}}_{j} = \sqrt{ \frac{1}{\sum_{n=1}^{n_{sub}} \sigma_{n,j}^{-2}} }.
+	\label{eqn:sum_noise}
 \end{equation}
 
 \subsection{Optimized Perception}
@@ -530,19 +531,7 @@ In this case the extrinsic camera parameters and the marker coordinates in space
 the input vector for the simulation, which comprises information about the normalized intensity distribution $\bar{I}$, the distance to marker $z$ and the field angles $\omega$ and $\theta$. A Zemax Black Box Model of the lens is used to compute the complex wavefront distribution at the DOE-Position $\mathbf{U}_m$, which is combined with the DOE Phase Distribution and $\mathbf{U}_{DOE}$ a spherical Wavefront $\mathbf{U}_{S}$ to accommodate for the distance of the DOE to the imager. This Wavefront is propagated onto the sensor by the Fresnel method \cite{Goodman2005}. The fixed $\mathbf{I}_{DNSU/PRNU}$ and random $\mathbf{I}_{DCN/SHOT}$ noise patterns are superimposed onto the derived sensor intensity distribution $\mathbf{I}_m$ and the point coordinates $P_{x’,y’}$ are derived via multipoint detection.
 Finally the point position is varied by an estimate of the atmospheric disturbance.\\
 
-
-\textbf{
-If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.}
-
-\textbf{
-je mehr Kameras, desto besser die Aufloesung \\
-- natuerlicherweise sos \\
-- man braucht Strategie diese zu platzieren, siehe process strategies, camera placement \\
-so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung }
-
-% 
-Intuitively, one would state that more cameras lead to a smaller metrological error
-\textcolor{red}{Referenz auf welche Formel?}
+As can be seen Eqn.~\ref{eqn:sum_noise}, one can state that more cameras lead to a smaller metrological error.
 The restriction, however is, that they need to be placed such that they can perceive the target at all -- only then more cameras lead to an improved perception.
 Therefore, a strategy to place the cameras is presented as a part of the process strategies in the next section.
 

@@ -30,12 +30,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% The '3p' and 'times' class options of elsarticle are used for Elsevier CRC
-%% The 'procedia' option causes ecrc to approximate to the Word template
+%% The ’3p’ and ’times’ class options of elsarticle are used for Elsevier CRC
+%% The ’procedia’ option causes ecrc to approximate to the Word template
 \documentclass[5p,times,procedia]{elsarticle}
 \flushbottom
 
-%% The `ecrc' package must be called to make the CRC functionality available
+%% The `ecrc’ package must be called to make the CRC functionality available
 \usepackage{ecrc}
 %\usepackage{amsmath}
 
@@ -43,7 +43,7 @@
 %% The ecrc package defines commands needed for running heads and logos.
 %% For running heads, you can set the journal name, the volume, the starting page and the authors
 
-%% set the volume if you know. Otherwise `00'
+%% set the volume if you know. Otherwise `00’
 \volume{00}
 
 %% set the starting page if not 1
@@ -67,7 +67,7 @@
 %% Give a short journal name for the dummy logo (if needed)
 %\jnltitlelogo{Transportation Research}
 
-%% Hereafter the template follows `elsarticle'.
+%% Hereafter the template follows `elsarticle’.
 %% For more details see the existing template files elsarticle-template-harv.tex and elsarticle-template-num.tex.
 
 %% Elsevier CRC generally uses a numbered reference style
@@ -117,24 +117,31 @@
 %   \newtheorem{def}{Definition}[section]
 %   ...
 
-% add words to TeX's hyphenation exception list
+% add words to TeX’s hyphenation exception list
 %\hyphenation{author another created financial paper re-commend-ed Post-Script}
 
 % declarations for front matter
 
 \usepackage[bookmarks=false]{hyperref}
-    \hypersetup{colorlinks,
-      linkcolor=blue,
-      citecolor=blue,
-      urlcolor=blue}
-      
+\hypersetup{colorlinks,
+linkcolor=blue,
+citecolor=blue,
+urlcolor=blue}
+
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{subcaption}
 %\usepackage{kbordermatrix}
 \usepackage{tikz}
 \usepackage{relsize}
-\usepackage{lipsum}  
+\usepackage{lipsum}
+
+\AtBeginDocument{%
+\addtolength\abovedisplayskip{-1.5\baselineskip}%
+\addtolength\belowdisplayskip{-1.0\baselineskip}%
+\addtolength\abovedisplayshortskip{-2.0\baselineskip}%
+\addtolength\belowdisplayshortskip{-1.0\baselineskip}%
+}
 
 % figures
 \usepackage{tikz}
@@ -161,70 +168,70 @@
 
 \begin{document}
 \begin{frontmatter}
-
-%% Title, authors and addresses
-
-%% use the tnoteref command within \title for footnotes;
-%% use the tnotetext command for the associated footnote;
-%% use the fnref command within \author or \address for footnotes;
-%% use the fntext command for the associated footnote;
-%% use the corref command within \author for corresponding author footnotes;
-%% use the cortext command for the associated footnote;
-%% use the ead command for the email address,
-%% and the form \ead[url] for the home page:
-%%
-%% \title{Title\tnoteref{label1}}
-%% \tnotetext[label1]{}
-%% \author{Name\corref{cor1}\fnref{label2}}
-%% \ead{email address}
-%% \ead[url]{home page}
-%% \fntext[label2]{}
-%% \cortext[cor1]{}
-%% \address{Address\fnref{label3}}
-%% \fntext[label3]{}
-
-\dochead{18th CIRP Conference on Intelligent Computation in Manufacturing Engineering}%
-
-\title{A new Software Driven External Sensor System for Industrial Robots}
-
-%% use optional labels to link authors explicitly to addresses:
-%% \author[label1,label2]{<author name>}
-%% \address[label1]{<address>}
-%% \address[label2]{<address>}
-
-\author[a]{Bernd Bertschinger\corref{*}}
-\author[b]{Kathrin Hoffmann}
-\author[c]{Jan Baumgärtner}
-\author[b]{Gajanan Kanagalingam}
-\author[c]{Jürgen Fleischer}
-\author[b]{Oliver Sawodny}
-\author[a]{Stephan Reichelt}
-%\ead{author@institute.xxx}
-
-\address[a]{Institute of Applied Optics, University of Stuttgart - ITO, Pfaffenwaldring 9, 70569 Stuttgart, Germany}
-\address[b]{Institute for System Dynamics, University of Stuttgart - ISYS, Waldburgstr. 17/19, 70563 Stuttgart, Germany}
-\address[c]{Institute of Production Science, Karlsruhe Institute of Technology - WBK, Kaiserstraße 12, 76131 Karlsruhe, Germany}
-
-\aucores{* Bernd Bertschinger, Tel.: +49-711-685-69892. {\it E-mail address:} bernd.bertschinger@ito.uni-stuttgart.de}
-
-\begin{abstract}
-%% Text of abstract
-For decades, laser tracker and working station have been the state of the art to measure externally the position disturbances in robotic systems. High system costs limit their usage for control systems in common production machines. We present details for an alternative software-driven approach. Hereby, we combine a new self-referencing, high-precision photogrammetry sensor system with a software system for camera placement layout and trajectory optimization. Furthermore, we outline the integration in a closed loop control system and corresponding strategies.
-\end{abstract}
-
-\begin{keyword}
-Type your keywords here, separated by semicolons ;
-
-%% keywords here, in the form: keyword \sep keyword
-
-%% PACS codes here, in the form: \PACS code \sep code
-
-%% MSC codes here, in the form: \MSC code \sep code
-%% or \MSC[2008] code \sep code (2000 is the default)
-
-\end{keyword}
-%\cortext[cor1]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
-
+	
+	%% Title, authors and addresses
+	
+	%% use the tnoteref command within \title for footnotes;
+	%% use the tnotetext command for the associated footnote;
+	%% use the fnref command within \author or \address for footnotes;
+	%% use the fntext command for the associated footnote;
+	%% use the corref command within \author for corresponding author footnotes;
+	%% use the cortext command for the associated footnote;
+	%% use the ead command for the email address,
+	%% and the form \ead[url] for the home page:
+	%%
+	%% \title{Title\tnoteref{label1}}
+	%% \tnotetext[label1]{}
+	%% \author{Name\corref{cor1}\fnref{label2}}
+	%% \ead{email address}
+	%% \ead[url]{home page}
+	%% \fntext[label2]{}
+	%% \cortext[cor1]{}
+	%% \address{Address\fnref{label3}}
+	%% \fntext[label3]{}
+	
+	\dochead{18th CIRP Conference on Intelligent Computation in Manufacturing Engineering}%
+	
+	\title{A new Software Driven External Sensor System for Industrial Robots}
+	
+	%% use optional labels to link authors explicitly to addresses:
+	%% \author[label1,label2]{<author name>}
+	%% \address[label1]{<address>}
+	%% \address[label2]{<address>}
+	
+	\author[a]{Bernd Bertschinger\corref{*}}
+	\author[b]{Kathrin Hoffmann}
+	\author[c]{Jan Baumgärtner}
+	\author[b]{Gajanan Kanagalingam}
+	\author[c]{Jürgen Fleischer}
+	\author[b]{Oliver Sawodny}
+	\author[a]{Stephan Reichelt}
+	%\ead{author@institute.xxx}
+	
+	\address[a]{Institute of Applied Optics, University of Stuttgart - ITO, Pfaffenwaldring 9, 70569 Stuttgart, Germany}
+	\address[b]{Institute for System Dynamics, University of Stuttgart - ISYS, Waldburgstr. 17/19, 70563 Stuttgart, Germany}
+	\address[c]{Institute of Production Science, Karlsruhe Institute of Technology - WBK, Kaiserstraße 12, 76131 Karlsruhe, Germany}
+	
+	\aucores{* Bernd Bertschinger, Tel.: +49-711-685-69892. {\it E-mail address:} bernd.bertschinger@ito.uni-stuttgart.de}
+	
+	\begin{abstract}
+		%% Text of abstract
+		For decades, laser tracker and working station have been the state of the art to measure externally the position disturbances in robotic systems. High system costs limit their usage for control systems in common production machines. We present details for an alternative software-driven approach. Hereby, we combine a new self-referencing, high-precision photogrammetry sensor system with a software system for camera placement layout and trajectory optimization. Furthermore, we outline the integration in a closed loop control system and corresponding strategies.
+	\end{abstract}
+	
+	\begin{keyword}
+		Type your keywords here, separated by semicolons ;
+		
+		%% keywords here, in the form: keyword \sep keyword
+		
+		%% PACS codes here, in the form: \PACS code \sep code
+		
+		%% MSC codes here, in the form: \MSC code \sep code
+		%% or \MSC[2008] code \sep code (2000 is the default)
+		
+	\end{keyword}
+	%\cortext[cor1]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
+	
 \end{frontmatter}
 
 %%
@@ -285,14 +292,12 @@ Recent research indicate that multipoint photogrammetry might be a solution for 
 	\label{fig:error_sources}
 \end{figure}
 
-As can be seen in figure \ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
-It has been shown \textit{add reference here} that variance of the mean psoitional detection error of these points $\sigma_{xy'}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
-
+As can be seen in Fig.~\ref{fig:error_sources} a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linear independent optical copies of an active marker.
+It has been shown [\textit{add reference here}] that variance of the mean psoitional detection error of these points $\sigma_{x’y’}$ detected on the imaging sensor is proportional to the number of copies $n_pt$ created by the DOE.
 \begin{equation}
-	\sigma_{xy'}^2 = n_{pt}^{}
+	\sigma_{x’y’}^2 = n_{pt}^{}
 \end{equation}
-
-However, this increase in planar signal detection is in itself not sufficient for high precision 3D localisation. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it's point of origin in the object space. \\
+However, this increase in planar signal detection is in itself not sufficient for high precision 3D localisation. One or more additional sensors is needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
 For a pinhole camera system the relation between object and imaging point is determined by the camera Matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, t]$, which comprise information about the spatial orientation, as well as information about focal width and
 image scale factor. This leads to the well established colinear \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
 
@@ -304,8 +309,8 @@ image scale factor. This leads to the well established colinear \cite{Luhmann200
 	\end{bmatrix} \\
 	l_{n}
 	\begin{bmatrix}
-		x_n' \\
-		y_n' \\
+		x_n’ \\
+		y_n’ \\
 		0
 	\end{bmatrix}
 	= \mathbf{C}
@@ -317,19 +322,20 @@ image scale factor. This leads to the well established colinear \cite{Luhmann200
 	\end{bmatrix}
 \end{align}
 
-Subsequently the relation between for triangulation with multiple cameras can be defined accordingly:
+Subsequently the the correspondace between object position an image points, known as triangulation, can be defined for multiple cameras according to:
 
+%https://cookierobotics.com/007/
 
 \begin{equation}
-	\label{eqn:IOMatrix}
+	\label{eqn:triangulation}
 	\begin{bmatrix}
-		x_{1}' \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{1,1}^{\top}\\
-		y_{1}' \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{2,1}^{\top}\\
-		x_{2}' \mathbf{C}_{3,2}^{\top} - \mathbf{C}_{1,2}^{\top}\\
-		y_{2}' \mathbf{C}_{3,2}^{\top} - \mathbf{C}_{2,2}^{\top}\\
-			\vdots \\
-		x_{n}' \mathbf{C}_{3,n}^{\top} - \mathbf{C}_{1,n}^{\top}\\
-		y_{n}' \mathbf{C}_{3,n}^{\top} - \mathbf{C}_{2,n}^{\top}\\
+		x_{1}’ \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{1,1}^{\top}\\
+		y_{1}’ \mathbf{C}_{3,1}^{\top} - \mathbf{C}_{2,1}^{\top}\\
+		x_{2}’ \mathbf{C}_{3,2}^{\top} - \mathbf{C}_{1,2}^{\top}\\
+		y_{2}’ \mathbf{C}_{3,2}^{\top} - \mathbf{C}_{2,2}^{\top}\\
+		\vdots \\
+		x_{n}’ \mathbf{C}_{3,n}^{\top} - \mathbf{C}_{1,n}^{\top}\\
+		y_{n}’ \mathbf{C}_{3,n}^{\top} - \mathbf{C}_{2,n}^{\top}\\
 	\end{bmatrix}
 	\begin{bmatrix}
 		x \\
@@ -346,55 +352,89 @@ Subsequently the relation between for triangulation with multiple cameras can be
 \end{equation}
 
 Whereby $C_{m,n}$ corresponds to the m-th row of the n-th camera Matrix.
-In case the extrinsic and intrinsic camera paramters are fully known, the system can be solved by the least-square techniques \textit{add soures}.\\
+In case the extrinsic and intrinsic camera paramters are fully known, the system can be solved by the least-square techniques \cite{Ahn2004}.
 
-The solution for the correspondace between object position an image points has been found in Eqn. \ref{eqn:IOMatrix}.  It can be also written in implicit form:
-\begin{align}
-	f(\hat{\mathbf{Q}},\hat{\mathbf{M}}) \\
-	\mathbf{Q} = [\mathbf{P},\mathbf{C}]^{\top}
-\end{align}
-Whereby the vector of the input Quantities $\hat{\mathbf{Q}} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\hat{\mathbf{P}} = [x'_1,y'_1, \dots ,x'_n,y'_n]^{\top}$ and the vector of camera parameters, $\hat{\mathbf{C}} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\hat{\mathbf{M}} =  [x,y,z]^{\top}$ in cartesian form. \\
-The uncertainty of the output $\hat{\mathbf{M}}$ can be approximated by the 1st order Taylor Series with regards to input parameters:
+It is important to note that this relationship can also be described as by the notation for projective reconstruction \cite{Hartley2018}:
+\begin{equation}
+	\label{eqn:ProjectiveReconstruction}
+	x’^{\top}\mathbf{F}x
+\end{equation}
+Here the fundamentak matrix $\mathbf{F}$ is a 3x3 Tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems.\\
+Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form:
 
 \begin{equation}
-	\hat{\sigma}^2 = \sum_{i=1}^{n}\sum_{j=1}^{n} \left(\frac{\delta f}{\delta q_i}\right) \left(\frac{\delta f}{\delta q_j}\right) cov(q_i, q_j) 
+	\label{eqn:ImplicitFrom}
+	\begin{aligned}
+		& g(\mathbf{Q},\mathbf{M}) \\
+		& \mathbf{Q} = [\mathbf{P},\mathbf{C}]^{\top}
+	\end{aligned}
 \end{equation}
 
-whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters. More commonly it is known in it's more established \cite{Cox2006} form: 
+The vector of the input Quantities $\mathbf{Q} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\mathbf{P} = [x’_1,y’_1, \dots ,x’_n,y’_n]^{\top}$ and the vector of camera parameters, $\mathbf{C} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\mathbf{M} =  [x,y,z]^{\top}$ in cartesian form. \\
+The uncertainty of the output $\mathbf{M}$ can be approximated by the 1st order Taylor series with regards to input parameters:
 
 \begin{equation}
-	\hat{\sigma}^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+	\sigma^2 = \sum_{i=1}^{n}\sum_{j=1}^{n} \left(\frac{\delta g}{\delta q_i}\right) \left(\frac{\delta g}{\delta q_j}\right) cov(q_i, q_j) 
 \end{equation}
 
-Whereby $\mathbf{J}$ is also known as Design-Matrix or Jacobian Matrix of the partial derivatives of $f$ with respect to the input quantities $\hat{\mathbf{Q}}$ and $\hat{\mathbf{\Lambda}}$ is the covariance Matrix of said  input values. Both Jacobian $\mathbf{J}$ and Covariance Matrix The Jacobian Matrix $\mathbf{J}$ and the Covariance Matrix $\mathbf{\Lambda}$ can also be written in Tensor notation, whereby the rank of the tensor corresponds to the number of cameras in the system. \\
-Both Matrices can be established by a calibration process whereby a series of known markers is placed in the object space \cite{Luhmann2003}. The minimum number of marker needed corresponds to:
+whereby $cov(q_i, q_j) $ is known as the covariance between two input parameters. More commonly it is known in it’s more established \cite{Cox2006} form: 
 
 \begin{equation}
+	\sigma^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+\end{equation}
+
+$\mathbf{J_{Q}}$ is also known as design or Jacobi matrix of the partial derivatives of $f$ with respect to the input quantities $\mathbf{Q}$ and $\mathbf{\Lambda_Q}$ is the covariance matrix of said  input values. \\
+
+The uncertainty of the input parameters is directly tied to the uncertainty of the output parameters:
+
+\begin{equation}
+	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+\end{equation}
+
+Hereforth $\mathbf{J_{M}}$ is the Jacobi matrix of the partial derivatives and $\mathbf{\Lambda_{M}}$ is the covariance matrix with regards to the output quantities $\hat{\mathbf{M}}$.
+
+\begin{equation}
+	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
+\end{equation}
+
+with $ \mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}
+$ known as the Moore-Penrose pseudo inverse matrix of $\mathbf{J_M}$. \\
+
+\subsection{Metrological Error}
+\label{error_estimate}
+
+The design matrices for the input $\mathbf{J}_{Q}$ and output quantities $\mathbf{J}_{M}$ can be established by a various calibration processes \textit{here sources}. Usually a series of known markers is placed in the object space \cite{Luhmann2003}. In case of arbitrary camera positions the minimum number of marker needed corresponds to:
+
+\begin{equation}
+	\label{eqn:NumCalibPoints}
 	\begin{aligned}
 		& 	u = u_n \cdot n_{pictures} + u_p \cdot n_{points} + u_k \cdot n_{cameras} \\
 		& \text{with: } u_n = 6\text{, } u_p = 3\text{, } u_k = 6 
 	\end{aligned}
 \end{equation}
 
-The increasing requirements for the means of calibration per camera and the corresponding increase of the rank of Jacobian- and Covariance Matrix make it evident that a less elaborant approach is needed.
+It becomes self-evident, that an increase in cameras leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversly it becomes extinsively difficult to determine the metrological error 
+of such as system.\\
 
-\subsection{Metrological Error Estimate}
-\label{error_estimate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+	\caption{Top-Down view on a photogrametric sensor in tricfocal configuration under simplified converging geometric constraints, wherby the optical axes $OA$ of three cameras systems intersect in one point $\mathbf{I}$.		
+	It can also be regarded as as composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystems corresponds in shape to an ellipsoid $\mathbf{E}$.}
+	\label{fig:sub_sensors}
+\end{figure}
+
+Hence an alternative approach is needed. As it is depicted in  Fig.~\ref{fig:sub_sensors} a photogrametric sensor can also be described as a combination of multiple idenpendent stereoscopic sub-sensors.
 
 \begin{equation}
-	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
+	\label{eqn:CovarianceMatrix}
+	n_{sub} = \sum_{n=1}^{n_{cam}}n-1
 \end{equation}
 
-\begin{equation}
-	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
-\end{equation}
+For these subsensor the metrological error can be described as an ellipsoid $\mathbf{E}$ \cite{Luhmann2003}, which can be related to spectral decomposition of the covariance of the output quantities $\mathbf{\Lambda_{M}}$.
 
 \begin{equation}
-	\mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}
-\end{equation}
-
-\begin{equation}
-	\mathbf{E} = \mathbf{\Lambda} =
+	\mathbf{\Lambda_{M}} =
 	\begin{bmatrix}
 		\mathbf{S}_1^{} & \mathbf{S}_2^{} & \mathbf{S}_3^{}
 	\end{bmatrix}^{\top}
@@ -410,59 +450,93 @@ The increasing requirements for the means of calibration per camera and the corr
 	\end{bmatrix}
 \end{equation}
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
-	\caption{blabla}
-\end{figure}
+The normalized Eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ correspond to the direction of the semi-axis of the ellipsoid and the square root of product of the Eigenvalues $\lambda_i$ and the Quantil of the $\chi^2_{3,1-\alpha} $ distribution with regards to the probability of safety $1-\alpha$ \cite{Pelzer1995}.
 
-
-
-%Established functional model \textit{Linear regression} ${\mathbf{I} + \mathbf{v} = \mathbf{J} \cdot \hat{x}} $
-
-
-\begin{align}
-	\label{eqn:LinRegModel}
-	\hat{\mathbf{I}} = \mathbf{I} + \mathbf{v} = \mathbf{J} \hat{x} \\
-	\hat{\mathbf{Q}} = \frac{1}{\sigma_{2}^{}}\mathbf{K} = \mathbf{P}
-\end{align}
-
- can be written in a more general form \cite{Cox2006}:
-
-
-\cite{Di_Leo_2011}
-\cite{Liu_2021}
+%https://cookierobotics.com/007/
+%https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
 
 \begin{equation}
-	\label{eqn:CovarianceMatrix}
-	\Lambda = 
+	\mathbf{E} =
 	\begin{bmatrix}
-		e_{\delta_1}^2  & 0 & 0 & 0 & e_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-		0  & e_{\delta_2}^2 & 0 & 0 & e_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-		0 & 0 & e_{\delta_3}^2 & 0 & 0 & e_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
-		0 & 0 & 0 & e_{\delta_4}^2 & 0 & e_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
-		e_{(\delta_5,\delta_1)}^2 & e_{(\delta_5,\delta_2)}^2 & 0 & 0 & e_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
-		0 & 0 & e_{(\delta_6,\delta_3)}^2 & e_{(\delta_6,\delta_4)}^2 & 0 & e_{\delta_6}^2 & 0 & 0 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_7}^2 & 0 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_8}^2 & 0 \\
-		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{\delta_9}^2
+		e_{11}^{} & e_{12}^{} & e_{13}^{} \\
+		e_{21}^{} & e_{22}^{} & e_{23}^{} \\
+		e_{31}^{} & e_{32}^{} & e_{33}^{}
+	\end{bmatrix}
+	=
+	\sqrt{ \chi^2_{3,1-\alpha}}
+	\begin{bmatrix}
+		\mathbf{\hat{S}}_1^{} & \mathbf{\hat{S}}_2^{} & \mathbf{\hat{S}}_3^{}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\sqrt{\lambda_1^{}} \\
+		\sqrt{\lambda_2^{}} \\
+		\sqrt{\lambda_3^{}}
 	\end{bmatrix}
 \end{equation}
 
-%literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
+Hence the metrological error along the unit vectors of the reference coordinate system equals:
+
+\begin{equation}
+	\sigma_j = \sum_{j=1}^{3} \left( e_{ij} + e_{ij} + e_{ij}\right)
+\end{equation}
+
+Subsequently the metrological error for each subsystem $\sigma_{j,n}$ can be used to combine and improve the related outcomes $\mathbf{M}_n$ by calculating the weighted arithmetic mean \cite{Price1972}:
+
+\begin{equation}
+	\mathbf{\bar{M}}_{j} = \frac{\sum_{n=1}^{n_{sub}} \left( \mathbf{M}_{n,j} \cdot \sigma_{n,j}^{-2} \right)}{\sum_{n=1}^{n_{sub}} \sigma_{n,j}^{-2}}
+\end{equation}
+
+The resulting error corresponds to:
+
+\begin{equation}
+	\mathbf{\bar{\sigma}}_{j} = \sqrt{ \frac{1}{\sum_{n=1}^{n_{sub}} \sigma_{n,j}^{-2}} }
+\end{equation}
+
+
+\subsection{Optimized Perception}
+Though it hase been remarked for while\cite{Di_Leo_2011}, that a covariance between the input quantities of a stereoscopic system exists and is related to a combination of marker and the image processing algorithm used for detection. Only recently, in case for a simplified stereoscopic sensor under converging constraints with passive markers, simulation results have expermentally verified. Liu et al. showed that the optimum camera orientation angle $\beta_{mn}$ is in the scope of $60^{\circ} \text{-}\, 80^{\circ}$ \cite{Liu_2021} not $30^{\circ} \text{-}\, 50^{\circ}$ degrees \cite{Yang2018,Fooladgar2013,Sankowski2017}.\\
+
+The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors}.
+
+\begin{equation*}
+	\mathbf{Q}= \left[x’_m, y’_m, x’_n, y’_n, \beta_{mn}, \beta_{nm}, B_{nm}, f_{n},f_{m}\right]^{\top}
+\end{equation*}
+
+ In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aformentioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. \\
+ 
+The covariance Matrix corresponds to:
+\begin{equation}
+	\label{eqn:CovarianceMatrix}
+	\mathbf{\Lambda_{Q}} = 
+	\begin{bmatrix}
+		\sigma_{\delta_1}^2  & 0 & 0 & 0 & \sigma_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0  & \sigma_{\delta_2}^2 & 0 & 0 & \sigma_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & \sigma_{\delta_3}^2 & 0 & 0 & \sigma_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & \sigma_{\delta_4}^2 & 0 & \sigma_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
+		\sigma_{(\delta_5,\delta_1)}^2 & \sigma_{(\delta_5,\delta_2)}^2 & 0 & 0 & \sigma_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
+		0 & 0 & \sigma_{(\delta_6,\delta_3)}^2 & \sigma_{(\delta_6,\delta_4)}^2 & 0 & \sigma_{\delta_6}^2 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_7}^2 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_8}^2 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_9}^2
+	\end{bmatrix}
+\end{equation}
+
+Here the non-diagonal elements depict the cross correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. It is argued that this correlation is related to the decreasing visbile surface of the passive markers, which leads to an increas of the effective noise per area.\\
+
+It is assumed that in c
 
 %\begin{figure}[!htb]
 %	\centering
 %	\begin{subfigure}[b]{0.16\textwidth}
 %		\centering
 %		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
-%		\caption{Blablabla 1}
+%		\caption{LEDs and Diffusor Fibre Tips used as active markers and the frane reference and rotation angles}
 %		\label{fig:Ng1} 
 %	\end{subfigure}
 %	\begin{subfigure}[b]{0.30\textwidth}
 %		\centering
 %		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
-%		\caption{Blablabla 2}
+%		\caption{Normalized intensity output for LEDs and Diffusor Fibre Tips}
 %		\label{fig:Ng2}
 %	\end{subfigure}
 %	\caption{Blabla.}
@@ -470,7 +544,29 @@ The increasing requirements for the means of calibration per camera and the corr
 
 
 
-\subsection{Optimized Perception}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
+	\caption{blabla}
+\end{figure}
+
+%Established functional model \textit{Linear regression} ${\mathbf{I} + \mathbf{v} = \mathbf{J} \cdot \hat{x}} $
+
+
+%\begin{align}
+%	\label{eqn:LinRegModel}
+%	\hat{\mathbf{I}} = \mathbf{I} + \mathbf{v} = \mathbf{J} \hat{x} \\
+%	\hat{\mathbf{Q}} = \frac{1}{\sigma_{2}^{}}\mathbf{K} = \mathbf{P}
+%\end{align}
+
+can be written in a more general form \cite{Cox2006}:
+
+
+%literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
+
+
+
+
 
 If the robot end effector is obscured and the optical measurement system cannot detect its pose (position and orientation), the pose of the endeffector is estimated using a Kalman filter with a constant velocity model. This assumption is reasonable in this case, as the measurement rate of the measurement system is significantly higher than the change in the pose of the endeffector.
 
@@ -480,19 +576,6 @@ je mehr Kameras, desto besser die Aufloesung
 - man braucht Strategie diese zu platzieren, siehe process strategies, camera placement 
 
 so platzieren, dass sie das Target ueberhaupt sehen, nur damit bringen mehr Kameras auch Verbesserung
-
-\begin{equation}
-	\label{eqn:CovarianceMatrix}
-	n_{sys} = \mathlarger{\sum}_{n=1}^{N_{cam}}a_{n}-1
-\end{equation}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Blablabla 2}
-	\label{fig:Ng2}
-\end{figure}
-
 
 \section{Process Strategies}
 \subsection{Hardware implementation} 
@@ -538,10 +621,10 @@ It is therefore better if the workpiece holding robot moves to a fixed position 
 This leads to a two step process similar to the one described in \cite{stroke_division}.
 Here the authors propose a 4 step process to path planning:
 \begin{enumerate}
-  \item Cut path into multiple segments
-  \item Downsample each segment
-  \item Optimize the pose of each subpath and compute the joint path
-  \item Apply the new pose to the original segments
+	\item Cut path into multiple segments
+	\item Downsample each segment
+	\item Optimize the pose of each subpath and compute the joint path
+	\item Apply the new pose to the original segments
 \end{enumerate}
 The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
 However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
@@ -557,7 +640,7 @@ However instead of using the pose optimization algorithm described in \cite{stro
 \subsection{Dynamic Strategies:} Ongoing Research \\
 literature on capturing dynamic errors:
 
-here: present robot's drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, 
+here: present robot’s drives are direct drives, therefore no backlash in gearing, joint angle tracking error directly measured, 
 enables dynamic error model
 alternative: secondary encoders~\cite{Mesmer22}
 
@@ -580,7 +663,7 @@ therefore prefer medium velocity
 
 allows for trade-off between process speed and accuracy
 
-To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation. In path planning, the path of each of the robot's joint angles is computed, providing the highest possible repeatability. In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. pressure build-up in the actuators).
+To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation. In path planning, the path of each of the robot’s joint angles is computed, providing the highest possible repeatability. In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. pressure build-up in the actuators).
 
 
 next step: to incorporate in optimization
@@ -588,7 +671,7 @@ next step: to incorporate in optimization
 \subsection{Trajectory Generation}
 The resulting path is time-indexed in the next step, i.\,e. a trajectory is generated from it
 
-After the path has been determined in section XX under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot's travel speed and thus the process speed. To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized. Since Hoffmann et al. have already shown in XX that the robot with its drives is a differentially flat system, the states of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives. In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot.  For a more detailed description of trajectory generation, please refer to Kanagalingam et al. and their work XX.  
+After the path has been determined in section XX under the premise of optimal repeatability, in this section a trajectory is generated based on the given path under the premise of maximizing the robot’s travel speed and thus the process speed. To generate the trajectory, the already determined path of all joint angles is parameterized by a path parameter, so that the paths of the individual joints of the robot can be described by this parameter, whereby the individual paths are implicitly synchronized. Since Hoffmann et al. have already shown in XX that the robot with its drives is a differentially flat system, the states of the robot can be represented with the help of the given trajectory of the individual joint angles and the path parameter and its time derivatives. In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem in such a way that the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot.  For a more detailed description of trajectory generation, please refer to Kanagalingam et al. and their work XX.  
 
 
 optimization-based
@@ -608,17 +691,20 @@ To mitigate both problems we propose a software system that can optimize the pla
 This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
 However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{error_estimate}.
 This allows use to way the benefits of repositioning against the aditional effort needed to do reposition and recalibrate the system.
-It also has practical advantages.
-Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
-Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.
-This is shown in Fig.~\ref{fig:fov_sv_conflict}.
-In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
-\begin{figure}[h]
+
+\begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\columnwidth]{graphics/fov_sv_conflict.png}
 	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
 		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+	\label{fig:fov_sv_conflict}
 \end{figure}
+
+It also has practical advantages.
+Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
+Here we see that the system always tries to find a tradeoff between minimizing the field of view angle while trying to maximize the smallest singular value.\\
+This is shown in Fig.~\ref{fig:fov_sv_conflict}.
+In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
 
 
 
@@ -629,10 +715,10 @@ experimental validation of measurement system
 
 
 
-\section{Online license transfer}
-All authors are required to complete the Procedia exclusive license transfer agreement before the article can be published, which they can do online. This transfer agreement enables Elsevier to protect the copyrighted material for the authors, but does not relinquish the authors' proprietary rights. The copyright transfer covers the exclusive rights to reproduce and distribute the article, including reprints, photographic reproductions, microfilm or any other reproductions of similar nature and translations. Authors are responsible for obtaining from the copyright holder, the permission to reproduce any figures for which copyright exists.
-
-\vfill\pagebreak
+%\section{Online license transfer}
+%All authors are required to complete the Procedia exclusive license transfer agreement before the article can be published, which they can do online. This transfer agreement enables Elsevier to protect the copyrighted material for the authors, but does not relinquish the authors’ proprietary rights. The copyright transfer covers the exclusive rights to reproduce and distribute the article, including reprints, photographic reproductions, microfilm or any other reproductions of similar nature and translations. Authors are responsible for obtaining from the copyright holder, the permission to reproduce any figures for which copyright exists.
+%
+%\vfill\pagebreak
 
 \section*{Acknowledgements}
 The authors would like to thank the Ministry of Science, Research and Arts of the Federal State of Baden-Württemberg for the financial support of the projects within the InnovationsCampus Future Mobility (ICM).
@@ -645,9 +731,9 @@ The authors would like to thank the Ministry of Science, Research and Arts of th
 %% \section{}
 %% \label{}
 
-\appendix
-\section{An example appendix}
-Authors including an appendix section should do so before References section. Multiple appendices should all have headings in the style used above. They will automatically be ordered A, B, C etc.
+%\appendix
+%\section{An example appendix}
+%Authors including an appendix section should do so before References section. Multiple appendices should all have headings in the style used above. They will automatically be ordered A, B, C etc.
 
 
 \bibliographystyle{elsarticle-harv}
@@ -662,47 +748,47 @@ Authors including an appendix section should do so before References section. Mu
 %% For references without a BibTeX database:
 
 % \begin{thebibliography}{00}
-
-%% \bibitem must have the following form:
-%%   \bibitem{key}...
-%%
-
-% \bibitem[Clark et al.(1962)]{clark}Clark, T., Woodley, R., De Halas, D., 1962. Gas-Graphite Systems, in ``{\it Nuclear Graphite}''.
-% In: Nightingale, R. (Ed.). Academic Press, New York, pp. 387.
-
-% \bibitem[Deal and Grove(2009) ]{Deal}Deal, B., Grove, A., 1965. General Relationship for the Thermal Oxidation of Silicon. Journal of Applied Physics 36.2, 37--70.
-
-% \bibitem[Deep(2009)]{Deep}Deep-Burn Project: Annual Report for 2009, Idaho National Laboratory, Sept. 2009.
-
-% \bibitem[Fachinger(2004)]{Fachinger2004}Fachinger, J., den Exter, M., Grambow, B., Holgerson, S., Landesmann, C., Titov, M., Podruhzina, T., 2004. ``Behavior of spent HTR fuel elements in aquatic phases of repository host rock formations,'' 2nd International Topical Meeting on High Temperature Reactor Technology. Beijing, China, paper \#B08.
-
-% \bibitem[Fachinger(2006)]{Fachinger2006}Fachinger, J., 2006. Behavior
-% of HTR Fuel Elements in Aquatic Phases of Repository Host Rock Formations. Nuclear Engineering \& Design 236.3,      54.
-
-% \end{thebibliography}
+	
+	%% \bibitem must have the following form:
+	%%   \bibitem{key}...
+	%%
+	
+	% \bibitem[Clark et al.(1962)]{clark}Clark, T., Woodley, R., De Halas, D., 1962. Gas-Graphite Systems, in ``{\it Nuclear Graphite}’’.
+	% In: Nightingale, R. (Ed.). Academic Press, New York, pp. 387.
+	
+	% \bibitem[Deal and Grove(2009) ]{Deal}Deal, B., Grove, A., 1965. General Relationship for the Thermal Oxidation of Silicon. Journal of Applied Physics 36.2, 37--70.
+	
+	% \bibitem[Deep(2009)]{Deep}Deep-Burn Project: Annual Report for 2009, Idaho National Laboratory, Sept. 2009.
+	
+	% \bibitem[Fachinger(2004)]{Fachinger2004}Fachinger, J., den Exter, M., Grambow, B., Holgerson, S., Landesmann, C., Titov, M., Podruhzina, T., 2004. ``Behavior of spent HTR fuel elements in aquatic phases of repository host rock formations,’’ 2nd International Topical Meeting on High Temperature Reactor Technology. Beijing, China, paper \#B08.
+	
+	% \bibitem[Fachinger(2006)]{Fachinger2006}Fachinger, J., 2006. Behavior
+	% of HTR Fuel Elements in Aquatic Phases of Repository Host Rock Formations. Nuclear Engineering \& Design 236.3,      54.
+	
+	% \end{thebibliography}
 
 \clearpage\onecolumn
 
 %%%% This page is for instructions only, once the article is finalize please omit the below text before creating the final PDF
 \normalMode
 
-\section*{Instructions to Authors for LaTeX template:}
-
-\section{ZIP mode for LaTeX template:}
-
-The zip package is created as per the guide lines present on the URL http://www.elsevier.com/author-schemas/ preparing-crc-journal-articles-with-latex for creating the LaTeX zip file of Procedia LaTeX template.  The zip generally contains the following files:
-\begin{Itemize}[]\leftskip-12.7pt\labelsep3.3pt
-\item ecrc.sty
-\item  elsarticle.cls
-\item elsdoc.pdf
-\item .bst file
-\item Manuscript templates for use with these bibliographic styles
-\item  Generic and journal specific logos, etc.
-\end{Itemize}
-
-The LaTeX package is the main LaTeX template. All LaTeX support files are required for LaTeX pdf generation from the LaTeX template package.
-
-{\bf Reference style .bst file used for collaboration support:} In the LaTeX template packages of all Procedia titles a new ``.bst'' file is used which supports collaborations downloaded from the path http://www.elsevier.com/author-schemas/the-elsarticle-latex-document-class
+%\section*{Instructions to Authors for LaTeX template:}
+%
+%\section{ZIP mode for LaTeX template:}
+%
+%The zip package is created as per the guide lines present on the URL http://www.elsevier.com/author-schemas/ preparing-crc-journal-articles-with-latex for creating the LaTeX zip file of Procedia LaTeX template.  The zip generally contains the following files:
+%\begin{Itemize}[]\leftskip-12.7pt\labelsep3.3pt
+%	\item ecrc.sty
+%	\item  elsarticle.cls
+%	\item elsdoc.pdf
+%	\item .bst file
+%	\item Manuscript templates for use with these bibliographic styles
+%	\item  Generic and journal specific logos, etc.
+%\end{Itemize}
+%
+%The LaTeX package is the main LaTeX template. All LaTeX support files are required for LaTeX pdf generation from the LaTeX template package.
+%
+%{\bf Reference style .bst file used for collaboration support:} In the LaTeX template packages of all Procedia titles a new ``.bst’’ file is used which supports collaborations downloaded from the path http://www.elsevier.com/author-schemas/the-elsarticle-latex-document-class
 
 \end{document}
 

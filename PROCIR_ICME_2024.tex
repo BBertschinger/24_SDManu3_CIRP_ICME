@@ -261,7 +261,7 @@ Instead a holistic approach is needed, which combines in a software driven appro
 
 \section{Process Perception}
 
-Recent research indicate that multipoint photogrammetry might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}.
+Recent research indicate that multipoint photogrammetry (MP) might be a solution for a cost-sensitive high-resolution optical sensors \cite{Hartlieb_2021}.
 
 \begin{figure}[h]
 	\centering
@@ -480,9 +480,9 @@ The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors
 	\mathbf{Q}= \left[x’_m, y’_m, x’_n, y’_n, \beta_{mn}, \beta_{nm}, B_{nm}, f_{n},f_{m}\right]^{\top}
 \end{equation*}
 
- In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aformentioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. \\
+ Here $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aformentioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. \\
  
-The covariance Matrix corresponds to:
+The covariance Matrix of this system \cite{Liu_2021} corresponds to:
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
 	\mathbf{\Lambda_{Q}} = 
@@ -499,48 +499,27 @@ The covariance Matrix corresponds to:
 	\end{bmatrix}
 \end{equation}
 
-Here the non-diagonal elements depict the cross correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. It is argued that this correlation is related to the decreasing visbile surface of the passive markers, which leads to an increas of the effective noise per area.\\
+The non-diagonal elements of Eqn.~\ref{eqn:CovarianceMatrix} signifies the cross correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. It is argued \cite{Liu_2021} that this correlation is related to the decreasing visbile surface of the passive markers, which leads to an increas of the effective noise per area.
 
-It is assumed that in c
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.95\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
+	\caption{Radiation characteristic of an LED and diffusor fibre tip and the corresponding frame of reference.}
+	\label{fig:scat_profile}
+\end{figure}
 
-%\begin{figure}[!htb]
-%	\centering
-%	\begin{subfigure}[b]{0.16\textwidth}
-%		\centering
-%		\includegraphics[width=0.5\linewidth]{graphics/ActiveMarkerSpatialOrientation.eps}
-%		\caption{LEDs and Diffusor Fibre Tips used as active markers and the frane reference and rotation angles}
-%		\label{fig:Ng1} 
-%	\end{subfigure}
-%	\begin{subfigure}[b]{0.30\textwidth}
-%		\centering
-%		\includegraphics[width=1.0\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
-%		\caption{Normalized intensity output for LEDs and Diffusor Fibre Tips}
-%		\label{fig:Ng2}
-%	\end{subfigure}
-%	\caption{Blabla.}
-%\end{figure}
-
-
+Since multipoint detection \cite{Haist2015} uses subresolution active markers instead of passive ones, it cannot be assumed that the cross-correlation factors are similar. Since here the so called signal-to-noise Ratio (SNR) primarily depends on intensity of the spots on the sensor plane. \\
+This signal strength is on the one hand related to the distance between sensor and marker, on the other hand it depends on the spatial orientation of the marker in regards to the receiving optic. As depicted in Fig.~\ref{fig:scat_profile}
+the radiation characteristic of a LED or a diffusor fibre tip \cite{Pan1994} is for most angular orientations non-isotropic.\\
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\columnwidth]{graphics/OpticalSimulation.eps}
-	\caption{blabla}
+	\caption{Simulation procedure for multipoint detection based on a Zemax Black-Box-Model (BBM) and a combination of geometric and Fresnel propagation.}
+	\label{fig:opto-sim}
 \end{figure}
 
-%Established functional model \textit{Linear regression} ${\mathbf{I} + \mathbf{v} = \mathbf{J} \cdot \hat{x}} $
-
-
-%\begin{align}
-%	\label{eqn:LinRegModel}
-%	\hat{\mathbf{I}} = \mathbf{I} + \mathbf{v} = \mathbf{J} \hat{x} \\
-%	\hat{\mathbf{Q}} = \frac{1}{\sigma_{2}^{}}\mathbf{K} = \mathbf{P}
-%\end{align}
-
-can be written in a more general form \cite{Cox2006}:
-
-
-%literature review: with laser tracker: e.\,g.~\cite{Moeller17, Yang17}
+On this basis an optical simulation procedure was created, as can be seen in Fig.~\ref{fig:opto-sim}, to extended previous works \cite{Liu_2021,Di_Leo_2011} about the covariance-analysis for stereoscopic sensors.
 
 
 

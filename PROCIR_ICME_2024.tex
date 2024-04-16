@@ -588,8 +588,10 @@ Some kinematic strategies for increasing the accuracy of industrial robots are a
 Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignment and zero-position offsets of the encoders.
 There are established methods for identifying and compensating these parameters in an offline calibration technique~\cite{Wiest01}.
 To this end, the endeffector pose is measured with an external measurement statically at certain points in the workspace and a certain number of times, and the geometric error parameters are determined in an optimization.
-\textcolor{red}{This offline calibration is usually performed at certain points, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot.
-	From a kinematic point of view, if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Such errors are usually much larger than the measurement accuracy of the presented measurement system. "Sentence Structure too complex"}
+\rem{This offline calibration is usually performed at certain points, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot. From a kinematic point of view, if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Such errors are usually much larger than the measurement accuracy of the presented measurement system.}
+\prop{This offline calibration is usually performed at certain points, hence it does not generalize in the entire workspace.
+	The resulting model is not suited for industrial robot application, but provides a first enhanced kinematic model.
+	 From a kinematic point of view incorporating the apriori manufacturing tolerances into the forward kinematic model yields an error measure in the task space. Such errors are usually much larger than the accuracy of the presented measurement system.}
 %
 \prop{ It also captures the static deformation of the robot structure, which cannot be separated under different loads}
 %

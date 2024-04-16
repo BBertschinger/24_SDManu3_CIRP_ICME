@@ -541,22 +541,22 @@ Therefore, a strategy to place the cameras is presented \prop{in the later part 
 \rem{as a part of the process strategies in the next section.}
 %
 \section{Process Strategies}
-Besides the aforementioned placement of the cameras, incorporating their measurements also opens up new possibilities for a software-defined motion planning of the robot.
+Besides the aforementioned placement of the cameras, incorporating \rem{their measurements} \prop{the metrological error estimate} also opens up new possibilities for a software-defined motion planning of the robot.
 To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation, which is a common approach in the literature~\cite{Choset05}.\\
 In path planning, the path of each of the robots' joint angles is computed, providing the highest possible repeatability.
 In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. actuator dynamics).
-These steps are outlined in this section.
+\rem{These steps are outlined in this section.} \note{remarks on section content not needed, only if anticipation highlights cross-relations.}
 % Kinematic and dynamic strategies need to be separated. 
 % In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
 % Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
 This also allows for a separate consideration of kinematic and dynamic errors of the robot system. 
-Once the configuration of the robot is known from the motion planning steps, also the placement of the cameras for the process perception can be optimized.\rem{as also described in this section.}
+Once the configuration of the robot is known from the motion planning steps, also the placement of the cameras for the process perception can be optimized.\rem{as also described in this section.} \note{see note beforehand}
 %as also described in this section. 
 %
 %
 \subsection{Hardware implementation}
 %
-\textcolor{red}{hier kürzen \\
+\note{hier kürzen \\
 	setup mit Trifocal-Sensor according to section \ref{error_estimate}\\
 	- Calibration exceeds scope of this paper, various techniques exist \cite{Hartley2018}.
 	- CanBus
@@ -589,9 +589,10 @@ Purely geometric errors in a robot can stem from the sources length deviations o
 There are established methods for identifying and compensating these parameters in an offline calibration technique~\cite{Wiest01}.
 To this end, the endeffector pose is measured with an external measurement statically at certain points in the workspace and a certain number of times, and the geometric error parameters are determined in an optimization.
 \rem{This offline calibration is usually performed at certain points, because of which it does not generalize in the entire workspace and is not applicable in the industrial robot application itself, but provides a first enhanced kinematic model of the robot. From a kinematic point of view, if the manufacturing tolerances of the robot are known, incorporating them in the forward kinematics yields an error measure in task space. Such errors are usually much larger than the measurement accuracy of the presented measurement system.}
-\prop{This offline calibration is usually performed at certain points, hence it does not generalize in the entire workspace.
+\prop{This offline calibration is usually performed at certain point and does not generalize the entire workspace.
 	The resulting model is not suited for industrial robot application, but provides a first enhanced kinematic model.
-	 From a kinematic point of view incorporating the apriori manufacturing tolerances into the forward kinematic model yields an error measure in the task space. Such errors are usually much larger than the accuracy of the presented measurement system.}
+	Incorporating the apriori manufacturing tolerances into the forward kinematic model yields an error measure in the task space.
+	It is reasonable to assume these errors are usually much larger than the accuracy of the presented measurement system.}
 %
 \prop{ It also captures the static deformation of the robot structure, which cannot be separated under different loads}
 %

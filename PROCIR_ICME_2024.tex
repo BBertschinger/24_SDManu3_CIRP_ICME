@@ -157,6 +157,7 @@ urlcolor=blue}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=newest}
+\usepackage{float}
 
 \usetikzlibrary{calc,
 %	external,
@@ -203,8 +204,7 @@ decorations.markings
 	\end{abstract}
 	
 	\begin{keyword}
-		Robot Cell Optimization \sep Diffractive Optical Element \sep Photogrammetry \sep Error Analysis \sep Camera Placement \sep	Motion Planing \sep Control Applications
-		
+		Photogrammetry \sep Diffractive Optical Element \sep Error Analysis \sep Camera Placement \sep Robot Cell Optimization   \sep	Motion Planing \sep Control Applications
 	\end{keyword}
 \end{frontmatter}
 %
@@ -214,57 +214,17 @@ Social and ecological changes, as well as the need for
 highly individualized and diversified product ranges
 motivate not only to increase the efficiency of the means
 of production, but also their flexibility of application.
-This is addressed by the concept of Wertstromkinematik \cite{Muehlbeier2020}.
-Herein the factory is not a static setup to produce
-one set of goods, but can be dynamically reconfigured to be a generalized production floor.\\
-Therefore automated production needs not only to
-be more productive, but also as flexible and cost-efficient as possible. This need for flexibility in turn leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
-By the current state of technology this is a dilemma, because state of the art detection system use internal sensor, which require an exceeding level of mechanical stiffness, which in turn leads to high
-acquisition costs. An alternative to internal sensor system are external sensors, such laser trackers and total stations \cite{Moeller17, Yang17}. The costs of these systems make them unsuitable for wide-spread production applications, but are rather used as means for calibration. Instead a holistic approach is needed, as detailed below.
+This is addressed by the concept of Wertstromkinematik \cite{Muehlbeier2020}. Herein, the factory is not a static setup to produce one set of goods, but can be dynamically reconfigured to be a generalized production floor. This need for flexibility leads to an increase of precision, which can be used to either facilitate the production of high-precision components, for human-robot and robot-robot collaboration, as well as a trade-off for higher process speed.\\
+At the current state of the technology, robotic systems use internal sensors, which require an exceeding level of mechanical stiffness. An alternative are external sensors, such as laser trackers and total stations \cite{Moeller17, Yang17}. The costs of these systems make them unsuitable for widespread production applications. This leads to a dilemma between acquisition costs and system flexibility. To overcome this a holistic approach is chosen, as detailed below.
+%
 %
 \subsection{Scope of this Paper}
-The first section \textit{Process Perception} introduces a camera sensor with increased 2D resolution, which facilitates the need for a universal \textit{Metrological Error Model} to assess the probability of detection in a multi camera setup, based on the fusion of stereoscopic sub-sensors and the corresponding confidence ellipsoid. To \textit{Optimize Perception} it becomes mandatory to determine the covariance of triangulation for which a new optical simulation method is introduced.\\
-On this basis a plain optimization criteria for the consequent section \textit{Process Strategies} is derived. Here we define a software-defined motion planing process to be extended by the metrological error model. The \textit{Hardware Implementation}  is introduced, which is composed of an external sensor system and robot and will be used for validation. Based on a \textit{Kinematic Strategies} analysis we asses ways to consider geometric errors and offline calibration techniques to be suffice for the initial \textit{Path Planing}. Based on the previous analysis we introduce a second robot to segment the path in a 4 step process.\\
+The first section \textit{Process Perception} introduces a camera sensor with increased 2D resolution, which facilitates the need for a universal \textit{Metrological Error Model} to assess the probability of detection in a multi camera setup, based on the fusion of stereoscopic sub-sensors and the corresponding confidence ellipsoid. To \textit{Optimize Perception} it becomes mandatory to determine the covariance of triangulation, for which a new optical simulation pipeline is introduced.\\
+On this basis, a distinct optimization criterion for the subsequent section \textit{Process Strategies} is derived. Here we define a motion planning procedure to be extended by the metrological error model. The \textit{Hardware Implementation}  is introduced, which is composed of an external sensor system and robot and will be used for validation. Based on a \textit{Kinematic Strategies} analysis, we assess ways to consider geometric errors and offline calibration techniques to be suffice for the initial \textit{Path Planning}. Based on the previous works, we introduce a second robot to segment the path in a 4-step process.\\
 While the previous steps have minimized the error in the task space, forces and torques lead to undesirable errors in the joint space.
-Hence \textit{Dynamic Strategies} for compensation are evaluated and a predictive model is introduced to trade-off process speed and accuracy. For the \textit{Trajectory Generation} a solution for the optimal control problem is introduced minimize travel time, which can be extended to improve the accuracy by the aforementioned dynamic data-driven error model and the metrological covariance analysis.\\
-The trajectory is the final key-stone for the \textit{Camera Placement}. Here we finalize the set-up and determine the camera positions
-to minimize obscurance and maximize accuracy.
+Hence, \textit{Dynamic Strategies} for compensation are evaluated, and a predictive model is introduced to trade-off process speed and accuracy. For the \textit{Trajectory Generation} a solution for the optimal control problem is introduced that minimizes travel time. The Solution can be extended to improve the accuracy by the aforementioned dynamic data-driven error model and the metrological covariance analysis.\\
+The trajectory is the final key-stone for the \textit{Camera Placement}. Here, we finalize the set-up and determine the camera positions to minimize obscurance and maximize accuracy.
 %
-%\vspace*{2pt}
-%\renewcommand{\labelenumii}{\theenumii}
-%\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
-%\vspace*{8pt}
-%\setlist{nolistsep}
-%   Softare defined motion planing based on metrological error
-% 	Compromise between accuracy & speed -> mp: path planing (kinematic Strategies) & trjacetory generation (dynamci Strategiees)
-%   # Hardware Implementation
-%    	Trifocal Sensor /  CAN-Bus  / sync. meas of camera, joint angles and joint torque / 
-%   # Kinematic Strategies
-% 		geometric errors -> offline calibration techniques-> error measure in task space  // measured endeffector pose -> kinematic model % 		able to measure static defomrmation 
-%   # Path Planing
-%   	Optimal repeatability depends worpiece placement / Two robot approach (one holding - one moving) /  4 Step process / 
-%   # Dynamic Strategies
-% 		forces 6 torques -> traking errors prdominant in joint space -> compensation Gaussian Process dynamic model  to predict dynamic
-% 		erors  / tradeoff accuracy and speed
-%   # Trajectory Generation
-% 		 and accuracy / Combination optimal control problem (optimize travel time) ->  extended via data-driven error model (based on %
-%		 covariance) also optimizes accuracy
-%   # Camera Placement
-%        minimize obstructions and low measurement accuracy -> show the benefit of a unified error model -> no trade off between fiel of
-%		% view and smallest singulat value
-%
-% # Process Perception
-%	New Sensor Multipoint / Increase in 2D Resolution / Find Solution f. Correlation Problem w. Regards to Triangulation Error for multicamera system
-% 	# Metrological Error
-%		Multicamera System -> Composed of Nsub sStereoscopic cameras -> Combination of error elipsoids
-%   # Optimized Perception
-%   	Covariance exists -> Simulation Procedure for Point estimate accuracy, Combination of cameras under consideration of
-%		measurement error leads to increas in accuracy -> number of obstruction needs to be minimized during camera placemenz
-% # Process Strategies
-%
-%        
-% # Conclusion
-% # Outlook
 \section{Process Perception}
 %
 Recent research indicates that multipoint photogrammetry might be a solution to realize cost-efficient high-resolution optical sensors \cite{Hartlieb_2021}.
@@ -272,12 +232,12 @@ The schematics of this measuring method is shown in Fig.~\ref{fig:MeasSys_Errors
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{graphics/error_sources.eps}
-	\caption{Error sources in a robotic manufacturing system, which can be compensated using an external multipoint  sensor are marked in green.}
+	\caption{Error sources in a robotic manufacturing system, which can be compensated using an external multipoint  sensor, are marked in green.}
 	\label{fig:MeasSys_Errors}
 \end{figure}
-In this method a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linearly independent optical copies of an active marker.
+In this method, a Diffractive Optical Element (DOE) is used in succession of an imaging lens to create multiple linearly independent optical copies of an active marker.
 It has been shown \cite{Hartlieb_2021} that the variance of the mean positional detection error of these points $\sigma_{x’y’}^2$ detected on the imaging sensor is proportional to the number of copies $n_{pt}$ created by the DOE.\\
-However, this increase in planar signal detection is in itself not sufficient for high precision 3D localization. One or more additional sensors are needed to triangulate the 2D point positions on the imaging sensors to it’s point of origin in the object space. \\
+However, this increase in planar signal detection is in itself not sufficient for high precision 3D localization. One or more additional sensors are needed to triangulate the 2D point positions on the imaging sensors to its point of origin in the object space. \\
 For a pinhole camera system the relation between object and imaging point is determined by the camera matrix $\mathbf{C}$, which is composed of the intrinsic $\mathbf{K}$ and  and extrinsic camera parameters $[\mathbf{R}, \mathbf{t}]$, which comprise information about the spatial orientation, as well as the information about distance to image plane and
 image scale factor. This leads to the well established collinear equation \cite{Luhmann2003}, whereby $l_n$ is the collinear factor, which describes the line of sight between the object and image point.
 %
@@ -301,9 +261,9 @@ image scale factor. This leads to the well established collinear equation \cite{
 		0
 	\end{bmatrix}
 \end{align}
-Subsequently the correspondance between object position and image points, known as triangulation, can be defined for multiple cameras according to:
 %
-%https://cookierobotics.com/007/
+Subsequently, the correspondence between object position and image points, known as triangulation, can be defined for multiple cameras according to:
+%
 \begin{equation}
 	\label{eqn:triangulation}
 	\begin{bmatrix}
@@ -326,22 +286,19 @@ Subsequently the correspondance between object position and image points, known 
 		0 \\
 		\vdots \\
 		0
-	\end{bmatrix},
+	\end{bmatrix}
 \end{equation}
 %
-where $C_{m,n}$ corresponds to the $m$-th row of the $n$-th camera matrix.
-In case the extrinsic and intrinsic camera parameters are fully known, the equation system can be solved by least-square techniques \cite{Ahn2004}.
-%
-Whereby $C_{m,n}$ corresponds to the m-th row of the n-th camera matrix.
-In case the extrinsic and intrinsic camera parameters are fully known, the system can be solved by the least-square techniques \cite{Ahn2004}.
-%
+Where $C_{m,n}$ corresponds to the $m$-th row of the $n$-th camera matrix.
+In case the extrinsic and intrinsic camera parameters are fully known, the equation system can be solved by least-square techniques \cite{Ahn2004}.\\
 It is important to note that this relationship can also be described by the notation for projective reconstruction \cite{Hartley2018}:\\
+%
 \begin{equation}
 	\label{eqn:ProjectiveReconstruction}
 	x’^{\top}\mathbf{F}x
 \end{equation}
 %
-Here the fundamental matrix $\mathbf{F}$ is a $3\times 3$ tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems. Instead of a Tensor representation the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form\\
+Here, the fundamental matrix $\mathbf{F}$ is a $3\times 3$ tensor, which scales in rank according to the number of cameras in the system. Due to the increasing complexity and computing effort, this method is usually constraint to three cameras systems. Instead of a Tensor representation, the triangulation relation (\ref{eqn:triangulation}) is stated in implicit form\\
 %
 \begin{equation}
 	\label{eqn:ImplicitFrom}
@@ -351,16 +308,20 @@ Here the fundamental matrix $\mathbf{F}$ is a $3\times 3$ tensor, which scales i
 	\end{aligned}
 \end{equation}
 %
-The vector of the input Quantities $\mathbf{Q} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\mathbf{P} = [x’_1,y’_1, \dots ,x’_n,y’_n]^{\top}$ and the vector of camera parameters, $\mathbf{C} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\mathbf{M} =  [x,y,z]^{\top}$ in cartesian form. The uncertainty of the output $\mathbf{M}$ can be approximated by the 1st order Taylor series with regards to input parameters:\\
+The vector of the input Quantities $\mathbf{Q} = \left[q_1,\dots, q_{n}\right]^{\top}$ is composed of the vector of image points $\mathbf{P} = [x’_1,y’_1, \dots ,x’_n,y’_n]^{\top}$ and the vector of camera parameters, $\mathbf{C} = \left[ \mathbf{C}_1 , \dots , \mathbf{C}_n \right]^{\top}$, which in turn define the object point coordinates $\mathbf{M} =  [x,y,z]^{\top}$ in cartesian form. The uncertainty of the output $\mathbf{M}$ can be approximated by the 1st order Taylor series with regard to the input parameters:\\
 %
 \begin{equation}
 	\sigma^2 = \sum_{i=1}^{n}\sum_{j=1}^{n} \left(\frac{\delta g}{\delta q_i}\right) \left(\frac{\delta g}{\delta q_j}\right) \mathrm{cov}(q_i, q_j) 
 \end{equation}
-where $\mathrm{cov}(q_i, q_j) $ is the covariance between two input parameters. More commonly it is known in the form~\cite{Cox2006}  
+%
+Where $\mathrm{cov}(q_i, q_j) $ is the covariance between two input parameters. More commonly, it is known in the form~\cite{Cox2006}
+%
 \begin{equation}
-	\sigma^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}.
+	\sigma^2 = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
-$\mathbf{J_{Q}}$ is known as design or Jacobi matrix of the partial derivatives of $g\left(\mathbf{Q},\mathbf{M}\right)$ with respect to the input quantities $\mathbf{Q}$, and $\mathbf{\Lambda_Q}$ is the covariance matrix of said input values. The uncertainty of the input parameters is directly tied to the uncertainty of the output parameters \\
+%
+$\mathbf{J_{Q}}$ is known as design or Jacobi matrix of the partial derivatives of $g\left(\mathbf{Q},\mathbf{M}\right)$ with respect to the input quantities $\mathbf{Q}$, and $\mathbf{\Lambda_Q}$ is the covariance matrix of said input values. The uncertainty of the input parameters is directly tied to the uncertainty of the output parameters\\
+%
 \begin{equation}
 	\mathbf{J_{M}}\mathbf{\Lambda_{M}}\mathbf{J_{M}}^{\top} = \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}
 \end{equation}
@@ -369,12 +330,12 @@ The matrix $\mathbf{\Lambda_{M}}$ is computed as
 \begin{equation}
 	\mathbf{\Lambda_{M}} = \mathbf{J_{M}^{\Delta}} \left( \mathbf{J_{Q}}\mathbf{\Lambda_{Q}}\mathbf{J_{Q}}^{\top}\right) \left(\mathbf{J_{M}^{\Delta}}\right)^{\top}
 \end{equation}
-with $ \mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}$ being the Moore-Penrose pseudo inverse matrix of $\mathbf{J_M}$.
+With $ \mathbf{J_{M}^{\Delta}} = \left( \mathbf{J_{M}^{\top}} \mathbf{J_{M}^{}} \right)^{-1}\mathbf{J_{M}^{\top}}$ being the Moore-Penrose pseudo inverse matrix of $\mathbf{J_M}$.
 %
 \subsection{Metrological Error Model}
 \label{met_err_model}
-%
 The design matrices for the input $\mathbf{J_{Q}}$ and output quantities $\mathbf{J_{M}}$ can be established by a various calibration processes \cite{Hartley2018}.  A detailed description of these methods exceed the scope of this paper. Usually a series of known markers is placed in the object space \cite{Luhmann2003}. In case of arbitrary camera positions the minimum number of marker needed corresponds to
+%
 \begin{equation}
 	\label{eqn:NumCalibPoints}
 	\begin{aligned}
@@ -382,19 +343,19 @@ The design matrices for the input $\mathbf{J_{Q}}$ and output quantities $\mathb
 		& \text{with: } u_n = 6\text{, } u_p = 3\text{, } u_c = 6 
 	\end{aligned}
 \end{equation}
-
-Whereby $u_n$,$u_p$,$u_p$ is the minimum number of unknown parameters to be resolved and $n_{pictures}$,$n_{points}$,$n_{cameras}$, is the 
-number of pictures, points per picture and cameras within the system. It becomes evident, that an increase in the number of cameras $n_{\text{cameras}}$ leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversely it becomes difficult to determine the metrological error of such as system.\\
 %
-\begin{figure}[h]
+Whereby $u_n$,$u_p$,$u_p$ is the minimum number of unknown parameters to be resolved and $n_{pictures}$,$n_{points}$,$n_{cameras}$, is the 
+number of pictures, points per picture and cameras within the system. It becomes evident, that an increase in the number of cameras $n_{\text{cameras}}$ leads to increasing requirements for the means of calibration (\ref{eqn:NumCalibPoints}) and computational complexity, signified by the increasing rank of the fundamental matrix (\ref{eqn:ProjectiveReconstruction}). Conversely, it becomes difficult to determine the metrological error of such as system.
+%
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.95\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
-	\caption{Top view on a photogrammetric sensor in trifocal configuration under simplified converging geometric constraints, whereby the optical axes $OA$ of three cameras systems intersect in one point.		
-		It can also be regarded as as composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystem corresponds in shape to an ellipsoid $\mathbf{E}$.}
+	\includegraphics[width=0.90\linewidth]{graphics/MixedErrorCuttingGeometry.eps}
+	\caption{Top view of a photogrammetric sensor in trifocal configuration under simplified converging geometric constraints, whereby the optical axes $OA$ of three cameras systems intersect in one point.		
+		It can also be regarded as a composition of $n_{sub}=3$ stereoscopic subsystems, whereby the measurement error of each subsystem corresponds in shape to an ellipsoid $\mathbf{E}$.}
 	\label{fig:sub_sensors}
 \end{figure}
 %
-Hence an alternative approach is needed. As depicted in  Fig.~\ref{fig:sub_sensors} a photogrammetric sensor can also be described as a combination of multiple independent stereoscopic sub-sensors.
+Hence, an alternative approach is needed. As depicted in  Fig.~\ref{fig:sub_sensors} a photogrammetric sensor can also be described as a combination of multiple independent stereoscopic sub-sensors.
 %
 \begin{equation}
 	\label{eqn:CovarianceMatrix}
@@ -420,10 +381,8 @@ For these subsensors the metrological error can be described as an ellipsoid $\m
 	\end{bmatrix}.
 \end{equation}
 %
-The normalized eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ correspond to the direction of the semi-axis of the ellipsoid and the square root of product of the eigenvalues $\lambda_i$ and the quantile of the $\chi^2_{3,1-\alpha} $ distribution with regards to the probability of safety $1-\alpha$ \cite{Pelzer1995}.
+The normalized eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ correspond to the direction of the semi-axis of the ellipsoid and the square root of product of the eigenvalues $\lambda_i$ and the quantile of the $\chi^2_{3,1-\alpha} $ distribution with regard to the probability of safety $1-\alpha$ \cite{Pelzer1995}.
 %
-%https://cookierobotics.com/007/
-%https://en.wikipedia.org/wiki/Weighted_arithmetic_mean
 \begin{equation}
 	\mathbf{E} =
 	\begin{bmatrix}
@@ -442,14 +401,16 @@ The normalized eigenvectors $\mathbf{\hat{S}}_i = \mathbf{S}_i / |\mathbf{S}|$ c
 		\sqrt{\lambda_3^{}}
 	\end{bmatrix}
 \end{equation}
+%
 Since the angular orientation of the ellipsoids is non-isotropic, the world coordinate system
 is defined as frame of reference. Thereby not the semi-axes, but the intersection with the coordinate
-axes is used for further computation. Hence the metrological error along the unit vectors equals
+axes is used for further computation. Hence, the metrological error along the unit vectors equals
+%
 \begin{equation}
 	\sigma_j = \sum_{j=1}^{3} \left( e_{ij} + e_{ij} + e_{ij}\right)
 \end{equation}
 %
-Subsequently the metrological error for each subsystem $\sigma_{j,n}$ can be used to combine and improve the related outcomes $\mathbf{M}_n$ by calculating the weighted arithmetic mean \cite{Price1972}
+Subsequently, the metrological error for each subsystem $\sigma_{j,n}$ can be used to combine and improve the related outcomes $\mathbf{M}_n$ by calculating the weighted arithmetic mean \cite{Price1972}
 \begin{equation}
 	\mathbf{\bar{M}}_{j} = \frac{\sum_{n=1}^{n_{sub}} \left( \mathbf{M}_{n,j} \cdot \sigma_{n,j}^{-2} \right)}{\sum_{n=1}^{n_{sub}} \sigma_{n,j}^{-2}}
 \end{equation}
@@ -459,41 +420,18 @@ The resulting error corresponds to
 	\label{eqn:sum_noise}
 \end{equation}
 %
-%
 \subsection{Optimized Perception}\label{subsec:OptPerception}
-It has been remarked in the literature~\cite{Di_Leo_2011} that a covariance exists between the input quantities of a stereoscopic system and it is related to a combination of marker and the image processing algorithm used for detection.
-Only recently, for the case of a simplified stereoscopic sensor under converging constraints and passive markers, simulation results have experimentally been verified.
+It has been remarked in the literature~\cite{Di_Leo_2011} that a covariance exists between the input quantities of a stereoscopic system, and it is related to a combination of marker and the image processing algorithm used for detection.
+Only recently, for the case of a simplified stereoscopic sensor under converging constraints and passive markers, simulation results have experimentally been verified.\\
 Liu et al.~\cite{Liu_2021} showed that the optimum camera orientation angle $\beta_{mn}$ is in the range of $60^{\circ} -\, 80^{\circ}$, not $30^{\circ} \text{-}\, 50^{\circ}$ \cite{Yang2018,Fooladgar2013,Sankowski2017}. The input quantities for such a system are depicted in Fig.~\ref{fig:sub_sensors} and read
+%
 \begin{equation*}
 	\mathbf{Q}= \left[x’_m, y’_m, x’_n, y’_n, \beta_{mn}, \beta_{nm}, B_{nm}, f_{n},f_{m}\right]^{\top}
 \end{equation*}
-In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length. 
-%\\The covariance matrix becomes:
-%\begin{equation}
-%	\label{eqn:CovarianceMatrix}
-%	\mathbf{\Lambda_{Q}} = 
-%	\begin{bmatrix}
-	%		\sigma_{\delta_1}^2  & 0 & 0 & 0 & \sigma_{(\delta_1,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-	%		0  & \sigma_{\delta_2}^2 & 0 & 0 & \sigma_{(\delta_2,\delta_5)}^2 & 0 & 0 & 0 & 0 \\
-	%		0 & 0 & \sigma_{\delta_3}^2 & 0 & 0 & \sigma_{(\delta_3,\delta_6)}^2 & 0 & 0 & 0 \\
-	%		0 & 0 & 0 & \sigma_{\delta_4}^2 & 0 & \sigma_{(\delta_4,\delta_6)}^2 & 0 & 0 & 0 \\
-	%		\sigma_{(\delta_5,\delta_1)}^2 & \sigma_{(\delta_5,\delta_2)}^2 & 0 & 0 & \sigma_{\delta_5}^2 & 0 & 0 & 0 & 0 \\
-	%		0 & 0 & \sigma_{(\delta_6,\delta_3)}^2 & \sigma_{(\delta_6,\delta_4)}^2 & 0 & \sigma_{\delta_6}^2 & 0 & 0 & 0 \\
-	%		0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_7}^2 & 0 & 0 \\
-	%		0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_8}^2 & 0 \\
-	%		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sigma_{\delta_9}^2
-	%	\end{bmatrix}
-%\end{equation}
-The off-diagonal elements of the resulting covariance matrix $\mathbf{\Lambda_{Q}}$ signify high degrees of cross-correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. This is related to the decreasing visible surface of the passive markers, which leads to an increase of the effective noise per area.
 %
-%\begin{figure}[!htb]
-%	\centering
-%	\includegraphics[width=0.9\linewidth]{graphics/ScatteringProfile_DiffuseFibreTip.eps}
-%	\caption{Radiation characteristic of an LED and diffusor fiber tip and the corresponding frame of reference.}
-%	\label{fig:scat_profile}
-%\end{figure}
-%
-Since multipoint detection \cite{Haist2015} uses sub-resolution active markers instead of passive ones, it cannot be assumed that the cross-correlation factors are similar. Since here the so called signal-to-noise ratio (SNR) primarily depends on intensity of the spots on the sensor plane.
+In this case $x’, y’$ is the pixel position of the marker on the sensor plane, $\beta$ is the aforementioned camera orientation angle, $B$ is the distance between the pinhole position and $f$ is the focal length.\\
+The off-diagonal elements of the resulting covariance matrix $\mathbf{\Lambda_{Q}}$ signify high degrees of cross-correlation between the camera orientation angle $\beta$ and the point position $x,y$ on the detector. This is related to the decreasing visible surface of the passive markers, which leads to an increase of the effective noise per area.\\
+Since multipoint detection \cite{Haist2015} uses sub-resolution active markers instead of passive ones, it cannot be assumed that the cross-correlation factors are similar. Since here, the so-called signal-to-noise ratio (SNR) primarily depends on intensity of the spots on the sensor plane.
 %
 \begin{figure}[!htb]
 	\centering
@@ -501,16 +439,13 @@ Since multipoint detection \cite{Haist2015} uses sub-resolution active markers i
 	\caption{Simulation procedure for multipoint detection based on a black-box-model (BBM) and a combination of geometric and Fresnel propagation.}
 	\label{fig:opto-sim}
 \end{figure}
-This signal strength is on the one hand related to the distance between sensor and marker \cite{dumbleton1955}, on the other hand it depends on the spatial orientation of the marker in regards to the receiving optic. The radiation characteristic of a LED or a diffusor fiber tip \cite{Pan1994} is for most angular orientations non-isotropic.\\
-%
+This signal strength is on the one hand related to the distance between sensor and marker \cite{dumbleton1955}, on the other hand it depends on the spatial orientation of the marker with regard to the receiving optic. The radiation characteristic of a LED or a diffuser fiber tip \cite{Pan1994} is for most angular orientations non-isotropic.\\
 On this basis an optical simulation procedure was created, as can be seen in Fig.~\ref{fig:opto-sim}, to extended previous works \cite{Liu_2021,Di_Leo_2011} about the covariance-analysis for stereoscopic sensors.\\
-%
-In this case the extrinsic camera parameters and the marker coordinates in space and orientation are used to derive
+Here, the extrinsic camera parameters and the marker coordinates in space and orientation are used to derive
 the input vector for the simulation, which comprises information about the normalized intensity distribution $\bar{I}$, the distance to marker $z$ and the field angles $\omega$ and $\theta$. A black box model of the lens is used to compute the complex wavefront distribution at the DOE-position $\mathbf{U}_m$, which is combined with the DOE phase distribution $\mathbf{U}_{DOE}$ and a spherical wavefront $\mathbf{U}_{S}$ to accommodate for the distance of the DOE to the imager. This wavefront is propagated to the sensor by the Fresnel method \cite{Goodman2005}. The fixed $\mathbf{I}_{DNSU/PRNU}$ and random $\mathbf{I}_{DCN/SHOT}$ noise patterns are superimposed onto the derived sensor intensity distribution $\mathbf{I}_m$ and the point coordinates $\mathbf{P}_{x’,y’}$ are derived via multipoint detection.
 Finally, the point position is varied by an estimate of the atmospheric disturbance.\\
-%
 As can be seen from Eq.~\ref{eqn:sum_noise}, one can state that more cameras lead to a smaller metrological error.
-The restriction, however is, that they need to be placed such that they can perceive the target at all -- only then more cameras lead to an improved perception.
+However, the restriction is  that they need to be placed such that they can perceive the target at all -- only then an increase of in the number of cameras used lead to an improved perception.\\
 Therefore, a strategy to place the cameras is presented in the later part of the next section.
 %
 \section{Process Strategies}
@@ -518,12 +453,9 @@ Besides the aforementioned placement of the cameras, incorporating the metrologi
 To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation, which is a common approach in the literature~\cite{Choset05}.\\
 In path planning, the path of each of the robots' joint angles is computed, providing the highest possible repeatability.
 In trajectory generation, the previously computed path is time-indexed so that the robot can move along the given path in minimum time while taking into account the dynamic constraints of the robot such as actuator dynamics.
-% Kinematic and dynamic strategies need to be separated. 
-% In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
-% Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
 This also allows for a separate consideration of kinematic and dynamic errors of the robot system. 
 Once the configuration of the robot is known from the motion planning steps, also the placement of the cameras for the process perception can be optimized as described in this section as well. 
-
+%
 \subsection{Hardware implementation}
 The optical measurement system is set up with the trifocal sensor according to section~\ref{met_err_model}.
 The camera measurements are processed on a computer, which communicates via a CAN bus with a rapid prototyping system controlling the robot.
@@ -531,8 +463,7 @@ This enables synchronized measurements of the camera, joint angle encoders, and 
 The rapid prototyping system runs an interface through which the reference values for the joint angular position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller.\\
 In the present work, the robot joints are realized as pneumatic direct drives, which has the advantage that the drive angle can be directly measured without backlash. 
 The disadvantage, however, is that the drive dynamics are slower than of electric drives. Strong friction effects occur, which, like gearboxes in electric robots, impair precision, so that for both robot types there result dynamic errors in the joint angles. 
-
-
+%
 \subsection{Kinematic strategies}
 Some kinematic strategies for increasing the accuracy of industrial robots are already well-established.
 Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignment and zero-position offsets of the encoders and can be identified and compensated in an offline calibration technique~\cite{Wiest01}.
@@ -546,17 +477,15 @@ It is reasonable to assume these errors are usually much larger than the accurac
 There are several error sources impeding the accuracy of a robotic manufacturing system.
 An overview of these sources is depicted in Fig.~\ref{fig:MeasSys_Errors}.
 Most of these errors can be captured with the present measurement system and from that be compensated.
-%
 This leaves the finite precision of the robot itself, whose contribution can not be compensated but only mitigated.
 Previous works such as \cite{previous_work} have shown that the optimal repeatability of a path is dependent on the workpiece placement.
 
 This means that we can use a second workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
 It might be tempting to try to find a continuous trajectory of this second robot to minimize the error.
 However this machine also suffers from finite joint precision, which introduces additional errors while moving.
-It is therefore better if the workpiece holding robot moves to a fixed position before the primary robot starts moving~\cite{stroke_division}. %\rem{
-%This leads to a two step process similar to the one described in \cite{stroke_division}.}
-\\
-Here the authors propose a four-step process to path planning:
+It is therefore better if the workpiece holding robot moves to a fixed position before the primary robot starts moving~\cite{stroke_division}. 
+
+Here, the authors propose a four-step process to path planning:
 \begin{enumerate}
 	\setlength\itemsep{-0.5em}
 	\item Cut path into multiple segments
@@ -566,19 +495,12 @@ Here the authors propose a four-step process to path planning:
 \end{enumerate}
 The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
 However instead of using the pose optimization algorithm described in \cite{stroke_division} we utilize the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
-% Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
-% Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
-%
-% The optimal Repeatability is dependent on the optimized kinematic parameters.
-%
-%
 %
 \subsection{Dynamic Strategies}\label{subsec:dynError}
 In addition to kinematic errors, there occur also dynamic errors resulting from forces and torques in the robotic system.
 Resulting trajectory tracking errors can be captured in the optical measurement of the robot end effector, and for example be compensated by a classical task space controller~\cite{Siciliano09}.
 Tracking errors are more systematic in joint space than in task space.
-In the present robot with direct drives, the joint angle tracking error is directly measured, while for other drive types this can be realized with secondary encoders~\cite{Mesmer22}.
-
+In the present robot with direct drives, the joint angle tracking error is directly measured, while for other drive types this can be realized with secondary encoders~\cite{Mesmer22}.\\
 In order to not only compensate such errors by feedback but also to take them into account during trajectory generation, a dynamic error model is desirable.
 There is a large amount of literature on learning either black-box models~\cite{NguyenTuong08b} or data-driven supplements to parametric models in the form of a gray-box model.
 In the following, a dynamic model for the control error of an exemplary drive is introduced.
@@ -611,7 +533,7 @@ In this way, the benefits can be weighted against the additional effort required
 Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
 Here we see that the system always tries to find a trade off between minimizing the field of view angle while trying to maximize the smallest singular value.
 This is shown in Fig.~\ref{fig:fov_sv_conflict}.
-In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
+In a unified error description, this problem does not exist, and the system can be optimized for the best possible accuracy.
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.95\columnwidth]{graphics/fov_sv_conflict.png}
@@ -619,19 +541,16 @@ In a unified error description this problem does not exist and the system can be
 		Comparing both, one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
 	\label{fig:fov_sv_conflict}
 \end{figure}
-
-%
 %
 \section{Conclusion and Outlook}
-%
 A new software-driven production process has been introduced to \rem{facilitate the highest level of manufacturing precision.}
 \prop{achieve a high manufacturing precision in flexible robotic production systems.}
 To this end, a metrological error model for a photogrammetric sensor system was presented and kinematic and dynamic strategies for motion planning were outlined. By means of robot-robot collaboration and path segmentation the kinematic error was minimized. This path was then translated into a trajectory by minimizing the travel time. On the basis of the GP dynamic model and the covariance of triangulation, the system accuracy can be further improved. Finally, a camera placement strategy based on said trajectory was introduced, which minimizes obscurance and avoids areas of low accuracy. By this means the authors are confident to achieve similar levels of accuracy compared to today's laser tracker and total stations.\\
 So far the introduced optical simulation model has only been verified qualitatively. Although this is a reasonable base for the current state of development a quantitative comparison is needed for verification. 
-We will be able to experimentally verify the accuracy of our model on the existing nanopositioning machine \rem{NPMM-200} \prop{from} \cite{Jaeger2016}, 
+We will be able to experimentally verify the accuracy of our model on the existing nanopositioning machine \rem{NPMM-200} \prop{from} \cite{Jaeger2016}.
 %
 \section*{Acknowledgements}
-The authors would like to thank the Ministry of Science, Research and Arts of the Federal State of Baden-Württemberg for the financial support of the projects within the InnovationsCampus Future Mobility (ICM).
+The authors would like to thank the Ministry of Science, Research and Arts of the Federal State of Baden-Württemberg for the financial support of the projects within the InnovationCampus Future Mobility (ICM).
 %
 \bibliographystyle{elsarticle-harv}
 \bibliography{sources}

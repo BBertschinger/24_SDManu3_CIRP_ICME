@@ -224,7 +224,7 @@ acquisition costs. An alternative to internal sensor system are external sensors
 %
 \subsection{Scope of this Paper}
 The first section \textit{Process Perception} introduces a camera sensor with increased 2D resolution, which facilitates the need for a universal \textit{Metrological Error Model} to assess the probability of detection in a multi camera setup, based on the fusion of stereoscopic sub-sensors and the corresponding confidence ellipsoid. To \textit{Optimize Perception} it becomes mandatory to determine the covariance of triangulation for which a new optical simulation method is introduced.\\
-On this basis a plain optimization criteria for the consequent section \textit{Process Strategies} is derived. Here we define a software defined motion planing process to be extended by the metrological error model. The \textit{Hardware Implementation}  is introduced, which is composed of an external sensor system and robot and will be used for validation. Based on a \textit{Kinematic Strategies} analysis we asses ways to consider geometric errors and offline calibration techniques to be suffice for the initial \textit{Path Planing}. Based on the previous analysis we introduce a second robot to segment the path in a 4 step process.\\
+On this basis a plain optimization criteria for the consequent section \textit{Process Strategies} is derived. Here we define a software-defined motion planing process to be extended by the metrological error model. The \textit{Hardware Implementation}  is introduced, which is composed of an external sensor system and robot and will be used for validation. Based on a \textit{Kinematic Strategies} analysis we asses ways to consider geometric errors and offline calibration techniques to be suffice for the initial \textit{Path Planing}. Based on the previous analysis we introduce a second robot to segment the path in a 4 step process.\\
 While the previous steps have minimized the error in the task space, forces and torques lead to undesirable errors in the joint space.
 Hence \textit{Dynamic Strategies} for compensation are evaluated and a predictive model is introduced to trade-off process speed and accuracy. For the \textit{Trajectory Generation} a solution for the optimal control problem is introduced minimize travel time, which can be extended to improve the accuracy by the aforementioned dynamic data-driven error model and the metrological covariance analysis.\\
 The trajectory is the final key-stone for the \textit{Camera Placement}. Here we finalize the set-up and determine the camera positions
@@ -517,7 +517,7 @@ Therefore, a strategy to place the cameras is presented in the later part of the
 Besides the aforementioned placement of the cameras, incorporating the metrological error estimate as referenced in section \ref{subsec:OptPerception} also opens up new possibilities for a software-defined motion planning.
 To find a compromise between accuracy and speed, the motion planning problem is divided into path planning and path trajectory generation, which is a common approach in the literature~\cite{Choset05}.\\
 In path planning, the path of each of the robots' joint angles is computed, providing the highest possible repeatability.
-In trajectory generation, the previously computed path is indexed in time so that the robot can follow the given paths as quickly as possible such that the process speed is maximized, taking into account dynamic constraints of the robot (e.g. actuator dynamics).
+In trajectory generation, the previously computed path is time-indexed so that the robot can move along the given path in minimum time while taking into account the dynamic constraints of the robot such as actuator dynamics.
 % Kinematic and dynamic strategies need to be separated. 
 % In the field of robot trajectory generation, this has lead to the path speed decomposition framework~\cite{Choset05}, which is well known in the literature. 
 % Therein, first a path is generated kinematically, and second time-indexed considering the robot dynamics. 
@@ -527,24 +527,24 @@ Once the configuration of the robot is known from the motion planning steps, als
 \subsection{Hardware implementation}
 The optical measurement system is set up with the trifocal sensor according to section~\ref{met_err_model}.
 The camera measurements are processed on a computer, which communicates via a CAN bus with a rapid prototyping system controlling the robot.
-This enables synchronized measurements of the camera, joint angles (encoders) and joint torques.
-The rapid prototyping system runs an interface through which the reference values for the joint space position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller.\\
+This enables synchronized measurements of the camera, joint angle encoders, and joint torques.
+The rapid prototyping system runs an interface through which the reference values for the joint angular position, velocity and acceleration are directly communicated to the built-in robot trajectory tracking controller.\\
 In the present work, the robot joints are realized as pneumatic direct drives, which has the advantage that the drive angle can be directly measured without backlash. 
-The disadvantage, however, is that the drive dynamics are slower than of electric drives. Strong friction effects occur, which means that they have a similar effect on precision as gears in electric drives, so that for both robot types there result dynamic errors in the joint angles. 
+The disadvantage, however, is that the drive dynamics are slower than of electric drives. Strong friction effects occur, which, like gearboxes in electric robots, impair precision, so that for both robot types there result dynamic errors in the joint angles. 
 
 
 \subsection{Kinematic strategies}
 Some kinematic strategies for increasing the accuracy of industrial robots are already well-established.
 Purely geometric errors in a robot can stem from the sources length deviations of links, axis misalignment and zero-position offsets of the encoders and can be identified and compensated in an offline calibration technique~\cite{Wiest01}.
-To this end, the end effector pose is measured with an external measurement statically at certain points in the workspace a certain number of times, and the geometric error parameters are determined in an optimization.
+To this end, the end effector pose is measured with an external measurement system statically at certain points in the workspace a certain number of times, and the geometric error parameters are determined in an optimization.
 This procedure does not generalize well in the entire workspace and can not be used during the industrial robot application itself, but provides a first enhanced kinematic model of the robot.
 Such calibration also captures the static deformation of the robot structure, which is however load dependent, so that an a priori calibration measurement may not generalize well. This is another motivation for adding an external optical measurement system during robot operation.
 Incorporating the a priori manufacturing tolerances into the forward kinematic model yields an error measure in the task space.
-It is reasonable to assume these errors are usually much larger than the accuracy of the presented measurement system. It also captures the static deformation of the robot structure, which cannot be separated under different loads.
+It is reasonable to assume these errors are usually much larger than the accuracy of the presented measurement system.
 %
 \subsection{Path Planning}\label{subsec:PathPlanning}
 There are several error sources impeding the accuracy of a robotic manufacturing system.
-An overview of these sources can be seen in Fig.~\ref{fig:MeasSys_Errors}.
+An overview of these sources is depicted in Fig.~\ref{fig:MeasSys_Errors}.
 Most of these errors can be captured with the present measurement system and from that be compensated.
 %
 This leaves the finite precision of the robot itself, whose contribution can not be compensated but only mitigated.
@@ -552,11 +552,11 @@ Previous works such as \cite{previous_work} have shown that the optimal repeatab
 
 This means that we can use a second workpiece holding robot to reposition the workpiece in such a way that the optimal repeatability is achieved.
 It might be tempting to try to find a continuous trajectory of this second robot to minimize the error.
-However this machine also suffers from finite joint precision, while moving these will introduce additional errors.
-It is therefore better if the workpiece holding robot moves to a fixed position before the primary robot starts moving \prop{\cite{stroke_division}}. %\rem{
+However this machine also suffers from finite joint precision, which introduces additional errors while moving.
+It is therefore better if the workpiece holding robot moves to a fixed position before the primary robot starts moving~\cite{stroke_division}. %\rem{
 %This leads to a two step process similar to the one described in \cite{stroke_division}.}
-\prop{\\}
-Here the authors propose a 4 step process to path planning:
+\\
+Here the authors propose a four-step process to path planning:
 \begin{enumerate}
 	\setlength\itemsep{-0.5em}
 	\item Cut path into multiple segments
@@ -565,7 +565,7 @@ Here the authors propose a 4 step process to path planning:
 	\item Apply the new pose to the original segments
 \end{enumerate}
 The division of the path into multiple segments was performed by identifying turning points using path simplification algorithms \cite{stroke_division}.
-However instead of using the pose optimization algorithm described in \cite{stroke_division} we use the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
+However instead of using the pose optimization algorithm described in \cite{stroke_division} we utilize the problem formulation of \cite{previous_work} since it allows us to integrate more constraints which are later used for the joint trajectory optimization.
 % Hier ein Experiment durchführen mit den FESTO Robotern und zeigen wie sich die Genauigkeit gegen die Anzahl der Segmente verhält.
 % Hier kann man dann als nächstes die Genauigkeit gegen die Taktzeit auftragen wenn man die Anzahl der Segmente variiert. Hier wird sich Pareto Kurve ergeben.
 %
@@ -585,50 +585,50 @@ In the following, a dynamic model for the control error of an exemplary drive is
 Since hysteresis occurs in the drives and dynamic effects are to be captured, not only the current position, velocity and acceleration state of the drive but also the motion history several samples back is included. 
 To this end, a Gaussian process (GP) dynamic model is set up.
 It is trained with desired reference values instead of actual values to be able to predict dynamic errors for given trajectories.
-For training, the same path is executed at different speeds. 
-The GP is then used to predict the dynamic error when executing the path at other previously unseen speed scalings.
+For training, the same path is executed at different velocity profiles. 
+The GP is then used to predict the dynamic error when executing the path at other previously unseen velocity profiles inside of the training range.
 This dynamic error model can then be incorporated in an optimization to allow for a trade-off between process speed and accuracy.
 %
 \subsection{Trajectory Generation}
-In section~\ref{subsec:PathPlanning} the path has been determined under the premise of optimal repeatability. Hereon a trajectory is generated to maximize the robot’s travel speed and thus the process time.
-To generate the trajectory the already determined path of all joint angles is parameterized and thereby all individual paths are implicitly synchronized.
+In section~\ref{subsec:PathPlanning} the path has been determined under the premise of optimal repeatability. From this path, a trajectory is generated with the aim of minimizing the overall execution time and thus the process time.
+To generate the trajectory the already determined path of all joint angles is parameterized by one path parameter, by which all individual joint paths are implicitly synchronized.
 Since the robot applied in this work has the mathematical property of differential flatness~\cite{Hoffmann23}, the state of the robot can be represented with the help of the given trajectory of the individual joint angles, the path parameter and its time derivatives.\\
 In order to generate the trajectory, it is now sufficient to determine the time derivatives of the path parameters by means of an optimal control problem. 
-Hence the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot. For a more detailed description of trajectory generation, please refer to~\cite{Kanagalingam24}.
-%
-This existing formulation can not only optimize travel time and/or energy efficiency, but also the accuracy.\\
+Hence the travel time is minimized, taking into account the dynamic, state-dependent constraints of the robot. For a more detailed description of trajectory generation, please refer to~\cite{Kanagalingam24}. \\
+This existing formulation can not only optimize travel time and/or energy efficiency, but also the accuracy.
 To this end, the data-driven error model from section~\ref{subsec:dynError} can be added to the optimal control problem.
-To quantify the errors, the mean value function of the Gaussian process is added while the covariance serves to assess the certainty of the model, which can additionally be included in the cost functional. Therefore, future work will include optimization-based trajectory generation with this data-driven component added to the optimal control problem.
+To quantify the errors, the mean value function of the Gaussian process is added while the covariance serves to assess the certainty of the model, which can additionally be included in the cost functional. Therefore, future work will include optimization-based trajectory generation with this data-driven component included in the optimal control problem.
 %
 \subsection{Camera Placement}
-With the robot configuration being known from the previous steps, the perception of the process can be optimized:
+With the robot configuration being known from the previous steps, the perception of the process can be optimized.
 After planning the path the two robots are bound to perform complex movements that might obscure some markers from the camera.
 It might even be the case that all markers are visible but that they are in regions where the camera system has a low measurement accuracy.
 To mitigate both problems we propose a software system that can optimize the placement of the cameras as needed.
 This system is largely based on the work of \cite{camera_placement} and follows a two step optimization approach.
-However instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{met_err_model}.\\
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=0.95\columnwidth]{graphics/fov_sv_conflict.png}
-	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
-		Comparing both one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
-	\label{fig:fov_sv_conflict}
-\end{figure}
-In this way, the benefits can be weighted against the additional effort required  for repositioning and recalibration.
-
+However, instead of only considering the condition of the triangulation equation as well as visibility we use the full error model described in section \ref{met_err_model}.
+In this way, the benefits can be weighted against the additional effort required  for repositioning and recalibration. \\
 %
 Replicating the results of \cite{camera_placement} where the smallest singular value was used as a measure of the quality of the camera placement we can additionally plot the largest angle to the optical axis.
 Here we see that the system always tries to find a trade off between minimizing the field of view angle while trying to maximize the smallest singular value.
 This is shown in Fig.~\ref{fig:fov_sv_conflict}.
 In a unified error description this problem does not exist and the system can be optimized for the best possible accuracy.
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.95\columnwidth]{graphics/fov_sv_conflict.png}
+	\caption{The conflict between the field of view angle and the smallest singular value. Left: The smallest singular values of the system replicated from \cite{camera_placement}. Right: The largest angle of a marker to the optical axis.
+		Comparing both, one can see that lower singular values correlate with lower maximum field of view (FOV) angles.}
+	\label{fig:fov_sv_conflict}
+\end{figure}
+
 %
 %
-\section{Outlook \& Conclusion}
+\section{Conclusion and Outlook}
 %
-A new software driven production process has been introduced to facilitate the highest level of manufacturing precision.
-Therefore a metrological error model for a photogrammetric sensor system was presented and kinematic and dynamic strategies
-for motion planning were derived. By means of robot-robot collaboration and path segmentation the kinematic error was minimized. This path was then translated into a trajectory by minimizing the travel time. On the basis of the GP dynamic model and the covariance of triangulation, the system accuracy can be further improved. Finally a placement strategy based on said trajectory was introduced, which minimizes obscurance and avoids areas of low accuracy. By this means the authors are confident to achieve similar levels of accuracy compared to today's laser tracker and total stations.\\
-So far the introduced optical simulation model has only been verified qualitatively. Though this is a reasonable base for the current state of development a quantitative comparison is needed for verification. By the means of the nanopositioning machine NPMM-200 \cite{Jaeger2016}, we will be able to experimentally verify the accuracy of our model.
+A new software-driven production process has been introduced to \rem{facilitate the highest level of manufacturing precision.}
+\prop{achieve a high manufacturing precision in flexible robotic production systems.}
+To this end, a metrological error model for a photogrammetric sensor system was presented and kinematic and dynamic strategies for motion planning were outlined. By means of robot-robot collaboration and path segmentation the kinematic error was minimized. This path was then translated into a trajectory by minimizing the travel time. On the basis of the GP dynamic model and the covariance of triangulation, the system accuracy can be further improved. Finally, a camera placement strategy based on said trajectory was introduced, which minimizes obscurance and avoids areas of low accuracy. By this means the authors are confident to achieve similar levels of accuracy compared to today's laser tracker and total stations.\\
+So far the introduced optical simulation model has only been verified qualitatively. Although this is a reasonable base for the current state of development a quantitative comparison is needed for verification. 
+We will be able to experimentally verify the accuracy of our model on the existing nanopositioning machine \rem{NPMM-200} \prop{from} \cite{Jaeger2016}, 
 %
 \section*{Acknowledgements}
 The authors would like to thank the Ministry of Science, Research and Arts of the Federal State of Baden-Württemberg for the financial support of the projects within the InnovationsCampus Future Mobility (ICM).
